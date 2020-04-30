@@ -3,9 +3,12 @@ buildscript {
         maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
         mavenCentral()
+        maven { url = 'https://dist.creeper.host/Sponge/maven' }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle'
@@ -15,7 +18,7 @@ apply plugin: 'maven-publish'
 
 version = "${version_major}.${version_minor}.${version_patch}"
 group = "snownee"
-archivesBaseName = "ModName-${minecraft_version}"
+archivesBaseName = "PassableFoliage-${minecraft_version}"
 
 if (System.getenv().BUILD_NUMBER != null) {
     // Maven version scheme uses dot to separate things
@@ -47,7 +50,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                modname {
+                passablefoliage {
                     source sourceSets.main
                 }
             }
@@ -63,7 +66,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                modname {
+                passablefoliage {
                     source sourceSets.main
                 }
             }
@@ -76,15 +79,17 @@ task deobfJar(type: Jar) {
     archiveName = "${archivesBaseName}-${version}-deobf.${extension}"
 }
 
-//artifacts {
-//    archives deobfJar
-//}
+artifacts {
+    archives deobfJar
+}
 
 repositories {
     maven {
         name = "jei"
         url = "https://dvs1.progwml6.com/files/maven"
     }
+    // mixin
+    maven { url = 'https://dist.creeper.host/Sponge/maven' }
 }
 
 dependencies {
@@ -94,8 +99,8 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     compile fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
-	
-    compile files("Kiwi-${minecraft_version}-${kiwi_version}-deobf.jar")
+    
+    compile 'org.spongepowered:mixin:0.8'
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
@@ -108,7 +113,8 @@ jar {
         attributes([
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+            "MixinConnector": "snownee.passablefoliage.mixin.Connector"
         ])
     }
 }
@@ -133,4 +139,10 @@ publishing {
             url "file:///${project.projectDir}/mcmodsrepo"
         }
     }
+}
+
+apply plugin: 'org.spongepowered.mixin'
+
+mixin {
+    add sourceSets.main, "mixins.passablefoliage.refmap.json"
 }

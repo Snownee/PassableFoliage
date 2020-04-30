@@ -1,16 +1,9 @@
 modLoader="javafml"
 loaderVersion="[31,)"
 [[mods]]
-modId="modname"
+modId="passablefoliage"
 version="${file.jarVersion}"
-displayName="ModName"
+displayName="Passable Foliage"
 authors="Snownee"
-displayURL="https://minecraft.curseforge.com/projects/modname"
-description=""
-
-[[dependencies.modname]]
-    modId="kiwi"
-    mandatory=true
-    versionRange="[2.7, 2.11)"
-    ordering="BEFORE"
-    side="BOTH"
+displayURL="https://minecraft.curseforge.com/projects/passable-foliage"
+description="Remove collision from leaves"
