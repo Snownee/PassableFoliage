@@ -1,16 +1,8 @@
 package snownee.passablefoliage.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
 
 @Mixin(BlockState.class)
 public class MixinBlockState /*implements IForgeBlockState*/ {
@@ -25,7 +17,7 @@ public class MixinBlockState /*implements IForgeBlockState*/ {
     //            info.setReturnValue(VoxelShapes.empty());
     //        }
     //    }
-
+    //
     //    @Inject(
     //            at = @At(
     //                "HEAD"
@@ -36,21 +28,21 @@ public class MixinBlockState /*implements IForgeBlockState*/ {
     //            info.setReturnValue(VoxelShapes.empty());
     //        }
     //    }
-
-    @Inject(at = @At("HEAD"), method = "isCollisionShapeOpaque", cancellable = true)
-    private void pfoliage_isCollisionShapeOpaque(IBlockReader blockReaderIn, BlockPos blockPosIn, CallbackInfoReturnable<Boolean> info) {
-        //        if (((BlockState) (Object) this).isIn(PassableFoliage.PASSABLES)) {
-        //            info.setReturnValue(Boolean.FALSE);
-        //        }
-    }
-
-    @Inject(at = @At("HEAD"), method = "onEntityCollision")
-    public void pfoliage_onEntityCollision(World worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
-        //        if (((BlockState) (Object) this).isIn(PassableFoliage.PASSABLES)) {
-        //            PassableFoliage.onEntityCollidedWithLeaves(worldIn, pos, entityIn);
-        //        }
-    }
-
+    //
+    //    @Inject(at = @At("HEAD"), method = "isCollisionShapeOpaque", cancellable = true)
+    //    private void pfoliage_isCollisionShapeOpaque(IBlockReader blockReaderIn, BlockPos blockPosIn, CallbackInfoReturnable<Boolean> info) {
+    //        if (((BlockState) (Object) this).isIn(PassableFoliage.PASSABLES)) {
+    //            info.setReturnValue(Boolean.FALSE);
+    //        }
+    //    }
+    //
+    //    @Inject(at = @At("HEAD"), method = "onEntityCollision")
+    //    public void pfoliage_onEntityCollision(World worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
+    //        if (((BlockState) (Object) this).isIn(PassableFoliage.PASSABLES)) {
+    //            PassableFoliage.onEntityCollidedWithLeaves(worldIn, pos, entityIn);
+    //        }
+    //    }
+    //
     //    @Override
     //    public PathNodeType getAiPathNodeType(IBlockReader world, BlockPos pos, @Nullable MobEntity entity) {
     //        if (getBlockState().isIn(PassableFoliage.PASSABLES)) {
@@ -58,7 +50,7 @@ public class MixinBlockState /*implements IForgeBlockState*/ {
     //        }
     //        return getBlockState().getBlock().getAiPathNodeType(getBlockState(), world, pos, entity);
     //    }
-
+    //
     //    @Shadow
     //    public boolean isIn(Tag<Block> tagIn) {
     //        throw new IllegalAccessError("Shadowing is not applied");
