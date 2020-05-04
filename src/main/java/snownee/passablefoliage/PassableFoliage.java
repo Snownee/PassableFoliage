@@ -19,10 +19,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 @Mod(PassableFoliage.MODID)
-@EventBusSubscriber
 public final class PassableFoliage {
 
     public static final String MODID = "passablefoliage";
