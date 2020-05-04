@@ -6,11 +6,14 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.config.ModConfig.Type;
 
+@EventBusSubscriber(modid = PassableFoliage.MODID, bus = Bus.MOD)
 public final class PassableFoliageCommonConfig {
-
-    public static final ForgeConfigSpec spec;
 
     public static float fallDamageReduction = .5f;
     public static int fallDamageThreshold = 20;
@@ -23,7 +26,8 @@ public final class PassableFoliageCommonConfig {
     private static DoubleValue speedReductionVerticalVal;
 
     static {
-        spec = new ForgeConfigSpec.Builder().configure(PassableFoliageCommonConfig::new).getRight();
+        ForgeConfigSpec spec = new ForgeConfigSpec.Builder().configure(PassableFoliageCommonConfig::new).getRight();
+        ModLoadingContext.get().registerConfig(Type.COMMON, spec);
     }
 
     private PassableFoliageCommonConfig(ForgeConfigSpec.Builder builder) {

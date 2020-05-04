@@ -41,9 +41,16 @@ public final class PassableFoliage {
             entity.playSound(SoundEvents.BLOCK_GRASS_HIT, SoundType.PLANT.getVolume() * 0.5f, SoundType.PLANT.getPitch() * 0.45f);
         }
 
+        float h = 1, v = 1;
+        if (!livingEntity.isJumping) {
+            if (!world.isRemote) {
+                v = PassableFoliageCommonConfig.speedReductionVertical;
+            }
+            h = PassableFoliageCommonConfig.speedReductionHorizontal;
+        }
         // reduce movement speed when inside of leaves, but allow players/mobs to jump out of them
-        if (!world.isRemote && livingEntity.isJumping) {
-            Vec3d newMotion = entity.getMotion().mul(PassableFoliageCommonConfig.speedReductionHorizontal, PassableFoliageCommonConfig.speedReductionVertical, PassableFoliageCommonConfig.speedReductionHorizontal);
+        if (h < 1 || v < 1) {
+            Vec3d newMotion = entity.getMotion().mul(h, v, h);
             entity.setMotion(newMotion);
         }
 
