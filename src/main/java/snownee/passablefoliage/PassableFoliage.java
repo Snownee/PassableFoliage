@@ -3,16 +3,12 @@ package snownee.passablefoliage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -27,8 +23,6 @@ public final class PassableFoliage {
     public static final String NAME = "Passable Foliage";
 
     public static Logger logger = LogManager.getLogger(NAME);
-
-    public static final Tag<Block> PASSABLES = new BlockTags.Wrapper(new ResourceLocation(MODID, "passables"));
 
     public static void onEntityCollidedWithLeaves(World world, BlockPos pos, Entity entity) {
 
