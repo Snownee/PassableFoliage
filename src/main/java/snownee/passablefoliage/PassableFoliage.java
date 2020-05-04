@@ -42,7 +42,7 @@ public final class PassableFoliage {
         }
 
         // reduce movement speed when inside of leaves, but allow players/mobs to jump out of them
-        if (livingEntity.isJumping) {
+        if (!world.isRemote && livingEntity.isJumping) {
             Vec3d newMotion = entity.getMotion().mul(PassableFoliageCommonConfig.speedReductionHorizontal, PassableFoliageCommonConfig.speedReductionVertical, PassableFoliageCommonConfig.speedReductionHorizontal);
             entity.setMotion(newMotion);
         }
