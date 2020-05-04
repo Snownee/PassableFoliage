@@ -2,9 +2,9 @@ package snownee.passablefoliage.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 
-import net.minecraft.block.BlockState;
+import net.minecraft.entity.item.minecart.MinecartEntity;
 
-@Mixin(BlockState.class)
+@Mixin(MinecartEntity.class)
 public class MixinBlockState /*implements IForgeBlockState*/ {
 
     //    @Inject(
