@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import net.minecraft.block.SoundType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
@@ -29,6 +30,12 @@ public final class PassableFoliage {
         if (!(entity instanceof LivingEntity)) {
             return;
         }
+        if (entity instanceof PlayerEntity) {
+            PlayerEntity player = ((PlayerEntity) entity);
+            if (player.isCreative() && player.abilities.isFlying) {
+                return;
+            }
+        }
 
         LivingEntity livingEntity = (LivingEntity) entity;
 
@@ -42,7 +49,7 @@ public final class PassableFoliage {
         }
 
         float h = 1, v = 1;
-        if (!livingEntity.isJumping) {
+        if (livingEntity.getMotion().getY() <= 0) {
             if (!world.isRemote) {
                 v = PassableFoliageCommonConfig.speedReductionVertical;
             }
