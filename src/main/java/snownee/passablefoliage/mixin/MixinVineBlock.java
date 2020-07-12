@@ -1,7 +1,9 @@
 package snownee.passablefoliage.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -14,10 +16,10 @@ import net.minecraft.world.IBlockReader;
 @Mixin(VineBlock.class)
 public class MixinVineBlock {
 
-    @Overwrite
-    public static boolean canAttachTo(IBlockReader p_196542_0_, BlockPos worldIn, Direction neighborPos) {
-        BlockState blockstate = p_196542_0_.getBlockState(worldIn);
-        return blockstate.isIn(BlockTags.LEAVES) || Block.doesSideFillSquare(blockstate.getCollisionShape(p_196542_0_, worldIn), neighborPos.getOpposite());
+    @Inject(at = @At("HEAD"), method = "canAttachTo", cancellable = true)
+    private static void pfoliage_canAttachTo(IBlockReader world, BlockPos neighborPos, Direction direction, CallbackInfoReturnable<Boolean> info) {
+        BlockState blockstate = world.getBlockState(neighborPos);
+        info.setReturnValue(blockstate.getBlock().isIn(BlockTags.LEAVES) || Block.doesSideFillSquare(blockstate.getCollisionShape(world, neighborPos), direction.getOpposite()));
     }
 
 }
