@@ -3,6 +3,7 @@ package snownee.passablefoliage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -13,8 +14,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod(PassableFoliage.MODID)
@@ -24,6 +27,10 @@ public final class PassableFoliage {
     public static final String NAME = "Passable Foliage";
 
     public static Logger logger = LogManager.getLogger(NAME);
+
+    public PassableFoliage() {
+        MinecraftForge.EVENT_BUS.addListener(PassableFoliage::tagsUpdated);
+    }
 
     public static void onEntityCollidedWithLeaves(World world, BlockPos pos, Entity entity) {
 
@@ -57,7 +64,7 @@ public final class PassableFoliage {
         }
         // reduce movement speed when inside of leaves, but allow players/mobs to jump out of them
         if (h < 1 || v < 1) {
-            Vec3d newMotion = entity.getMotion().mul(h, v, h);
+            Vector3d newMotion = entity.getMotion().mul(h, v, h);
             entity.setMotion(newMotion);
         }
 
@@ -81,5 +88,19 @@ public final class PassableFoliage {
             }
         }
 
+    }
+
+    private static boolean updated;
+
+    public static void tagsUpdated(TagsUpdatedEvent event) {
+        updated = true;
+    }
+
+    public static boolean isPassable(BlockState state) {
+        if (updated) {
+            return state.getBlock().isIn(PassableFoliageTags.PASSABLES);
+        } else {
+            return false;
+        }
     }
 }

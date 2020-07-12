@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import net.minecraft.block.BlockState;
+import net.minecraft.block.AbstractBlock.AbstractBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,9 +22,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.extensions.IForgeBlockState;
 import snownee.passablefoliage.PassableFoliage;
 import snownee.passablefoliage.PassableFoliageCommonConfig;
-import snownee.passablefoliage.PassableFoliageTags;
 
-@Mixin(BlockState.class)
+@Mixin(AbstractBlockState.class)
 public class MixinBlockState implements IForgeBlockState {
 
     @Inject(
@@ -33,7 +32,7 @@ public class MixinBlockState implements IForgeBlockState {
             ), method = "getCollisionShape(Lnet/minecraft/world/IBlockReader;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/util/math/shapes/VoxelShape;", cancellable = true
     )
     private void pfoliage_getCollisionShape(IBlockReader worldIn, BlockPos pos, CallbackInfoReturnable<VoxelShape> info) {
-        if (getBlockState().isIn(PassableFoliageTags.PASSABLES)) {
+        if (PassableFoliage.isPassable(getBlockState())) {
             info.setReturnValue(VoxelShapes.empty());
         }
     }
@@ -47,28 +46,28 @@ public class MixinBlockState implements IForgeBlockState {
         if (PassableFoliageCommonConfig.playerOnly && !(context.getEntity() instanceof PlayerEntity)) {
             return;
         }
-        if (getBlockState().isIn(PassableFoliageTags.PASSABLES)) {
+        if (PassableFoliage.isPassable(getBlockState())) {
             info.setReturnValue(VoxelShapes.empty());
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "isCollisionShapeOpaque", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "func_235785_r_", cancellable = true)
     private void pfoliage_isCollisionShapeOpaque(IBlockReader blockReaderIn, BlockPos blockPosIn, CallbackInfoReturnable<Boolean> info) {
-        if (getBlockState().isIn(PassableFoliageTags.PASSABLES)) {
+        if (PassableFoliage.isPassable(getBlockState())) {
             info.setReturnValue(Boolean.FALSE);
         }
     }
 
     @Inject(at = @At("HEAD"), method = "onEntityCollision")
     public void pfoliage_onEntityCollision(World worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
-        if (getBlockState().isIn(PassableFoliageTags.PASSABLES)) {
+        if (PassableFoliage.isPassable(getBlockState())) {
             PassableFoliage.onEntityCollidedWithLeaves(worldIn, pos, entityIn);
         }
     }
 
     @Override
     public PathNodeType getAiPathNodeType(IBlockReader world, BlockPos pos, @Nullable MobEntity entity) {
-        if (!PassableFoliageCommonConfig.playerOnly && PassableFoliageCommonConfig.modifyPathFinding && getBlockState().isIn(PassableFoliageTags.PASSABLES)) {
+        if (!PassableFoliageCommonConfig.playerOnly && PassableFoliageCommonConfig.modifyPathFinding && PassableFoliage.isPassable(getBlockState())) {
             return PathNodeType.OPEN;
         }
         return getBlockState().getBlock().getAiPathNodeType(getBlockState(), world, pos, entity);

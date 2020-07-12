@@ -17,7 +17,7 @@ public class MixinVineBlock {
     @Overwrite
     public static boolean canAttachTo(IBlockReader p_196542_0_, BlockPos worldIn, Direction neighborPos) {
         BlockState blockstate = p_196542_0_.getBlockState(worldIn);
-        return blockstate.isIn(BlockTags.LEAVES) || Block.doesSideFillSquare(blockstate.getCollisionShape(p_196542_0_, worldIn), neighborPos.getOpposite());
+        return blockstate.getBlock().isIn(BlockTags.LEAVES) || Block.doesSideFillSquare(blockstate.getCollisionShape(p_196542_0_, worldIn), neighborPos.getOpposite());
     }
 
 }

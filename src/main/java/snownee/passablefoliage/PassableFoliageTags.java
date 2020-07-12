@@ -2,13 +2,12 @@ package snownee.passablefoliage;
 
 import net.minecraft.block.Block;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.tags.ITag.INamedTag;
 
 public final class PassableFoliageTags {
 
     private PassableFoliageTags() {}
 
-    public static final Tag<Block> PASSABLES = new BlockTags.Wrapper(new ResourceLocation(PassableFoliage.MODID, "passables"));
+    public static final INamedTag<Block> PASSABLES = BlockTags.makeWrapperTag("passablefoliage:passables");
 
 }
