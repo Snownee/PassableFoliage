@@ -14,7 +14,7 @@ import net.minecraft.world.IBlockReader;
 @Mixin(VineBlock.class)
 public class MixinVineBlock {
 
-    @Overwrite
+    @Overwrite(aliases = "func_196542_b")
     public static boolean canAttachTo(IBlockReader p_196542_0_, BlockPos worldIn, Direction neighborPos) {
         BlockState blockstate = p_196542_0_.getBlockState(worldIn);
         return blockstate.getBlock().isIn(BlockTags.LEAVES) || Block.doesSideFillSquare(blockstate.getCollisionShape(p_196542_0_, worldIn), neighborPos.getOpposite());
