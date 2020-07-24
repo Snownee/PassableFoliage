@@ -22,6 +22,8 @@ public final class PassableFoliageCommonConfig {
     public static float speedReductionVertical = .9f;
     public static boolean modifyPathFinding = true;
     public static boolean playerOnly = false;
+    public static boolean soundsPlayerOnly = false;
+    public static float soundVolume = 1;
 
     private static DoubleValue fallDamageReductionVal;
     private static IntValue fallDamageThresholdVal;
@@ -29,6 +31,8 @@ public final class PassableFoliageCommonConfig {
     private static DoubleValue speedReductionVerticalVal;
     private static BooleanValue modifyPathFindingVal;
     private static BooleanValue playerOnlyVal;
+    private static BooleanValue soundsPlayerOnlyVal;
+    private static DoubleValue soundVolumeVal;
 
     static {
         ForgeConfigSpec spec = new ForgeConfigSpec.Builder().configure(PassableFoliageCommonConfig::new).getRight();
@@ -42,6 +46,9 @@ public final class PassableFoliageCommonConfig {
         speedReductionVerticalVal = builder.comment("The reduced vertical speed when passing through leaves. (% of normal)").defineInRange("speedReductionVertical", speedReductionVertical, 0, 1);
         modifyPathFindingVal = builder.comment("Should entities recognize leaves as air").define("modifyPathFinding", modifyPathFinding);
         playerOnlyVal = builder.comment("Leaves only passable for players").define("playerOnly", playerOnly);
+        builder.push("sounds");
+        soundsPlayerOnlyVal = builder.comment("Only players can make noises").define("playerOnly", soundsPlayerOnly);
+        soundVolumeVal = builder.defineInRange("volume", soundVolume, 0, 10);
     }
 
     public static void refresh() {
@@ -51,6 +58,8 @@ public final class PassableFoliageCommonConfig {
         speedReductionVertical = speedReductionVerticalVal.get().floatValue();
         modifyPathFinding = modifyPathFindingVal.get().booleanValue();
         playerOnly = playerOnlyVal.get().booleanValue();
+        soundsPlayerOnly = soundsPlayerOnlyVal.get().booleanValue();
+        soundVolume = soundVolumeVal.get().floatValue();
     }
 
     @SubscribeEvent
