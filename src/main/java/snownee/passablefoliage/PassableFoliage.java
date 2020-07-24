@@ -46,13 +46,15 @@ public final class PassableFoliage {
 
         LivingEntity livingEntity = (LivingEntity) entity;
 
-        // play a sound when an entity falls into leaves; do this before altering motion
-        if (livingEntity.fallDistance > 3f) {
-            entity.playSound(SoundEvents.BLOCK_GRASS_BREAK, SoundType.PLANT.getVolume() * 0.6f, SoundType.PLANT.getPitch() * 0.65f);
-        }
-        // play a sound when an entity is moving through leaves (only play sound every 6 ticks as to not flood sound events)
-        else if (world.getGameTime() % 6 == 0 && (entity.getPosX() != entity.prevPosX || entity.getPosY() != entity.prevPosY || entity.getPosZ() != entity.prevPosZ)) {
-            entity.playSound(SoundEvents.BLOCK_GRASS_HIT, SoundType.PLANT.getVolume() * 0.5f, SoundType.PLANT.getPitch() * 0.45f);
+        if (!PassableFoliageCommonConfig.soundsPlayerOnly || entity instanceof PlayerEntity) {
+            // play a sound when an entity falls into leaves; do this before altering motion
+            if (livingEntity.fallDistance > 3f) {
+                entity.playSound(SoundEvents.BLOCK_GRASS_BREAK, SoundType.PLANT.getVolume() * 0.6f * PassableFoliageCommonConfig.soundVolume, SoundType.PLANT.getPitch() * 0.65f);
+            }
+            // play a sound when an entity is moving through leaves (only play sound every 6 ticks as to not flood sound events)
+            else if (world.getGameTime() % 6 == 0 && (entity.getPosX() != entity.prevPosX || entity.getPosY() != entity.prevPosY || entity.getPosZ() != entity.prevPosZ)) {
+                entity.playSound(SoundEvents.BLOCK_GRASS_HIT, SoundType.PLANT.getVolume() * 0.5f * PassableFoliageCommonConfig.soundVolume, SoundType.PLANT.getPitch() * 0.45f);
+            }
         }
 
         float h = 1, v = 1;
