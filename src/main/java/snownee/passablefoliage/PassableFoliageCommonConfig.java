@@ -6,6 +6,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
