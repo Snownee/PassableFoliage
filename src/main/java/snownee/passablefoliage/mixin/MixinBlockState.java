@@ -19,6 +19,8 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.extensions.IForgeBlockState;
 import snownee.passablefoliage.PassableFoliage;
 import snownee.passablefoliage.PassableFoliageCommonConfig;
@@ -62,6 +64,14 @@ public class MixinBlockState implements IForgeBlockState {
     public void pfoliage_onEntityCollision(World worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
         if (PassableFoliage.isPassable(getBlockState())) {
             PassableFoliage.onEntityCollidedWithLeaves(worldIn, pos, entityIn);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    @Inject(at = @At("HEAD"), method = "getAmbientOcclusionLightValue", cancellable = true)
+    public void getAmbientOcclusionLightValue(IBlockReader reader, BlockPos pos, CallbackInfoReturnable<Float> info) {
+        if (PassableFoliage.isPassable(getBlockState())) {
+            info.setReturnValue(0.2F);
         }
     }
 
