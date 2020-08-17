@@ -53,8 +53,8 @@ public class MixinBlockState implements IForgeBlockState {
         }
     }
 
-    @Inject(at = @At("HEAD"), method = "func_235785_r_", cancellable = true)
-    private void pfoliage_isCollisionShapeOpaque(IBlockReader blockReaderIn, BlockPos blockPosIn, CallbackInfoReturnable<Boolean> info) {
+    @Inject(at = @At("HEAD"), method = "hasOpaqueCollisionShape", cancellable = true)
+    private void pfoliage_hasOpaqueCollisionShape(IBlockReader blockReaderIn, BlockPos blockPosIn, CallbackInfoReturnable<Boolean> info) {
         if (PassableFoliage.isPassable(getBlockState())) {
             info.setReturnValue(Boolean.FALSE);
         }
