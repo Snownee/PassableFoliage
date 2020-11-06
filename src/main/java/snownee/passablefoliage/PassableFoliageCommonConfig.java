@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.config.ModConfig.Type;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 @EventBusSubscriber(modid = PassableFoliage.MODID, bus = Bus.MOD)
 public final class PassableFoliageCommonConfig {
@@ -65,6 +66,11 @@ public final class PassableFoliageCommonConfig {
     @SubscribeEvent
     public static void onFileChange(ModConfig.Reloading event) {
         ((CommentedFileConfig) event.getConfig().getConfigData()).load();
+        refresh();
+    }
+
+    @SubscribeEvent
+    public static void init(FMLCommonSetupEvent event) {
         refresh();
     }
 }
