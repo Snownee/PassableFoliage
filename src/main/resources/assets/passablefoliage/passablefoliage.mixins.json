@@ -5,7 +5,8 @@
   "refmap": "mixins.passablefoliage.refmap.json",
   "mixins": [
     "MixinBlockState",
-    "MixinVineBlock"
+    "MixinVineBlock",
+    "MixinSnowBlock"
   ],
   "injectors": {
     "defaultRequire": 1

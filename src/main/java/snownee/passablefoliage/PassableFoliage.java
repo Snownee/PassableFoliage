@@ -1,10 +1,8 @@
 package snownee.passablefoliage;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,8 +23,6 @@ public final class PassableFoliage {
 
     public static final String MODID = "passablefoliage";
     public static final String NAME = "Passable Foliage";
-
-    public static Logger logger = LogManager.getLogger(NAME);
 
     public PassableFoliage() {
         MinecraftForge.EVENT_BUS.addListener(PassableFoliage::tagsUpdated);
@@ -58,7 +54,7 @@ public final class PassableFoliage {
         }
 
         float h = 1, v = 1;
-        if (livingEntity.getMotion().getY() <= 0) {
+        if (EnchantmentHelper.getMaxEnchantmentLevel(PassableFoliageRegistries.LEAF_WALKER, livingEntity) == 0 && livingEntity.getMotion().getY() <= 0) {
             if (!world.isRemote) {
                 v = PassableFoliageCommonConfig.speedReductionVertical;
             }

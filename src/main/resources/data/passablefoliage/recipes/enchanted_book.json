@@ -1,0 +1,23 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "enchanted_book"
+    },
+    {
+      "tag": "leaves"
+    }
+  ],
+  "result": {
+    "type": "forge:nbt",
+    "item": "enchanted_book",
+    "nbt": {
+      "StoredEnchantments": [
+        {
+          "lvl": 1,
+          "id": "passablefoliage:leaf_walker"
+        }
+      ]
+    }
+  }
+}

@@ -9,7 +9,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.block.AbstractBlock.AbstractBlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.PathNodeType;
@@ -24,6 +26,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.extensions.IForgeBlockState;
 import snownee.passablefoliage.PassableFoliage;
 import snownee.passablefoliage.PassableFoliageCommonConfig;
+import snownee.passablefoliage.PassableFoliageRegistries;
 
 @Mixin(AbstractBlockState.class)
 public class MixinBlockState implements IForgeBlockState {
@@ -45,10 +48,19 @@ public class MixinBlockState implements IForgeBlockState {
             ), method = "getCollisionShape(Lnet/minecraft/world/IBlockReader;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/shapes/ISelectionContext;)Lnet/minecraft/util/math/shapes/VoxelShape;", cancellable = true
     )
     private void pfoliage_getCollisionShape(IBlockReader worldIn, BlockPos pos, ISelectionContext context, CallbackInfoReturnable<VoxelShape> info) {
-        if (PassableFoliageCommonConfig.playerOnly && !(context.getEntity() instanceof PlayerEntity)) {
-            return;
-        }
         if (PassableFoliage.isPassable(getBlockState())) {
+            Entity entity = context.getEntity();
+            if (PassableFoliageCommonConfig.playerOnly && !(entity instanceof PlayerEntity)) {
+                return;
+            }
+            if (entity instanceof LivingEntity && EnchantmentHelper.getMaxEnchantmentLevel(PassableFoliageRegistries.LEAF_WALKER, (LivingEntity) entity) > 0) {
+                if (entity instanceof PlayerEntity) {
+                    if (entity.isSneaking() || entity.getPosition().getY() <= pos.getY()) {
+                        info.setReturnValue(VoxelShapes.empty());
+                    }
+                }
+                return;
+            }
             info.setReturnValue(VoxelShapes.empty());
         }
     }
@@ -78,7 +90,9 @@ public class MixinBlockState implements IForgeBlockState {
     @Override
     public PathNodeType getAiPathNodeType(IBlockReader world, BlockPos pos, @Nullable MobEntity entity) {
         if (!PassableFoliageCommonConfig.playerOnly && PassableFoliageCommonConfig.modifyPathFinding && PassableFoliage.isPassable(getBlockState())) {
-            return PathNodeType.OPEN;
+            if (entity == null || EnchantmentHelper.getMaxEnchantmentLevel(PassableFoliageRegistries.LEAF_WALKER, entity) == 0) {
+                return PathNodeType.OPEN;
+            }
         }
         return getBlockState().getBlock().getAiPathNodeType(getBlockState(), world, pos, entity);
     }
