@@ -1,1 +1,1 @@
-MixinConnector: snownee.passablefoliage.mixin.Connector
+MixinConfigs: passablefoliage.mixins.json
