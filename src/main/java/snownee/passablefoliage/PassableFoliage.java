@@ -48,8 +48,11 @@ public final class PassableFoliage {
                 entity.playSound(SoundEvents.BLOCK_GRASS_BREAK, SoundType.PLANT.getVolume() * 0.6f * PassableFoliageCommonConfig.soundVolume, SoundType.PLANT.getPitch() * 0.65f);
             }
             // play a sound when an entity is moving through leaves (only play sound every 6 ticks as to not flood sound events)
-            else if (world.getGameTime() % 6 == 0 && (entity.getPosX() != entity.prevPosX || entity.getPosY() != entity.prevPosY || entity.getPosZ() != entity.prevPosZ)) {
-                entity.playSound(SoundEvents.BLOCK_GRASS_HIT, SoundType.PLANT.getVolume() * 0.5f * PassableFoliageCommonConfig.soundVolume, SoundType.PLANT.getPitch() * 0.45f);
+            else if (world.getGameTime() % 6 == 0) {
+                double motion = entity.getMotion().lengthSquared();
+                if (motion > 5e-7) {
+                    entity.playSound(SoundEvents.BLOCK_GRASS_HIT, SoundType.PLANT.getVolume() * 0.5f * PassableFoliageCommonConfig.soundVolume, SoundType.PLANT.getPitch() * 0.45f);
+                }
             }
         }
 
