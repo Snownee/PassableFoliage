@@ -5,6 +5,7 @@
   "refmap": "mixins.passablefoliage.refmap.json",
   "mixins": [
     "MixinBlockState",
+    "MixinBlockStateCache",
     "MixinVineBlock",
     "MixinSnowBlock"
   ],
