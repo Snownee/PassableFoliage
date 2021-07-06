@@ -7,12 +7,8 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -73,9 +69,7 @@ public final class PassableFoliage {
 		// modify falling damage when falling into leaves
 		if (livingEntity.fallDistance > PassableFoliageCommonConfig.fallDamageThreshold) {
 			livingEntity.fallDistance -= PassableFoliageCommonConfig.fallDamageThreshold;
-			EffectInstance pe = livingEntity.getActivePotionEffect(Effects.JUMP_BOOST);
-			int amount = MathHelper.ceil(livingEntity.fallDistance * PassableFoliageCommonConfig.fallDamageReduction * ((pe == null) ? 1.0f : 0.9f));
-			livingEntity.attackEntityFrom(DamageSource.FALL, amount);
+			livingEntity.onLivingFall(PassableFoliageCommonConfig.fallDamageThreshold, 1 - PassableFoliageCommonConfig.fallDamageReduction);
 		}
 
 		// reset fallDistance
