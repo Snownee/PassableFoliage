@@ -9,3 +9,6 @@ displayName="Passable Foliage"
 authors="Snownee"
 displayURL="https://minecraft.curseforge.com/projects/passable-foliage"
 description="Remove collision from leaves"
+
+[modproperties.passablefoliage]
+    catalogueItemIcon="minecraft:oak_leaves" #Support for Catalogue mod
