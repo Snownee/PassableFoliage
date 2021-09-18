@@ -24,3 +24,4 @@ run
 !gradle-wrapper.jar
 /.factorypath
 /logs
+/.apt_generated_tests/

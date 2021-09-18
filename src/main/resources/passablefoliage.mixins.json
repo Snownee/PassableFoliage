@@ -2,12 +2,12 @@
   "required": true,
   "package": "snownee.passablefoliage.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "mixins.passablefoliage.refmap.json",
+  "refmap": "passablefoliage.refmap.json",
   "mixins": [
     "MixinBlockState",
     "MixinBlockStateCache",
     "MixinVineBlock",
-    "MixinSnowBlock"
+    "MixinSnowLayerBlock"
   ],
   "injectors": {
     "defaultRequire": 1

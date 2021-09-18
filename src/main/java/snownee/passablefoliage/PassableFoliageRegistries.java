@@ -1,7 +1,7 @@
 package snownee.passablefoliage;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;

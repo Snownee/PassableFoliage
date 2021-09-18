@@ -5,21 +5,21 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.VineBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.VineBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 @Mixin(VineBlock.class)
 public class MixinVineBlock {
 
-    @Inject(at = @At("HEAD"), method = "canAttachTo", cancellable = true)
-    private static void pfoliage_canAttachTo(IBlockReader world, BlockPos neighborPos, Direction direction, CallbackInfoReturnable<Boolean> info) {
+    @Inject(at = @At("HEAD"), method = "isAcceptableNeighbour", cancellable = true)
+    private static void pfoliage_isAcceptableNeighbour(BlockGetter world, BlockPos neighborPos, Direction direction, CallbackInfoReturnable<Boolean> info) {
         BlockState blockstate = world.getBlockState(neighborPos);
-        info.setReturnValue(blockstate.getBlock().isIn(BlockTags.LEAVES) || Block.doesSideFillSquare(blockstate.getCollisionShape(world, neighborPos), direction.getOpposite()));
+        info.setReturnValue(blockstate.is(BlockTags.LEAVES) || Block.isFaceFull(blockstate.getCollisionShape(world, neighborPos), direction.getOpposite()));
     }
 
 }
