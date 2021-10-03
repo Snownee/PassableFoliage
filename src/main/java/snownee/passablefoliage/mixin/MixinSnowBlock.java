@@ -14,12 +14,12 @@ import net.minecraft.world.IWorldReader;
 @Mixin(SnowBlock.class)
 public class MixinSnowBlock {
 
-    @Inject(at = @At("HEAD"), method = "isValidPosition", cancellable = true)
-    public void pfoliage_isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos, CallbackInfoReturnable<Boolean> info) {
-        BlockState blockstate = worldIn.getBlockState(pos.down());
-        if (blockstate.isIn(BlockTags.LEAVES)) {
-            info.setReturnValue(Boolean.TRUE);
-        }
-    }
+	@Inject(at = @At("HEAD"), method = "isValidPosition", cancellable = true)
+	public void pfoliage_isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos, CallbackInfoReturnable<Boolean> info) {
+		BlockState blockstate = worldIn.getBlockState(pos.down());
+		if (blockstate.isIn(BlockTags.LEAVES)) {
+			info.setReturnValue(Boolean.TRUE);
+		}
+	}
 
 }

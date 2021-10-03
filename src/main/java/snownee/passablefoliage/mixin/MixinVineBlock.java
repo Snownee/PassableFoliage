@@ -16,10 +16,10 @@ import net.minecraft.world.IBlockReader;
 @Mixin(VineBlock.class)
 public class MixinVineBlock {
 
-    @Inject(at = @At("HEAD"), method = "canAttachTo", cancellable = true)
-    private static void pfoliage_canAttachTo(IBlockReader world, BlockPos neighborPos, Direction direction, CallbackInfoReturnable<Boolean> info) {
-        BlockState blockstate = world.getBlockState(neighborPos);
-        info.setReturnValue(blockstate.getBlock().isIn(BlockTags.LEAVES) || Block.doesSideFillSquare(blockstate.getCollisionShape(world, neighborPos), direction.getOpposite()));
-    }
+	@Inject(at = @At("HEAD"), method = "canAttachTo", cancellable = true)
+	private static void pfoliage_canAttachTo(IBlockReader world, BlockPos neighborPos, Direction direction, CallbackInfoReturnable<Boolean> info) {
+		BlockState blockstate = world.getBlockState(neighborPos);
+		info.setReturnValue(blockstate.getBlock().isIn(BlockTags.LEAVES) || Block.doesSideFillSquare(blockstate.getCollisionShape(world, neighborPos), direction.getOpposite()));
+	}
 
 }

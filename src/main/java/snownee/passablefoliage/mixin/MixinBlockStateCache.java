@@ -9,12 +9,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import net.minecraft.block.AbstractBlock.AbstractBlockState;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import snownee.passablefoliage.PassableFoliage;
 
-@Mixin(targets = "net.minecraft.block.AbstractBlock$AbstractBlockState$Cache")
+@Mixin(AbstractBlockState.Cache.class)
 public class MixinBlockStateCache {
 
 	@Final

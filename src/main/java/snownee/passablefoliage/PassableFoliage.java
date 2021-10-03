@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.SoundEvents;
@@ -104,5 +105,15 @@ public final class PassableFoliage {
 		} else {
 			return false;
 		}
+	}
+
+	public static boolean isPassable(Entity entity) {
+		if (entity == null) {
+			return false;
+		}
+		if (PassableFoliageCommonConfig.playerOnly) {
+			return entity.getType() == EntityType.PLAYER;
+		}
+		return !PassableFoliageTags.BLOCK.contains(entity.getType());
 	}
 }
