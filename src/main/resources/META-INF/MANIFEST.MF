@@ -1,1 +1,0 @@
-MixinConfigs: passablefoliage.mixins.json
