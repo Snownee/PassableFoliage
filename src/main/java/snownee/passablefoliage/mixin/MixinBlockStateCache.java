@@ -18,27 +18,27 @@ import snownee.passablefoliage.PassableFoliage;
 @Mixin(BlockBehaviour.BlockStateBase.Cache.class)
 public class MixinBlockStateCache {
 
-	@Mutable
-	@Shadow
-	protected VoxelShape collisionShape;
-	@Mutable
-	@Shadow
-	protected boolean largeCollisionShape;
-	@Mutable
-	@Shadow
-	private boolean[] faceSturdy;
-	@Mutable
-	@Shadow
-	protected boolean isCollisionShapeFullBlock;
+    @Mutable
+    @Shadow
+    protected VoxelShape collisionShape;
+    @Mutable
+    @Shadow
+    protected boolean largeCollisionShape;
+    @Mutable
+    @Shadow
+    private boolean[] faceSturdy;
+    @Mutable
+    @Shadow
+    protected boolean isCollisionShapeFullBlock;
 
-	@Inject(at = @At(value = "RETURN"), method = "<init>")
-	private void pfoliage_modifyCollisionShape(BlockState state, CallbackInfo info) {
-		if (PassableFoliage.isPassable(state)) {
-			collisionShape = Shapes.empty();
-			largeCollisionShape = false;
-			Arrays.fill(faceSturdy, false);
-			isCollisionShapeFullBlock = false;
-		}
-	}
+    @Inject(at = @At(value = "RETURN"), method = "<init>")
+    private void pfoliage_modifyCollisionShape(BlockState state, CallbackInfo info) {
+        if (PassableFoliage.isPassable(state)) {
+            collisionShape = Shapes.empty();
+            largeCollisionShape = false;
+            Arrays.fill(faceSturdy, false);
+            isCollisionShapeFullBlock = false;
+        }
+    }
 
 }

@@ -8,7 +8,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -91,11 +90,11 @@ public final class PassableFoliage {
 
 	public static void tagsUpdated(TagsUpdatedEvent event) {
 		updated = true;
-		for (Block block : PassableFoliageTags.PASSABLES.getValues()) {
-			for (BlockState state : block.getStateDefinition().getPossibleStates()) {
-				state.initCache();
-			}
-		}
+		//		for (Block block : PassableFoliageTags.PASSABLES.create()) {
+		//			for (BlockState state : block.getStateDefinition().getPossibleStates()) {
+		//				state.initCache();
+		//			}
+		//		}
 	}
 
 	public static boolean isPassable(BlockState state) {

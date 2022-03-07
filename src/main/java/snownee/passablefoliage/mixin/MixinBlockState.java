@@ -34,78 +34,78 @@ import snownee.passablefoliage.PassableFoliageRegistries;
 @Mixin(BlockStateBase.class)
 public class MixinBlockState implements IForgeBlockState {
 
-	@Shadow
-	protected BlockStateBase.Cache cache;
+    @Shadow
+    protected BlockStateBase.Cache cache;
 
-	private BlockState self() {
-		return (BlockState) (Object) this;
-	}
+    private BlockState self() {
+        return (BlockState) (Object) this;
+    }
 
-	@Inject(
-			at = @At(
-				"HEAD"
-			), method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/shapes/VoxelShape;", cancellable = true
-	)
-	private void pfoliage_getCollisionShape(BlockGetter worldIn, BlockPos pos, CallbackInfoReturnable<VoxelShape> info) {
-		if (cache == null && PassableFoliage.isPassable(self())) {
-			info.setReturnValue(Shapes.empty());
-		}
-	}
+    @Inject(
+            at = @At(
+                "HEAD"
+            ), method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/shapes/VoxelShape;", cancellable = true
+    )
+    private void pfoliage_getCollisionShape(BlockGetter worldIn, BlockPos pos, CallbackInfoReturnable<VoxelShape> info) {
+        if (cache == null && PassableFoliage.isPassable(self())) {
+            info.setReturnValue(Shapes.empty());
+        }
+    }
 
-	@Inject(
-			at = @At(
-				"HEAD"
-			), method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;", cancellable = true
-	)
-	private void pfoliage_getCollisionShape(BlockGetter worldIn, BlockPos pos, CollisionContext context, CallbackInfoReturnable<VoxelShape> info) {
-		if (PassableFoliage.isPassable(self())) {
-			Entity entity = null;
-			if (context instanceof EntityCollisionContext) {
-				entity = ((EntityCollisionContext) context).getEntity();
-			}
-			if (PassableFoliageCommonConfig.playerOnly && !(entity instanceof Player)) {
-				return;
-			}
-			if (entity instanceof LivingEntity && EnchantmentHelper.getEnchantmentLevel(PassableFoliageRegistries.LEAF_WALKER, (LivingEntity) entity) > 0) {
-				if (context.isDescending() || entity.blockPosition().getY() <= pos.getY()) {
-					info.setReturnValue(Shapes.empty());
-				}
-				return;
-			}
-			info.setReturnValue(Shapes.empty());
-		}
-	}
+    @Inject(
+            at = @At(
+                "HEAD"
+            ), method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;", cancellable = true
+    )
+    private void pfoliage_getCollisionShape(BlockGetter worldIn, BlockPos pos, CollisionContext context, CallbackInfoReturnable<VoxelShape> info) {
+        if (PassableFoliage.isPassable(self())) {
+            Entity entity = null;
+            if (context instanceof EntityCollisionContext) {
+                entity = ((EntityCollisionContext) context).getEntity();
+            }
+            if (PassableFoliageCommonConfig.playerOnly && !(entity instanceof Player)) {
+                return;
+            }
+            if (entity instanceof LivingEntity && EnchantmentHelper.getEnchantmentLevel(PassableFoliageRegistries.LEAF_WALKER, (LivingEntity) entity) > 0) {
+                if (context.isDescending() || entity.blockPosition().getY() <= pos.getY()) {
+                    info.setReturnValue(Shapes.empty());
+                }
+                return;
+            }
+            info.setReturnValue(Shapes.empty());
+        }
+    }
 
-	@Inject(at = @At("HEAD"), method = "isCollisionShapeFullBlock", cancellable = true)
-	private void pfoliage_isCollisionShapeFullBlock(BlockGetter blockReaderIn, BlockPos blockPosIn, CallbackInfoReturnable<Boolean> info) {
-		if (cache == null && PassableFoliage.isPassable(self())) {
-			info.setReturnValue(false);
-		}
-	}
+    @Inject(at = @At("HEAD"), method = "isCollisionShapeFullBlock", cancellable = true)
+    private void pfoliage_isCollisionShapeFullBlock(BlockGetter blockReaderIn, BlockPos blockPosIn, CallbackInfoReturnable<Boolean> info) {
+        if (cache == null && PassableFoliage.isPassable(self())) {
+            info.setReturnValue(false);
+        }
+    }
 
-	@Inject(at = @At("HEAD"), method = "entityInside")
-	public void pfoliage_entityInside(Level worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
-		if (PassableFoliage.isPassable(self())) {
-			PassableFoliage.onEntityCollidedWithLeaves(worldIn, pos, entityIn);
-		}
-	}
+    @Inject(at = @At("HEAD"), method = "entityInside")
+    public void pfoliage_entityInside(Level worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
+        if (PassableFoliage.isPassable(self())) {
+            PassableFoliage.onEntityCollidedWithLeaves(worldIn, pos, entityIn);
+        }
+    }
 
-	@OnlyIn(Dist.CLIENT)
-	@Inject(at = @At("HEAD"), method = "getShadeBrightness", cancellable = true)
-	public void pfoliage_getShadeBrightness(BlockGetter reader, BlockPos pos, CallbackInfoReturnable<Float> info) {
-		if (PassableFoliage.isPassable(self())) {
-			info.setReturnValue(0.2F);
-		}
-	}
+    @OnlyIn(Dist.CLIENT)
+    @Inject(at = @At("HEAD"), method = "getShadeBrightness", cancellable = true)
+    public void pfoliage_getShadeBrightness(BlockGetter reader, BlockPos pos, CallbackInfoReturnable<Float> info) {
+        if (PassableFoliage.isPassable(self())) {
+            info.setReturnValue(0.2F);
+        }
+    }
 
-	@Override
-	public BlockPathTypes getBlockPathType(BlockGetter world, BlockPos pos, @Nullable Mob entity) {
-		if (!PassableFoliageCommonConfig.playerOnly && PassableFoliageCommonConfig.modifyPathFinding && PassableFoliage.isPassable(self())) {
-			if (entity == null || EnchantmentHelper.getEnchantmentLevel(PassableFoliageRegistries.LEAF_WALKER, entity) == 0) {
-				return BlockPathTypes.OPEN;
-			}
-		}
-		return self().getBlock().getAiPathNodeType(self(), world, pos, entity);
-	}
+    @Override
+    public BlockPathTypes getBlockPathType(BlockGetter world, BlockPos pos, @Nullable Mob entity) {
+        if (!PassableFoliageCommonConfig.playerOnly && PassableFoliageCommonConfig.modifyPathFinding && PassableFoliage.isPassable(self())) {
+            if (entity == null || EnchantmentHelper.getEnchantmentLevel(PassableFoliageRegistries.LEAF_WALKER, entity) == 0) {
+                return BlockPathTypes.OPEN;
+            }
+        }
+        return self().getBlock().getAiPathNodeType(self(), world, pos, entity);
+    }
 
 }

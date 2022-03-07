@@ -11,11 +11,11 @@ import snownee.passablefoliage.enchantment.LeafWalkerEnchantment;
 @EventBusSubscriber(bus = Bus.MOD)
 public final class PassableFoliageRegistries {
 
-	public static final Enchantment LEAF_WALKER = new LeafWalkerEnchantment();
+    public static Enchantment LEAF_WALKER;
 
-	@SubscribeEvent
-	public static void register(RegistryEvent.Register<Enchantment> event) {
-		event.getRegistry().register(LEAF_WALKER.setRegistryName(new ResourceLocation(PassableFoliage.MODID, "leaf_walker")));
-	}
+    @SubscribeEvent
+    public static void register(RegistryEvent.Register<Enchantment> event) {
+        event.getRegistry().register((LEAF_WALKER = new LeafWalkerEnchantment()).setRegistryName(new ResourceLocation(PassableFoliage.MODID, "leaf_walker")));
+    }
 
 }
