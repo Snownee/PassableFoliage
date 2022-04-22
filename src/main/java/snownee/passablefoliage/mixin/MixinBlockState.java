@@ -76,6 +76,13 @@ public class MixinBlockState implements IForgeBlockState {
 		}
 	}
 
+	@Inject(at = @At("HEAD"), method = "getVisualShape", cancellable = true)
+	private void pfoliage_getVisualShape(BlockGetter p_60772_, BlockPos p_60773_, CollisionContext p_60774_, CallbackInfoReturnable<VoxelShape> ci) {
+		if (PassableFoliage.isPassable(self())) {
+			ci.setReturnValue(Shapes.empty());
+		}
+	}
+
 	@Inject(at = @At("HEAD"), method = "isCollisionShapeFullBlock", cancellable = true)
 	private void pfoliage_isCollisionShapeFullBlock(BlockGetter blockReaderIn, BlockPos blockPosIn, CallbackInfoReturnable<Boolean> info) {
 		if (cache == null && PassableFoliage.isPassable(self())) {
@@ -109,7 +116,14 @@ public class MixinBlockState implements IForgeBlockState {
 	}
 
 	@Inject(at = @At("HEAD"), method = "isSuffocating", cancellable = true)
-	private void isSuffocating(BlockGetter level, BlockPos pos, CallbackInfoReturnable<Boolean> ci) {
+	private void pfoliage_isSuffocating(BlockGetter level, BlockPos pos, CallbackInfoReturnable<Boolean> ci) {
+		if (PassableFoliage.isPassable(self())) {
+			ci.setReturnValue(false);
+		}
+	}
+
+	@Inject(at = @At("HEAD"), method = "isViewBlocking", cancellable = true)
+	private void pfoliage_isViewBlocking(BlockGetter level, BlockPos pos, CallbackInfoReturnable<Boolean> ci) {
 		if (PassableFoliage.isPassable(self())) {
 			ci.setReturnValue(false);
 		}
