@@ -99,7 +99,7 @@ public class MixinBlockState implements IForgeBlockState {
 
 	@OnlyIn(Dist.CLIENT)
 	@Inject(at = @At("HEAD"), method = "getShadeBrightness", cancellable = true)
-	public void pfoliage_getShadeBrightness(BlockGetter reader, BlockPos pos, CallbackInfoReturnable<Float> info) {
+	private void pfoliage_getShadeBrightness(BlockGetter reader, BlockPos pos, CallbackInfoReturnable<Float> info) {
 		if (PassableFoliage.isPassable(self())) {
 			info.setReturnValue(0.2F);
 		}

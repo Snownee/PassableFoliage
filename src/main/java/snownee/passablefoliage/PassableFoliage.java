@@ -11,8 +11,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod(PassableFoliage.MODID)
@@ -21,12 +19,7 @@ public final class PassableFoliage {
 	public static final String MODID = "passablefoliage";
 	public static final String NAME = "Passable Foliage";
 
-	public PassableFoliage() {
-		MinecraftForge.EVENT_BUS.addListener(PassableFoliage::tagsUpdated);
-	}
-
 	public static void onEntityCollidedWithLeaves(Level world, BlockPos pos, Entity entity) {
-
 		if (!(entity instanceof LivingEntity)) {
 			return;
 		}
@@ -86,21 +79,16 @@ public final class PassableFoliage {
 
 	}
 
-	private static boolean updated;
-
-	public static void tagsUpdated(TagsUpdatedEvent event) {
-		updated = true;
-		//		for (Block block : PassableFoliageTags.PASSABLES.create()) {
-		//			for (BlockState state : block.getStateDefinition().getPossibleStates()) {
-		//				state.initCache();
-		//			}
-		//		}
-	}
+	private static boolean err;
 
 	public static boolean isPassable(BlockState state) {
-		if (updated) {
+		try {
 			return state.is(PassableFoliageTags.PASSABLES);
-		} else {
+		} catch (Throwable e) {
+			if (!err) {
+				System.err.println(e);
+				err = true;
+			}
 			return false;
 		}
 	}
