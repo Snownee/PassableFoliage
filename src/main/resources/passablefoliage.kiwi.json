@@ -1,0 +1,23 @@
+{
+  "KiwiConfig": [
+    {
+      "target": "snownee.passablefoliage.PassableFoliageCommonConfig"
+    }
+  ],
+  "Optional": [
+    {
+      "target": "snownee.passablefoliage.enchantment.EnchantmentModule"
+    }
+  ],
+  "KiwiModule": [
+    {
+      "target": "snownee.passablefoliage.CoreModule"
+    },
+    {
+      "target": "snownee.passablefoliage.enchantment.EnchantmentModule",
+      "data": {
+        "value": "enchantment"
+      }
+    }
+  ]
+}

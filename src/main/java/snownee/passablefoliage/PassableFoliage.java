@@ -11,7 +11,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.fml.common.Mod;
+import snownee.kiwi.Mod;
+import snownee.passablefoliage.enchantment.EnchantmentModule;
 
 @Mod(PassableFoliage.MODID)
 public final class PassableFoliage {
@@ -47,7 +48,7 @@ public final class PassableFoliage {
 		}
 
 		float h = 1, v = 1;
-		if (EnchantmentHelper.getEnchantmentLevel(PassableFoliageRegistries.LEAF_WALKER, livingEntity) == 0 && livingEntity.getDeltaMovement().y() <= 0) {
+		if (EnchantmentHelper.getEnchantmentLevel(EnchantmentModule.LEAF_WALKER.get(), livingEntity) == 0 && livingEntity.getDeltaMovement().y() <= 0) {
 			if (!world.isClientSide) {
 				v = PassableFoliageCommonConfig.speedReductionVertical;
 			}
@@ -83,7 +84,7 @@ public final class PassableFoliage {
 
 	public static boolean isPassable(BlockState state) {
 		try {
-			return state.is(PassableFoliageTags.PASSABLES);
+			return state.is(CoreModule.PASSABLES);
 		} catch (Throwable e) {
 			if (!err) {
 				System.err.println(e);

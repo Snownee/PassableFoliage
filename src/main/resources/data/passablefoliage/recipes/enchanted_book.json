@@ -1,23 +1,31 @@
 {
-  "type": "crafting_shapeless",
-  "ingredients": [
+  "fabric:load_conditions": [
     {
-      "item": "enchanted_book"
-    },
-    {
-      "tag": "leaves"
+      "condition": "fabric:any_mod_loaded",
+      "values": ["nbtcrafting"]
     }
   ],
-  "result": {
-    "type": "forge:nbt",
-    "item": "enchanted_book",
-    "nbt": {
-      "StoredEnchantments": [
-        {
-          "lvl": 1,
-          "id": "passablefoliage:leaf_walker"
-        }
-      ]
+  "type": "nbtcrafting:wrapped",
+  "recipe": {
+    "type": "crafting_shapeless",
+    "ingredients": [
+      {
+        "item": "enchanted_book"
+      },
+      {
+        "tag": "leaves"
+      }
+    ],
+    "result": {
+      "item": "enchanted_book",
+      "data": {
+        "StoredEnchantments": [
+          {
+            "lvl": 1,
+            "id": "passablefoliage:leaf_walker"
+          }
+        ]
+      }
     }
   }
 }

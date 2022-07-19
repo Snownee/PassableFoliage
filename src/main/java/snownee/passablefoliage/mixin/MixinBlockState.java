@@ -1,7 +1,5 @@
 package snownee.passablefoliage.mixin;
 
-import javax.annotation.Nullable;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,27 +10,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.extensions.IForgeBlockState;
 import snownee.passablefoliage.PassableFoliage;
 import snownee.passablefoliage.PassableFoliageCommonConfig;
-import snownee.passablefoliage.PassableFoliageRegistries;
+import snownee.passablefoliage.enchantment.EnchantmentModule;
 
 @Mixin(BlockStateBase.class)
-public class MixinBlockState implements IForgeBlockState {
+public class MixinBlockState {
 
 	@Shadow
 	protected BlockStateBase.Cache cache;
@@ -66,7 +59,7 @@ public class MixinBlockState implements IForgeBlockState {
 			if (PassableFoliageCommonConfig.playerOnly && !(entity instanceof Player)) {
 				return;
 			}
-			if (entity instanceof LivingEntity && EnchantmentHelper.getEnchantmentLevel(PassableFoliageRegistries.LEAF_WALKER, (LivingEntity) entity) > 0) {
+			if (entity instanceof LivingEntity && EnchantmentHelper.getEnchantmentLevel(EnchantmentModule.LEAF_WALKER.get(), (LivingEntity) entity) > 0) {
 				if (context.isDescending() || entity.blockPosition().getY() <= pos.getY()) {
 					info.setReturnValue(Shapes.empty());
 				}
@@ -97,7 +90,6 @@ public class MixinBlockState implements IForgeBlockState {
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	@Inject(at = @At("HEAD"), method = "getShadeBrightness", cancellable = true)
 	private void pfoliage_getShadeBrightness(BlockGetter reader, BlockPos pos, CallbackInfoReturnable<Float> info) {
 		if (PassableFoliage.isPassable(self())) {
@@ -105,15 +97,16 @@ public class MixinBlockState implements IForgeBlockState {
 		}
 	}
 
+	/*
 	@Override
 	public BlockPathTypes getBlockPathType(BlockGetter world, BlockPos pos, @Nullable Mob entity) {
 		if (!PassableFoliageCommonConfig.playerOnly && PassableFoliageCommonConfig.modifyPathFinding && PassableFoliage.isPassable(self())) {
-			if (entity == null || EnchantmentHelper.getEnchantmentLevel(PassableFoliageRegistries.LEAF_WALKER, entity) == 0) {
+			if (entity == null || EnchantmentHelper.getEnchantmentLevel(EnchantmentModule.LEAF_WALKER, entity) == 0) {
 				return BlockPathTypes.OPEN;
 			}
 		}
 		return self().getBlock().getAiPathNodeType(self(), world, pos, entity);
-	}
+	}*/
 
 	@Inject(at = @At("HEAD"), method = "isSuffocating", cancellable = true)
 	private void pfoliage_isSuffocating(BlockGetter level, BlockPos pos, CallbackInfoReturnable<Boolean> ci) {
