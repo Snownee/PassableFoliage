@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[40,)"
+loaderVersion="[42,)"
 license="MIT"
 
 [[mods]]
@@ -9,6 +9,13 @@ displayName="Passable Foliage"
 authors="Snownee"
 displayURL="https://minecraft.curseforge.com/projects/passable-foliage"
 description="Remove collision from leaves"
+
+[[dependencies.passablefoliage]]
+    modId="kiwi"
+    mandatory=true
+    versionRange="[8,)"
+    ordering="NONE"
+    side="BOTH"
 
 [modproperties.passablefoliage]
     catalogueItemIcon="minecraft:oak_leaves" #Support for Catalogue mod
