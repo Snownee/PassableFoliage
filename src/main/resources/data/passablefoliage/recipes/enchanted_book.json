@@ -3,6 +3,10 @@
     {
       "condition": "fabric:any_mod_loaded",
       "values": ["nbtcrafting"]
+    },
+    {
+      "condition": "kiwi:is_loaded",
+      "module": "passablefoliage:enchantment"
     }
   ],
   "type": "nbtcrafting:wrapped",

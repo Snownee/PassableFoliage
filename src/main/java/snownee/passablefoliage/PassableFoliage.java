@@ -20,6 +20,8 @@ public final class PassableFoliage {
 	public static final String MODID = "passablefoliage";
 	public static final String NAME = "Passable Foliage";
 
+	public static boolean enchantmentEnabled;
+
 	public static void onEntityCollidedWithLeaves(Level world, BlockPos pos, Entity entity) {
 		if (!(entity instanceof LivingEntity)) {
 			return;
@@ -48,7 +50,7 @@ public final class PassableFoliage {
 		}
 
 		float h = 1, v = 1;
-		if (EnchantmentHelper.getEnchantmentLevel(EnchantmentModule.LEAF_WALKER.get(), livingEntity) == 0 && livingEntity.getDeltaMovement().y() <= 0) {
+		if (!hasLeafWalker(livingEntity) && livingEntity.getDeltaMovement().y() <= 0) {
 			if (!world.isClientSide) {
 				v = PassableFoliageCommonConfig.speedReductionVertical;
 			}
@@ -92,5 +94,9 @@ public final class PassableFoliage {
 			}
 			return false;
 		}
+	}
+
+	public static boolean hasLeafWalker(LivingEntity entity) {
+		return enchantmentEnabled && EnchantmentHelper.getEnchantmentLevel(EnchantmentModule.LEAF_WALKER.get(), entity) > 0;
 	}
 }

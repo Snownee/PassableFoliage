@@ -11,7 +11,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase;
@@ -22,7 +21,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import snownee.passablefoliage.PassableFoliage;
 import snownee.passablefoliage.PassableFoliageCommonConfig;
-import snownee.passablefoliage.enchantment.EnchantmentModule;
 
 @Mixin(BlockStateBase.class)
 public class MixinBlockState {
@@ -59,7 +57,7 @@ public class MixinBlockState {
 			if (PassableFoliageCommonConfig.playerOnly && !(entity instanceof Player)) {
 				return;
 			}
-			if (entity instanceof LivingEntity && EnchantmentHelper.getEnchantmentLevel(EnchantmentModule.LEAF_WALKER.get(), (LivingEntity) entity) > 0) {
+			if (entity instanceof LivingEntity && PassableFoliage.hasLeafWalker((LivingEntity) entity)) {
 				if (context.isDescending() || entity.blockPosition().getY() <= pos.getY()) {
 					info.setReturnValue(Shapes.empty());
 				}
