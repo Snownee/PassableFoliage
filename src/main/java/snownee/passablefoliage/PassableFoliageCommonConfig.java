@@ -32,6 +32,8 @@ public final class PassableFoliageCommonConfig {
 	@Comment("Leaves only passable for players")
 	public static boolean playerOnly = false;
 
+	public static boolean alwaysNotViewBlocking = true;
+
 	@Path("sounds.playerOnly")
 	@Comment("Only players can make noises")
 	public static boolean soundsPlayerOnly = false;

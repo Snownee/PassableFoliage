@@ -115,7 +115,7 @@ public class MixinBlockState {
 
 	@Inject(at = @At("HEAD"), method = "isViewBlocking", cancellable = true)
 	private void pfoliage_isViewBlocking(BlockGetter level, BlockPos pos, CallbackInfoReturnable<Boolean> ci) {
-		if (PassableFoliage.isPassable(self())) {
+		if (PassableFoliageCommonConfig.alwaysNotViewBlocking && PassableFoliage.isPassable(self())) {
 			ci.setReturnValue(false);
 		}
 	}
