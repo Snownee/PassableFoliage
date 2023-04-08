@@ -48,9 +48,7 @@ public final class PassableFoliage {
 
 		float h = 1, v = 1;
 		if (EnchantmentHelper.getEnchantmentLevel(PassableFoliageRegistries.LEAF_WALKER, livingEntity) == 0 && livingEntity.getDeltaMovement().y() <= 0) {
-			if (!world.isClientSide) {
-				v = PassableFoliageCommonConfig.speedReductionVertical;
-			}
+			v = PassableFoliageCommonConfig.speedReductionVertical;
 			h = PassableFoliageCommonConfig.speedReductionHorizontal;
 		}
 		// reduce movement speed when inside of leaves, but allow players/mobs to jump out of them
