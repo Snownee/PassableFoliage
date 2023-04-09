@@ -4,12 +4,15 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "passablefoliage.refmap.json",
   "mixins": [
-    "MixinBlock",
-    "MixinBlocks",
-    "MixinBlockState",
-    "MixinBlockStateCache",
-    "MixinSnowLayerBlock",
-    "MixinVineBlock"
+    "BlockMixin",
+    "BlocksMixin",
+    "BlockStateCacheMixin",
+    "BlockStateMixin",
+    "SnowLayerBlockMixin",
+    "VineBlockMixin"
+  ],
+  "client": [
+    "EntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

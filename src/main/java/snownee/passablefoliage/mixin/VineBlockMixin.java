@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.VineBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 @Mixin(VineBlock.class)
-public class MixinVineBlock {
+public class VineBlockMixin {
 
     @Inject(at = @At("HEAD"), method = "isAcceptableNeighbour", cancellable = true)
     private static void pfoliage_isAcceptableNeighbour(BlockGetter world, BlockPos neighborPos, Direction direction, CallbackInfoReturnable<Boolean> info) {

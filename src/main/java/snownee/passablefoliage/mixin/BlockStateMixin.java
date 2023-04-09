@@ -30,7 +30,7 @@ import snownee.passablefoliage.PassableFoliage;
 import snownee.passablefoliage.PassableFoliageCommonConfig;
 
 @Mixin(BlockStateBase.class)
-public class MixinBlockState implements IForgeBlockState {
+public class BlockStateMixin implements IForgeBlockState {
 
 	@Shadow
 	protected BlockStateBase.Cache cache;
