@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 @Mixin(SnowLayerBlock.class)
-public class MixinSnowLayerBlock {
+public class SnowLayerBlockMixin {
 
     @Inject(at = @At("HEAD"), method = "canSurvive", cancellable = true)
     public void pfoliage_canSurvive(BlockState state, LevelReader worldIn, BlockPos pos, CallbackInfoReturnable<Boolean> info) {

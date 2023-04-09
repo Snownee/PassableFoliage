@@ -12,7 +12,7 @@ import snownee.passablefoliage.PassableFoliageBlock;
 import snownee.passablefoliage.PassableFoliageTags;
 
 @Mixin(Blocks.class)
-public class MixinBlocks {
+public class BlocksMixin {
 
 	private static boolean err;
 
