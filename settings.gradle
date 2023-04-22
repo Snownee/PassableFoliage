@@ -1,1 +1,5 @@
-rootProject.name = "${mod_name}"
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+}
