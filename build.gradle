@@ -47,7 +47,7 @@ dependencies {
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 	
 	//modImplementation "curse.maven:kiwi-549404:3878011"
-    modImplementation "maven.modrinth:kiwi:VnB53KXO"
+    modImplementation "maven.modrinth:kiwi:UMHP8XCt"
 }
 
 processResources {

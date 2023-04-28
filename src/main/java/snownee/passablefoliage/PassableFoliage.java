@@ -79,21 +79,10 @@ public final class PassableFoliage {
 				onEntityCollidedWithLeaves(world, pos, ent);
 			}
 		}
-
 	}
 
-	private static boolean err;
-
 	public static boolean isPassable(BlockState state) {
-		try {
-			return state.is(CoreModule.PASSABLES);
-		} catch (Throwable e) {
-			if (!err) {
-				System.err.println(e);
-				err = true;
-			}
-			return false;
-		}
+		return ((PassableFoliageBlock) state.getBlock()).pfoliage$isPassable();
 	}
 
 	public static boolean hasLeafWalker(LivingEntity entity) {
