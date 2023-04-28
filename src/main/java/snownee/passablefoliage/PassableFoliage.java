@@ -2,7 +2,6 @@ package snownee.passablefoliage;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -63,7 +62,7 @@ public final class PassableFoliage {
 		// modify falling damage when falling into leaves
 		if (livingEntity.fallDistance > PassableFoliageCommonConfig.fallDamageThreshold) {
 			livingEntity.fallDistance -= PassableFoliageCommonConfig.fallDamageThreshold;
-			livingEntity.causeFallDamage(PassableFoliageCommonConfig.fallDamageThreshold, 1 - PassableFoliageCommonConfig.fallDamageReduction, DamageSource.FALL);
+			livingEntity.causeFallDamage(PassableFoliageCommonConfig.fallDamageThreshold, 1 - PassableFoliageCommonConfig.fallDamageReduction, world.damageSources().fall());
 		}
 
 		// reset fallDistance

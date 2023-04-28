@@ -1,7 +1,5 @@
 package snownee.passablefoliage.mixin;
 
-import javax.annotation.Nullable;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,25 +10,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.extensions.IForgeBlockState;
 import snownee.passablefoliage.PassableFoliage;
 import snownee.passablefoliage.PassableFoliageCommonConfig;
 
 @Mixin(BlockStateBase.class)
-public class BlockStateMixin implements IForgeBlockState {
+public class BlockStateMixin {
 
 	@Shadow
 	protected BlockStateBase.Cache cache;
@@ -95,22 +88,11 @@ public class BlockStateMixin implements IForgeBlockState {
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	@Inject(at = @At("HEAD"), method = "getShadeBrightness", cancellable = true)
 	private void pfoliage_getShadeBrightness(BlockGetter reader, BlockPos pos, CallbackInfoReturnable<Float> info) {
 		if (PassableFoliage.isPassable(self())) {
 			info.setReturnValue(0.2F);
 		}
-	}
-
-	@Override
-	public BlockPathTypes getBlockPathType(BlockGetter world, BlockPos pos, @Nullable Mob entity) {
-		if (!PassableFoliageCommonConfig.playerOnly && PassableFoliageCommonConfig.modifyPathFinding && PassableFoliage.isPassable(self())) {
-			if (entity == null || !PassableFoliage.hasLeafWalker(entity)) {
-				return BlockPathTypes.OPEN;
-			}
-		}
-		return self().getBlock().getBlockPathType(self(), world, pos, entity);
 	}
 
 	@Inject(at = @At("HEAD"), method = "isSuffocating", cancellable = true)

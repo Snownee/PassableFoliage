@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[42,)"
+loaderVersion="[45,)"
 license="MIT"
 
 [[mods]]
@@ -13,7 +13,7 @@ description="Remove collision from leaves"
 [[dependencies.passablefoliage]]
     modId="kiwi"
     mandatory=true
-    versionRange="[8,)"
+    versionRange="[10,)"
     ordering="NONE"
     side="BOTH"
 
