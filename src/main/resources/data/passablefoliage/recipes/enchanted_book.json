@@ -1,35 +1,52 @@
 {
   "fabric:load_conditions": [
     {
-      "condition": "fabric:any_mod_loaded",
-      "values": ["nbtcrafting"]
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "lychee"
+      ]
     },
     {
       "condition": "kiwi:is_loaded",
       "module": "passablefoliage:enchantment"
+    },
+    {
+      "condition": "fabric:not",
+      "value": {
+        "condition": "passablefoliage:always_leaf_walking"
+      }
     }
   ],
-  "type": "nbtcrafting:wrapped",
-  "recipe": {
-    "type": "crafting_shapeless",
-    "ingredients": [
-      {
-        "item": "enchanted_book"
-      },
-      {
-        "tag": "leaves"
-      }
-    ],
-    "result": {
-      "item": "enchanted_book",
-      "data": {
-        "StoredEnchantments": [
-          {
-            "lvl": 1,
-            "id": "passablefoliage:leaf_walker"
-          }
-        ]
+  "type": "lychee:crafting",
+  "pattern": [
+    "AB"
+  ],
+  "key": {
+    "A": {
+      "item": "enchanted_book"
+    },
+    "B": {
+      "tag": "leaves"
+    }
+  },
+  "result": {
+    "item": "enchanted_book"
+  },
+  "assembling": [
+    {
+      "type": "nbt_patch",
+      "op": "add",
+      "path": "/result",
+      "value": {
+        "tag": {
+          "StoredEnchantments": [
+            {
+              "lvl": 1,
+              "id": "passablefoliage:leaf_walker"
+            }
+          ]
+        }
       }
     }
-  }
+  ]
 }

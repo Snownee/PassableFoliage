@@ -34,6 +34,8 @@ public final class PassableFoliageCommonConfig {
 
 	public static boolean alwaysNotViewBlocking = true;
 
+	public static boolean alwaysLeafWalking = false;
+
 	@Path("sounds.playerOnly")
 	@Comment("Only players can make noises")
 	public static boolean soundsPlayerOnly = false;

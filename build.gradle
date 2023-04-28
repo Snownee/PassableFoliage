@@ -48,6 +48,7 @@ dependencies {
 	
 	//modImplementation "curse.maven:kiwi-549404:3878011"
     modImplementation "maven.modrinth:kiwi:UMHP8XCt"
+    modImplementation "maven.modrinth:lychee:D9j78BsO"
 }
 
 processResources {
