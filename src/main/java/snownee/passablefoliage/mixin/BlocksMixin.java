@@ -5,20 +5,20 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import snownee.passablefoliage.CoreModule;
 import snownee.passablefoliage.PassableFoliageBlock;
 
 @Mixin(Blocks.class)
-public class MixinBlocks {
+public class BlocksMixin {
 
 	private static boolean err;
 
 	@Inject(method = "rebuildCache", at = @At("HEAD"))
 	private static void pfoliage_rebuildCache(CallbackInfo ci) {
-		for (Block block : Registry.BLOCK) {
+		for (Block block : BuiltInRegistries.BLOCK) {
 			try {
 				((PassableFoliageBlock) block).pfoliage$setPassable(block.builtInRegistryHolder().is(CoreModule.PASSABLES));
 			} catch (Throwable e) {

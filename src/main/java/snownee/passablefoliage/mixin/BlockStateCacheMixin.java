@@ -16,7 +16,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import snownee.passablefoliage.PassableFoliage;
 
 @Mixin(BlockBehaviour.BlockStateBase.Cache.class)
-public class MixinBlockStateCache {
+public class BlockStateCacheMixin {
 
     @Mutable
     @Shadow

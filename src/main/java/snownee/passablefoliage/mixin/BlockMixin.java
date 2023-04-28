@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.Block;
 import snownee.passablefoliage.PassableFoliageBlock;
 
 @Mixin(Block.class)
-public class MixinBlock implements PassableFoliageBlock {
+public class BlockMixin implements PassableFoliageBlock {
 
 	private boolean pfoliage$passable;
 
