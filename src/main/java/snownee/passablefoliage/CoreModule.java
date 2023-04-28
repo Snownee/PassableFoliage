@@ -2,6 +2,7 @@ package snownee.passablefoliage;
 
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import snownee.kiwi.AbstractModule;
 import snownee.kiwi.KiwiModule;
 
@@ -9,5 +10,9 @@ import snownee.kiwi.KiwiModule;
 public class CoreModule extends AbstractModule {
 
 	public static final TagKey<Block> PASSABLES = blockTag(PassableFoliage.MODID, "passables");
+
+	public CoreModule() {
+		CraftingHelper.register(new AlwaysLeafWalkingCondition.Serializer());
+	}
 
 }

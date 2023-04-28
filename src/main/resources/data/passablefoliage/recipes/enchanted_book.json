@@ -1,5 +1,17 @@
 {
   "type": "crafting_shapeless",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "passablefoliage:always_leaf_walking"
+      }
+    },
+    {
+      "type": "kiwi:is_loaded",
+      "module": "passablefoliage:enchantment"
+    }
+  ],
   "ingredients": [
     {
       "item": "enchanted_book"

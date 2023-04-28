@@ -84,7 +84,7 @@ public final class PassableFoliage {
 	}
 
 	public static boolean hasLeafWalker(LivingEntity entity) {
-		return enchantmentEnabled && EnchantmentHelper.getEnchantmentLevel(EnchantmentModule.LEAF_WALKER.get(), entity) > 0;
+		return PassableFoliageCommonConfig.alwaysLeafWalking || enchantmentEnabled && EnchantmentHelper.getEnchantmentLevel(EnchantmentModule.LEAF_WALKER.get(), entity) > 0;
 	}
 
 }
