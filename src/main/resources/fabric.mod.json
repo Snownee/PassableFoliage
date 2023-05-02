@@ -19,8 +19,8 @@
 
   "depends": {
     "fabric": "*",
-    "minecraft": ">=1.19.3",
-    "kiwi": ">=9",
+    "minecraft": ">=1.19.4",
+    "kiwi": ">=10",
     "java": ">=17"
   },
   "suggests": {
