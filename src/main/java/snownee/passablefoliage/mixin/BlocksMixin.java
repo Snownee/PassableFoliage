@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.Blocks;
 import snownee.passablefoliage.PassableFoliageBlock;
 import snownee.passablefoliage.PassableFoliageTags;
 
-@Mixin(Blocks.class)
+@Mixin(value = Blocks.class, priority = 500)
 public class BlocksMixin {
 
 	private static boolean err;
