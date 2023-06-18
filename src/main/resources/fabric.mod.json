@@ -18,13 +18,10 @@
   "accessWidener" : "passablefoliage.accesswidener",
 
   "depends": {
-    "fabric": "*",
-    "minecraft": ">=1.19.4",
-    "kiwi": ">=10",
+    "fabric-api": "*",
+    "minecraft": ">=1.20",
+    "kiwi": ">=11",
     "java": ">=17"
-  },
-  "suggests": {
-    "nbtcrafting": "*"
   },
 
   "custom": {
