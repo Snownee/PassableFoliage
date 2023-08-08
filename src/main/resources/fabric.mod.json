@@ -33,8 +33,11 @@
   },
 
   "entrypoints": {
+    "main": [
+      "snownee.passablefoliage.util.CommonProxy"
+    ],
     "fabric-datagen": [
-      "snownee.passablefoliage.PassableFoliage"
+      "snownee.passablefoliage.PassableFoliageDatagen"
     ]
   }
 }

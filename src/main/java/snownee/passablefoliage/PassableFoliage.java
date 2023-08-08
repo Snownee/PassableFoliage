@@ -1,8 +1,5 @@
 package snownee.passablefoliage;
 
-import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
@@ -13,14 +10,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import snownee.kiwi.Mod;
-import snownee.kiwi.datagen.KiwiLanguageProvider;
 import snownee.passablefoliage.enchantment.EnchantmentModule;
 
-@Mod(PassableFoliage.MODID)
-public final class PassableFoliage implements DataGeneratorEntrypoint {
+public final class PassableFoliage {
 
-	public static final String MODID = "passablefoliage";
+	public static final String ID = "passablefoliage";
 
 	public static boolean enchantmentEnabled;
 	public static ThreadLocal<Boolean> suppressPassableCheck = ThreadLocal.withInitial(() -> false);
@@ -91,8 +85,4 @@ public final class PassableFoliage implements DataGeneratorEntrypoint {
 		PassableFoliage.suppressPassableCheck.set(suppressPassableCheck);
 	}
 
-	@Override
-	public void onInitializeDataGenerator(FabricDataGenerator generator) {
-		generator.createPack().addProvider((FabricDataOutput $) -> new KiwiLanguageProvider($));
-	}
 }
