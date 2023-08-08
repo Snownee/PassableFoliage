@@ -12,6 +12,7 @@
     "VineBlockMixin"
   ],
   "client": [
+    "CherryLeavesBlockMixin",
     "EntityRendererMixin"
   ],
   "injectors": {
