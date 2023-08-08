@@ -13,7 +13,7 @@ description="Remove collision from leaves"
 [[dependencies.passablefoliage]]
     modId="kiwi"
     mandatory=true
-    versionRange="[11,)"
+    versionRange="[11.1,)"
     ordering="NONE"
     side="BOTH"
 

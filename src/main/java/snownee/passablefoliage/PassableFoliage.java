@@ -10,13 +10,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import snownee.kiwi.Mod;
 import snownee.passablefoliage.enchantment.EnchantmentModule;
 
-@Mod(PassableFoliage.MODID)
 public final class PassableFoliage {
 
-	public static final String MODID = "passablefoliage";
+	public static final String ID = "passablefoliage";
 
 	public static boolean enchantmentEnabled;
 	public static ThreadLocal<Boolean> suppressPassableCheck = ThreadLocal.withInitial(() -> false);
@@ -86,4 +84,5 @@ public final class PassableFoliage {
 	public static void setSuppressPassableCheck(boolean suppressPassableCheck) {
 		PassableFoliage.suppressPassableCheck.set(suppressPassableCheck);
 	}
+
 }

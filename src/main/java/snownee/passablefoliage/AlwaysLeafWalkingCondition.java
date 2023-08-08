@@ -9,7 +9,7 @@ import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 public enum AlwaysLeafWalkingCondition implements ICondition {
 	INSTANCE;
 
-	public static final ResourceLocation ID = new ResourceLocation(PassableFoliage.MODID, "always_leaf_walking");
+	public static final ResourceLocation ID = new ResourceLocation(PassableFoliage.ID, "always_leaf_walking");
 
 	@Override
 	public ResourceLocation getID() {
