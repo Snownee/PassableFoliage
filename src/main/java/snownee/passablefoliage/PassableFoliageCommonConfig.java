@@ -1,5 +1,6 @@
 package snownee.passablefoliage;
 
+import snownee.kiwi.KiwiModule.Skip;
 import snownee.kiwi.config.KiwiConfig;
 import snownee.kiwi.config.KiwiConfig.Path;
 import snownee.kiwi.config.KiwiConfig.Range;
@@ -19,6 +20,7 @@ public final class PassableFoliageCommonConfig {
 	@Range(min = 0, max = 1)
 	public static float speedReductionVertical = .9f;
 
+	@Skip
 	public static boolean modifyPathFinding = true;
 
 	public static boolean playerOnly = false;

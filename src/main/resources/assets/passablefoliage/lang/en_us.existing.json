@@ -5,6 +5,7 @@
   "passablefoliage.config.fallDamageThreshold.desc": "When falling into leaves, the (block) distance a player or mob has to fall before taking damage",
   "passablefoliage.config.speedReductionHorizontal.desc": "The reduced horizontal speed when passing through leaves. (% of normal)",
   "passablefoliage.config.speedReductionVertical.desc": "The reduced vertical speed when passing through leaves. (% of normal)",
+  "passablefoliage.config.modifyPathFinding": "Modify Path Finding",
   "passablefoliage.config.modifyPathFinding.desc": "Should entities recognize leaves as air",
   "passablefoliage.config.playerOnly.desc": "Should only players be able to pass through leaves",
   "passablefoliage.config.alwaysNotViewBlocking.desc": "Prevents leaves from rendering a texture in front of the player's view",
