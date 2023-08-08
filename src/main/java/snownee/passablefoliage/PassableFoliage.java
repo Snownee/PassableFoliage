@@ -17,22 +17,19 @@ import snownee.passablefoliage.enchantment.EnchantmentModule;
 public final class PassableFoliage {
 
 	public static final String MODID = "passablefoliage";
-	public static final String NAME = "Passable Foliage";
 
 	public static boolean enchantmentEnabled;
+	public static ThreadLocal<Boolean> suppressPassableCheck = ThreadLocal.withInitial(() -> false);
 
 	public static void onEntityCollidedWithLeaves(Level world, BlockPos pos, Entity entity) {
-		if (!(entity instanceof LivingEntity)) {
+		if (!(entity instanceof LivingEntity livingEntity)) {
 			return;
 		}
-		if (entity instanceof Player) {
-			Player player = ((Player) entity);
+		if (entity instanceof Player player) {
 			if (player.isCreative() && player.getAbilities().flying) {
 				return;
 			}
 		}
-
-		LivingEntity livingEntity = (LivingEntity) entity;
 
 		if (!PassableFoliageCommonConfig.soundsPlayerOnly || entity instanceof Player) {
 			// play a sound when an entity falls into leaves; do this before altering motion
@@ -79,10 +76,14 @@ public final class PassableFoliage {
 	}
 
 	public static boolean isPassable(BlockState state) {
-		return ((PassableFoliageBlock) state.getBlock()).pfoliage$isPassable();
+		return !suppressPassableCheck.get() && ((PassableFoliageBlock) state.getBlock()).pfoliage$isPassable();
 	}
 
 	public static boolean hasLeafWalker(LivingEntity entity) {
 		return PassableFoliageCommonConfig.alwaysLeafWalking || enchantmentEnabled && EnchantmentHelper.getEnchantmentLevel(EnchantmentModule.LEAF_WALKER.get(), entity) > 0;
+	}
+
+	public static void setSuppressPassableCheck(boolean suppressPassableCheck) {
+		PassableFoliage.suppressPassableCheck.set(suppressPassableCheck);
 	}
 }

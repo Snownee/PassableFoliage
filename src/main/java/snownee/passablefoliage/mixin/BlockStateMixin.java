@@ -2,6 +2,7 @@ package snownee.passablefoliage.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -28,6 +29,7 @@ public class BlockStateMixin {
 	@Shadow
 	protected BlockStateBase.Cache cache;
 
+	@Unique
 	private BlockState self() {
 		return (BlockState) (Object) this;
 	}
@@ -38,7 +40,7 @@ public class BlockStateMixin {
 			), method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/shapes/VoxelShape;", cancellable = true
 	)
 	private void pfoliage_getCollisionShape(BlockGetter worldIn, BlockPos pos, CallbackInfoReturnable<VoxelShape> info) {
-		if (cache == null && PassableFoliage.isPassable(self())) {
+		if (PassableFoliage.isPassable(self())) {
 			info.setReturnValue(Shapes.empty());
 		}
 	}
