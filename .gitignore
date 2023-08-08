@@ -25,3 +25,4 @@ run
 /.factorypath
 /logs
 /.apt_generated_tests/
+/CHANGELOG.md
