@@ -8,7 +8,7 @@
     "BlocksMixin",
     "BlockStateCacheMixin",
     "BlockStateMixin",
-    "SnowLayerBlockMixin",
+    "FlowingFluidMixin",
     "VineBlockMixin"
   ],
   "client": [
