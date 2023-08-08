@@ -36,7 +36,7 @@ public class BlockStateMixin {
 
 	@Inject(
 			at = @At(
-				"HEAD"
+					"HEAD"
 			), method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/shapes/VoxelShape;", cancellable = true
 	)
 	private void pfoliage_getCollisionShape(BlockGetter worldIn, BlockPos pos, CallbackInfoReturnable<VoxelShape> info) {
@@ -47,7 +47,7 @@ public class BlockStateMixin {
 
 	@Inject(
 			at = @At(
-				"HEAD"
+					"HEAD"
 			), method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;", cancellable = true
 	)
 	private void pfoliage_getCollisionShape(BlockGetter worldIn, BlockPos pos, CollisionContext context, CallbackInfoReturnable<VoxelShape> info) {
