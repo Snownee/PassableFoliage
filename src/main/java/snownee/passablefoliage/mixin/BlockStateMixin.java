@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -92,7 +93,7 @@ public class BlockStateMixin implements IForgeBlockState {
 
 	@Inject(at = @At("HEAD"), method = "entityInside")
 	private void pfoliage_entityInside(Level worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
-		if (PassableFoliage.isPassable(self())) {
+		if (PassableFoliage.isPassable(self()) && self().is(BlockTags.LEAVES)) {
 			PassableFoliage.onEntityCollidedWithLeaves(worldIn, pos, entityIn);
 		}
 	}
