@@ -9,7 +9,8 @@
     "BlockStateCacheMixin",
     "BlockStateMixin",
     "FlowingFluidMixin",
-    "VineBlockMixin"
+    "VineBlockMixin",
+    "forge.BlockStateMixin"
   ],
   "client": [
     "CherryLeavesBlockMixin",
