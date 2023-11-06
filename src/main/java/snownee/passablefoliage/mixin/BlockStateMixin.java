@@ -4,13 +4,13 @@ import javax.annotation.Nullable;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -38,6 +38,7 @@ public class BlockStateMixin implements IForgeBlockState {
 	@Shadow
 	protected BlockStateBase.Cache cache;
 
+	@Unique
 	private BlockState self() {
 		return (BlockState) (Object) this;
 	}
@@ -48,7 +49,7 @@ public class BlockStateMixin implements IForgeBlockState {
 			), method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/shapes/VoxelShape;", cancellable = true
 	)
 	private void pfoliage_getCollisionShape(BlockGetter worldIn, BlockPos pos, CallbackInfoReturnable<VoxelShape> info) {
-		if (cache == null && PassableFoliage.isPassable(self())) {
+		if (PassableFoliage.isPassable(self())) {
 			info.setReturnValue(Shapes.empty());
 		}
 	}
@@ -93,8 +94,8 @@ public class BlockStateMixin implements IForgeBlockState {
 
 	@Inject(at = @At("HEAD"), method = "entityInside")
 	private void pfoliage_entityInside(Level worldIn, BlockPos pos, Entity entityIn, CallbackInfo info) {
-		if (PassableFoliage.isPassable(self()) && self().is(BlockTags.LEAVES)) {
-			PassableFoliage.onEntityCollidedWithLeaves(worldIn, pos, entityIn);
+		if (PassableFoliage.isPassable(self())) {
+			PassableFoliage.onEntityCollidedWithLeaves(worldIn, pos, self(), entityIn);
 		}
 	}
 

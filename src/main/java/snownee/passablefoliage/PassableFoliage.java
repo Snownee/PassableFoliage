@@ -2,6 +2,7 @@ package snownee.passablefoliage;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,31 +18,36 @@ import net.minecraftforge.fml.common.Mod;
 public final class PassableFoliage {
 
 	public static final String MODID = "passablefoliage";
-	public static final String NAME = "Passable Foliage";
+	public static ThreadLocal<Boolean> suppressPassableCheck = ThreadLocal.withInitial(() -> false);
 
-	public static void onEntityCollidedWithLeaves(Level world, BlockPos pos, Entity entity) {
-		if (!(entity instanceof LivingEntity)) {
+	public static void onEntityCollidedWithLeaves(Level world, BlockPos pos, BlockState blockState, Entity entity) {
+		if (!(entity instanceof LivingEntity livingEntity)) {
 			return;
 		}
-		if (entity instanceof Player) {
-			Player player = ((Player) entity);
-			if (player.isCreative() && player.getAbilities().flying) {
-				return;
-			}
+
+		if (entity instanceof Player player && player.isCreative() && player.getAbilities().flying) {
+			return;
 		}
 
-		LivingEntity livingEntity = (LivingEntity) entity;
+		setSuppressPassableCheck(true);
+		if (!entity.isColliding(pos, blockState)) {
+			setSuppressPassableCheck(false);
+			return;
+		}
+		setSuppressPassableCheck(false);
 
 		if (!PassableFoliageCommonConfig.soundsPlayerOnly || entity instanceof Player) {
-			// play a sound when an entity falls into leaves; do this before altering motion
-			if (livingEntity.fallDistance > 3f) {
-				entity.playSound(SoundEvents.GRASS_BREAK, SoundType.GRASS.getVolume() * 0.6f * PassableFoliageCommonConfig.soundVolume, SoundType.GRASS.getPitch() * 0.65f);
-			}
-			// play a sound when an entity is moving through leaves (only play sound every 6 ticks as to not flood sound events)
-			else if (world.getGameTime() % 6 == 0) {
-				double motion = entity.getDeltaMovement().lengthSqr();
-				if (motion > 5e-7) {
-					entity.playSound(SoundEvents.GRASS_HIT, SoundType.GRASS.getVolume() * 0.5f * PassableFoliageCommonConfig.soundVolume, SoundType.GRASS.getPitch() * 0.45f);
+			if (blockState.is(BlockTags.LEAVES)) {
+				// play a sound when an entity falls into leaves; do this before altering motion
+				if (livingEntity.fallDistance > 3f) {
+					entity.playSound(SoundEvents.GRASS_BREAK, SoundType.GRASS.getVolume() * 0.6f * PassableFoliageCommonConfig.soundVolume, SoundType.GRASS.getPitch() * 0.65f);
+				}
+				// play a sound when an entity is moving through leaves (only play sound every 6 ticks as to not flood sound events)
+				else if (world.getGameTime() % 6 == 0) {
+					double motion = entity.getDeltaMovement().lengthSqr();
+					if (motion > 5e-7) {
+						entity.playSound(SoundEvents.GRASS_HIT, SoundType.GRASS.getVolume() * 0.5f * PassableFoliageCommonConfig.soundVolume, SoundType.GRASS.getPitch() * 0.45f);
+					}
 				}
 			}
 		}
@@ -71,12 +77,16 @@ public final class PassableFoliage {
 		// Riding a mob won't protect you; Process riders last
 		if (entity.isVehicle()) {
 			for (Entity ent : entity.getPassengers()) {
-				onEntityCollidedWithLeaves(world, pos, ent);
+				onEntityCollidedWithLeaves(world, pos, blockState, ent);
 			}
 		}
 	}
 
 	public static boolean isPassable(BlockState state) {
-		return ((PassableFoliageBlock) state.getBlock()).pfoliage$isPassable();
+		return !suppressPassableCheck.get() && ((PassableFoliageBlock) state.getBlock()).pfoliage$isPassable();
+	}
+
+	public static void setSuppressPassableCheck(boolean suppressPassableCheck) {
+		PassableFoliage.suppressPassableCheck.set(suppressPassableCheck);
 	}
 }

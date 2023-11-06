@@ -8,6 +8,7 @@
     "BlocksMixin",
     "BlockStateCacheMixin",
     "BlockStateMixin",
+    "FlowingFluidMixin",
     "SnowLayerBlockMixin",
     "VineBlockMixin"
   ],

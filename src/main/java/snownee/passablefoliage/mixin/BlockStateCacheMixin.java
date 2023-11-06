@@ -2,6 +2,7 @@ package snownee.passablefoliage.mixin;
 
 import java.util.Arrays;
 
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
@@ -11,34 +12,31 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import snownee.passablefoliage.PassableFoliage;
 
 @Mixin(BlockBehaviour.BlockStateBase.Cache.class)
 public class BlockStateCacheMixin {
 
-    @Mutable
-    @Shadow
-    protected VoxelShape collisionShape;
-    @Mutable
-    @Shadow
-    protected boolean largeCollisionShape;
-    @Mutable
-    @Shadow
-    private boolean[] faceSturdy;
-    @Mutable
-    @Shadow
-    protected boolean isCollisionShapeFullBlock;
+	@Final
+	@Mutable
+	@Shadow
+	protected boolean largeCollisionShape;
+	@Final
+	@Mutable
+	@Shadow
+	protected boolean isCollisionShapeFullBlock;
+	@Final
+	@Mutable
+	@Shadow
+	private boolean[] faceSturdy;
 
-    @Inject(at = @At(value = "RETURN"), method = "<init>")
-    private void pfoliage_modifyCollisionShape(BlockState state, CallbackInfo info) {
-        if (PassableFoliage.isPassable(state)) {
-            collisionShape = Shapes.empty();
-            largeCollisionShape = false;
-            Arrays.fill(faceSturdy, false);
-            isCollisionShapeFullBlock = false;
-        }
-    }
+	@Inject(at = @At(value = "RETURN"), method = "<init>")
+	private void pfoliage_modifyCollisionShape(BlockState state, CallbackInfo info) {
+		if (PassableFoliage.isPassable(state)) {
+			largeCollisionShape = false;
+			Arrays.fill(faceSturdy, false);
+			isCollisionShapeFullBlock = false;
+		}
+	}
 
 }
