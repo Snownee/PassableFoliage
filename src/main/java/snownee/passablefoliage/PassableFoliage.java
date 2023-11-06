@@ -83,7 +83,7 @@ public final class PassableFoliage {
 	}
 
 	public static boolean isPassable(BlockState state) {
-		return !suppressPassableCheck.get() && ((PassableFoliageBlock) state.getBlock()).pfoliage$isPassable();
+		return ((PassableFoliageBlock) state.getBlock()).pfoliage$isPassable() && !suppressPassableCheck.get();
 	}
 
 	public static void setSuppressPassableCheck(boolean suppressPassableCheck) {

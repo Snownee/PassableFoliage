@@ -101,9 +101,13 @@ public class BlockStateMixin implements IForgeBlockState {
 
 	@OnlyIn(Dist.CLIENT)
 	@Inject(at = @At("HEAD"), method = "getShadeBrightness", cancellable = true)
-	private void pfoliage_getShadeBrightness(BlockGetter reader, BlockPos pos, CallbackInfoReturnable<Float> info) {
+	private void pfoliage_getShadeBrightness(BlockGetter reader, BlockPos pos, CallbackInfoReturnable<Float> ci) {
 		if (PassableFoliage.isPassable(self())) {
-			info.setReturnValue(0.2F);
+			PassableFoliage.setSuppressPassableCheck(true);
+			//noinspection deprecation
+			boolean full = self().getBlock().isCollisionShapeFullBlock(self(), reader, pos);
+			PassableFoliage.setSuppressPassableCheck(false);
+			ci.setReturnValue(full ? 0.2F : 1.0F);
 		}
 	}
 
