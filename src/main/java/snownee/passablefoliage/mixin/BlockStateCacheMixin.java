@@ -24,11 +24,11 @@ public class BlockStateCacheMixin {
 	@Final
 	@Mutable
 	@Shadow
-	private boolean[] faceSturdy;
+	protected boolean isCollisionShapeFullBlock;
 	@Final
 	@Mutable
 	@Shadow
-	protected boolean isCollisionShapeFullBlock;
+	private boolean[] faceSturdy;
 
 	@Inject(at = @At(value = "RETURN"), method = "<init>")
 	private void pfoliage_modifyCollisionShape(BlockState state, CallbackInfo info) {
