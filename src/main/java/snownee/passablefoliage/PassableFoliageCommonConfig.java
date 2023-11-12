@@ -20,7 +20,6 @@ public final class PassableFoliageCommonConfig {
 	@Range(min = 0, max = 1)
 	public static float speedReductionVertical = .9f;
 
-	@Skip
 	public static boolean modifyPathFinding = true;
 
 	public static boolean playerOnly = false;
