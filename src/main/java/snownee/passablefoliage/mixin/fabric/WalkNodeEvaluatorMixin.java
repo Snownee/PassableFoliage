@@ -26,7 +26,7 @@ public class WalkNodeEvaluatorMixin {
                             shift = At.Shift.BEFORE),
             locals = LocalCapture.CAPTURE_FAILSOFT,
             cancellable = true)
-    private static void pfoliage$usingCorrectPathType(
+    private static void pfoliage_usingCorrectPathType(
             BlockGetter blockGetter,
             BlockPos blockPos,
             CallbackInfoReturnable<BlockPathTypes> cir,
