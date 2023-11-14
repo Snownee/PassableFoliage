@@ -1,6 +1,7 @@
 package snownee.passablefoliage.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -14,6 +15,7 @@ import snownee.passablefoliage.PassableFoliageBlock;
 @Mixin(value = Blocks.class, priority = 500)
 public class BlocksMixin {
 
+	@Unique
 	private static boolean err;
 
 	@Inject(method = "rebuildCache", at = @At("HEAD"))

@@ -115,4 +115,10 @@ public class BlockStateMixin {
 		}
 	}
 
+	@Inject(at = @At("HEAD"), method = "canOcclude", cancellable = true)
+	private void pfoliage_canOcclude(CallbackInfoReturnable<Boolean> cir) {
+		if (PassableFoliage.isPassable(self())) {
+			cir.setReturnValue(false);
+		}
+	}
 }
