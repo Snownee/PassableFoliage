@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.extensions.IForgeBlockState;
+import snownee.passablefoliage.CoreModule;
 import snownee.passablefoliage.PassableFoliage;
 import snownee.passablefoliage.PassableFoliageCommonConfig;
 
@@ -20,7 +21,7 @@ public class BlockStateMixin implements IForgeBlockState {
 	public BlockPathTypes getBlockPathType(BlockGetter world, BlockPos pos, @Nullable Mob entity) {
 		BlockState self = (BlockState) (Object) this;
 		if (!PassableFoliageCommonConfig.playerOnly && PassableFoliageCommonConfig.modifyPathFinding && PassableFoliage.isPassable(self)) {
-			if (entity == null || !PassableFoliage.hasLeafWalker(entity)) {
+			if (entity == null || !PassableFoliage.hasLeafWalker(entity) || !entity.getType().is(CoreModule.UNPASSABLES)) {
 				return BlockPathTypes.OPEN;
 			}
 		}
