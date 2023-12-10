@@ -21,7 +21,7 @@ public class BlockStateMixin implements IForgeBlockState {
 	public BlockPathTypes getBlockPathType(BlockGetter world, BlockPos pos, @Nullable Mob entity) {
 		BlockState self = (BlockState) (Object) this;
 		if (!PassableFoliageCommonConfig.playerOnly && PassableFoliageCommonConfig.modifyPathFinding && PassableFoliage.isPassable(self)) {
-			if (entity == null || !PassableFoliage.hasLeafWalker(entity) || !entity.getType().is(CoreModule.UNPASSABLES)) {
+			if (entity == null || !PassableFoliage.hasLeafWalker(entity) || !entity.getType().is(CoreModule.BLOCKLIST)) {
 				return BlockPathTypes.OPEN;
 			}
 		}

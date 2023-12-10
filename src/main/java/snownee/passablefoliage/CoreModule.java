@@ -10,6 +10,6 @@ import snownee.kiwi.KiwiModule;
 public class CoreModule extends AbstractModule {
 
 	public static final TagKey<Block> PASSABLES = blockTag(PassableFoliage.ID, "passables");
-	public static final TagKey<EntityType<?>> UNPASSABLES = entityTag(PassableFoliage.ID, "unpassables");
+	public static final TagKey<EntityType<?>> BLOCKLIST = entityTag(PassableFoliage.ID, "blocklist");
 
 }

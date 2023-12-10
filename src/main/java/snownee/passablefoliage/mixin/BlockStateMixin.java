@@ -60,7 +60,7 @@ public class BlockStateMixin {
 			if (PassableFoliageCommonConfig.playerOnly && !(entity instanceof Player)) {
 				return;
 			}
-            if (entity != null && entity.getType().is(CoreModule.UNPASSABLES)) {
+            if (entity != null && entity.getType().is(CoreModule.BLOCKLIST)) {
                 return;
             }
             if (entity instanceof LivingEntity && PassableFoliage.hasLeafWalker((LivingEntity) entity)) {
