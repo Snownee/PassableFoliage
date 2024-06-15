@@ -17,7 +17,11 @@ import snownee.passablefoliage.PassableFoliage;
 public class VineBlockMixin {
 
 	@Inject(at = @At("HEAD"), method = "isAcceptableNeighbour", cancellable = true)
-	private static void pfoliage_isAcceptableNeighbour(BlockGetter world, BlockPos neighborPos, Direction direction, CallbackInfoReturnable<Boolean> ci) {
+	private static void pfoliage_isAcceptableNeighbour(
+			BlockGetter world,
+			BlockPos neighborPos,
+			Direction direction,
+			CallbackInfoReturnable<Boolean> ci) {
 		BlockState blockstate = world.getBlockState(neighborPos);
 		PassableFoliage.setSuppressPassableCheck(true);
 		boolean bl = Block.isFaceFull(blockstate.getCollisionShape(world, neighborPos), direction.getOpposite());

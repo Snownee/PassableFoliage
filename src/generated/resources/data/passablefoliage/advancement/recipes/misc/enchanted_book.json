@@ -1,0 +1,49 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:and",
+      "values": [
+        {
+          "condition": "kiwi:is_loaded",
+          "module": "passablefoliage:enchantment"
+        },
+        {
+          "condition": "fabric:not",
+          "value": {
+            "condition": "passablefoliage:always_leaf_walking"
+          }
+        }
+      ]
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_enchanted_book": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:enchanted_book"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_enchanted_book"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:enchanted_book"
+    ]
+  }
+}

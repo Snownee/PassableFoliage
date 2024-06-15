@@ -13,7 +13,9 @@ public final class PassableFoliageDataGen implements DataGeneratorEntrypoint {
 		FabricDataGenerator.Pack pack = generator.createPack();
 		pack.addProvider(PFEnchantmentProvider::new);
 		pack.addProvider(PFEnchantmentTagProvider::new);
+		pack.addProvider(PFBlockTagProvider::new);
 		pack.addProvider(KiwiLanguageProvider::new);
+		pack.addProvider(PFRecipeProvider::new);
 	}
 
 	@Override

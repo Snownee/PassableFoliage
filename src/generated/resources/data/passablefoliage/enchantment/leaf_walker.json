@@ -1,4 +1,10 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "kiwi:is_loaded",
+      "module": "passablefoliage:enchantment"
+    }
+  ],
   "anvil_cost": 8,
   "description": {
     "translate": "enchantment.passablefoliage.leaf_walker"

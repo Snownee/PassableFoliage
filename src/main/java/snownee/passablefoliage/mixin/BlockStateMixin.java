@@ -37,7 +37,9 @@ public class BlockStateMixin {
 	@Inject(
 			at = @At(
 					"HEAD"
-			), method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/shapes/VoxelShape;", cancellable = true
+			),
+			method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/shapes/VoxelShape;",
+			cancellable = true
 	)
 	private void pfoliage_getCollisionShape(BlockGetter worldIn, BlockPos pos, CallbackInfoReturnable<VoxelShape> ci) {
 		if (PassableFoliage.isPassable(self())) {
@@ -48,9 +50,15 @@ public class BlockStateMixin {
 	@Inject(
 			at = @At(
 					"HEAD"
-			), method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;", cancellable = true
+			),
+			method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;",
+			cancellable = true
 	)
-	private void pfoliage_getCollisionShape(BlockGetter worldIn, BlockPos pos, CollisionContext context, CallbackInfoReturnable<VoxelShape> ci) {
+	private void pfoliage_getCollisionShape(
+			BlockGetter worldIn,
+			BlockPos pos,
+			CollisionContext context,
+			CallbackInfoReturnable<VoxelShape> ci) {
 		if (PassableFoliage.isPassable(self())) {
 			Entity entity = null;
 			if (context instanceof EntityCollisionContext) {
@@ -70,7 +78,11 @@ public class BlockStateMixin {
 	}
 
 	@Inject(at = @At("HEAD"), method = "getVisualShape", cancellable = true)
-	private void pfoliage_getVisualShape(BlockGetter p_60772_, BlockPos p_60773_, CollisionContext p_60774_, CallbackInfoReturnable<VoxelShape> ci) {
+	private void pfoliage_getVisualShape(
+			BlockGetter p_60772_,
+			BlockPos p_60773_,
+			CollisionContext p_60774_,
+			CallbackInfoReturnable<VoxelShape> ci) {
 		if (PassableFoliage.isPassable(self())) {
 			ci.setReturnValue(Shapes.empty());
 		}
