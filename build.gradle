@@ -1,15 +1,16 @@
 plugins {
-    id 'fabric-loom' version '1.1-SNAPSHOT'
+    id 'fabric-loom' version '1.6-SNAPSHOT'
     id 'maven-publish'
     id "me.shedaniel.unified-publishing" version "0.1.+"
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_21
+targetCompatibility = JavaVersion.VERSION_21
 
 archivesBaseName = project.archives_base_name
-version = project.minecraft_version + "-fabric-" + project.mod_version
+version = project.minecraft_version + "-Fabric-" + project.mod_version
 group = project.maven_group
+var realVersion = project.mod_version + "+fabric"
 
 repositories {
     maven { url "https://maven.shedaniel.me/" }
@@ -63,22 +64,21 @@ dependencies {
     }
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
-    //modImplementation "curse.maven:kiwi-549404:3878011"
-    modImplementation "maven.modrinth:kiwi:a8jR4pPa"
+    modImplementation annotationProcessor("maven.modrinth:kiwi:${project.kiwi_version}+fabric")
     //modImplementation "maven.modrinth:lychee:D9j78BsO"
 }
 
 processResources {
-    inputs.property "version", project.version
+    inputs.property "version", realVersion
 
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand "version": realVersion
     }
 }
 
 tasks.withType(JavaCompile).configureEach {
     // Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
-    it.options.release = 17
+    it.options.release = 21
 }
 
 java {
@@ -115,11 +115,11 @@ publishing {
 
 unifiedPublishing {
     project {
-        displayName = project.version
-        version = project.mod_version // Optional, Inferred from project by default
+        displayName = "[Fabric $project.supported_version] $project.mod_version"
+        version = realVersion // Optional, Inferred from project by default
         changelog = file("CHANGELOG.md").exists() ? file("CHANGELOG.md").text : "" // Optional, in markdown format
         releaseType = "release" // Optional, use "release", "beta" or "alpha"
-        gameVersions = ["1.20", "1.20.1"]
+        gameVersions = [project.minecraft_version]
         gameLoaders = ["fabric", "quilt"]
 
         mainPublication tasks.remapJar // Declares the publicated jar
@@ -138,7 +138,6 @@ unifiedPublishing {
         modrinth {
             token = System.getenv("MODRINTH_TOKEN") ?: ""
             id = "uaLW6JVR" // Required, must be a string, ID of Modrinth project
-            displayName = project.mod_version
 
             relations { // Optional, Inferred from the relations above by default
                 depends "kiwi"

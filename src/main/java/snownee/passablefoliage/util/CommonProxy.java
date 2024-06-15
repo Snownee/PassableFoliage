@@ -5,14 +5,13 @@ import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 import snownee.kiwi.Mod;
 import snownee.passablefoliage.AlwaysLeafWalkingCondition;
 import snownee.passablefoliage.PassableFoliage;
-import snownee.passablefoliage.PassableFoliageCommonConfig;
 
 @Mod(PassableFoliage.ID)
 public class CommonProxy implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ResourceConditions.register(AlwaysLeafWalkingCondition.ID, $ -> PassableFoliageCommonConfig.alwaysLeafWalking);
+		ResourceConditions.register(AlwaysLeafWalkingCondition.TYPE);
 	}
 
 }

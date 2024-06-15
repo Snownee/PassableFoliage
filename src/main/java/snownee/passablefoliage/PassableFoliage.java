@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -11,7 +12,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import snownee.passablefoliage.enchantment.EnchantmentModule;
 
 public final class PassableFoliage {
 
@@ -44,13 +44,19 @@ public final class PassableFoliage {
 			if (blockState.is(BlockTags.LEAVES)) {
 				// play a sound when an entity falls into leaves; do this before altering motion
 				if (livingEntity.fallDistance > 3f) {
-					entity.playSound(SoundEvents.GRASS_BREAK, SoundType.GRASS.getVolume() * 0.6f * PassableFoliageCommonConfig.soundVolume, SoundType.GRASS.getPitch() * 0.65f);
+					entity.playSound(
+							SoundEvents.GRASS_BREAK,
+							SoundType.GRASS.getVolume() * 0.6f * PassableFoliageCommonConfig.soundVolume,
+							SoundType.GRASS.getPitch() * 0.65f);
 				}
 				// play a sound when an entity is moving through leaves (only play sound every 6 ticks as to not flood sound events)
 				else if (world.getGameTime() % 6 == 0) {
 					double motion = entity.getDeltaMovement().lengthSqr();
 					if (motion > 5e-7) {
-						entity.playSound(SoundEvents.GRASS_HIT, SoundType.GRASS.getVolume() * 0.5f * PassableFoliageCommonConfig.soundVolume, SoundType.GRASS.getPitch() * 0.45f);
+						entity.playSound(
+								SoundEvents.GRASS_HIT,
+								SoundType.GRASS.getVolume() * 0.5f * PassableFoliageCommonConfig.soundVolume,
+								SoundType.GRASS.getPitch() * 0.45f);
 					}
 				}
 			}
@@ -70,7 +76,10 @@ public final class PassableFoliage {
 		// modify falling damage when falling into leaves
 		if (livingEntity.fallDistance > PassableFoliageCommonConfig.fallDamageThreshold) {
 			livingEntity.fallDistance -= PassableFoliageCommonConfig.fallDamageThreshold;
-			livingEntity.causeFallDamage(PassableFoliageCommonConfig.fallDamageThreshold, 1 - PassableFoliageCommonConfig.fallDamageReduction, world.damageSources().fall());
+			livingEntity.causeFallDamage(
+					PassableFoliageCommonConfig.fallDamageThreshold,
+					1 - PassableFoliageCommonConfig.fallDamageReduction,
+					world.damageSources().fall());
 		}
 
 		// reset fallDistance
@@ -91,7 +100,8 @@ public final class PassableFoliage {
 	}
 
 	public static boolean hasLeafWalker(LivingEntity entity) {
-		return PassableFoliageCommonConfig.alwaysLeafWalking || enchantmentEnabled && EnchantmentHelper.getEnchantmentLevel(EnchantmentModule.LEAF_WALKER.get(), entity) > 0;
+		return PassableFoliageCommonConfig.alwaysLeafWalking || enchantmentEnabled && EnchantmentHelper.has(entity.getItemBySlot(
+				EquipmentSlot.FEET), EnchantmentModule.LEAF_WALKER.get());
 	}
 
 	public static void setSuppressPassableCheck(boolean suppressPassableCheck) {

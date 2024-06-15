@@ -1,6 +1,5 @@
 package snownee.passablefoliage;
 
-import snownee.kiwi.KiwiModule.Skip;
 import snownee.kiwi.config.KiwiConfig;
 import snownee.kiwi.config.KiwiConfig.Path;
 import snownee.kiwi.config.KiwiConfig.Range;

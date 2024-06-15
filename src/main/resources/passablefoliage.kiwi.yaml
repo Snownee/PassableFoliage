@@ -1,0 +1,11 @@
+configs:
+- data: {}
+  target: snownee.passablefoliage.PassableFoliageCommonConfig
+modules:
+- data: {}
+  target: snownee.passablefoliage.CoreModule
+- data: {value: enchantment}
+  target: snownee.passablefoliage.EnchantmentModule
+optionals:
+- data: {}
+  target: snownee.passablefoliage.EnchantmentModule

@@ -2,3 +2,4 @@ accessWidener   v1  named
 accessible field net/minecraft/world/entity/LivingEntity jumping Z
 
 accessible class net/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase$Cache
+accessible method net/minecraft/world/level/block/state/BlockBehaviour isCollisionShapeFullBlock (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Z

@@ -2,42 +2,39 @@
   "schemaVersion": 1,
   "id": "passablefoliage",
   "version": "${version}",
-
   "name": "Passable Foliage",
-  "description": "Remove collision from leaves",
-  "authors": ["Snownee"],
+  "description": "Remove collision from leaves.",
+  "authors": [
+    "Snownee"
+  ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/passable-foliage-fabric",
     "sources": "https://github.com/Snownee/PassableFoliage",
     "issues": "https://github.com/Snownee/PassableFoliage/issues"
   },
-
   "license": "MIT",
-
-  "mixins": [ "passablefoliage.mixins.json" ],
-  "accessWidener" : "passablefoliage.accesswidener",
-
+  "mixins": [
+    "passablefoliage.mixins.json"
+  ],
+  "accessWidener": "passablefoliage.accesswidener",
   "depends": {
-    "fabric-api": "*",
-    "minecraft": ">=1.20",
-    "kiwi": ">=11.1",
-    "java": ">=17"
+    "minecraft": ">=1.21",
+    "kiwi": ">=15"
   },
-
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.discord": "https://discord.gg/KzGQW7a"
+        "modmenu.discord": "https://discord.gg/KzGQW7a",
+        "modmenu.donate": "https://ko-fi.com/snownee"
       }
     }
   },
-
   "entrypoints": {
     "main": [
       "snownee.passablefoliage.util.CommonProxy"
     ],
     "fabric-datagen": [
-      "snownee.passablefoliage.PassableFoliageDatagen"
+      "snownee.passablefoliage.datagen.PassableFoliageDataGen"
     ]
   }
 }
