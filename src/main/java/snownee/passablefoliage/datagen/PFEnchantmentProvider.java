@@ -54,6 +54,6 @@ public class PFEnchantmentProvider extends FabricDynamicRegistryProvider {
 				Enchantment.constantCost(25),
 				Enchantment.constantCost(50),
 				8,
-				EquipmentSlotGroup.ARMOR)).withEffect(EnchantmentModule.LEAF_WALKER.get()).build(LEAF_WALKER.location()));
+				EquipmentSlotGroup.FEET)).withEffect(EnchantmentModule.LEAF_WALKER.get()).build(LEAF_WALKER.location()));
 	}
 }
