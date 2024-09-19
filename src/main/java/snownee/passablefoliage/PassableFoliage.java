@@ -63,7 +63,7 @@ public final class PassableFoliage {
 		}
 
 		float h = 1, v = 1;
-		if (!hasLeafWalker(livingEntity) && livingEntity.getDeltaMovement().y() <= 0) {
+		if ((PassableFoliageCommonConfig.alwaysLeafWalking || !hasLeafWalker(livingEntity)) && livingEntity.getDeltaMovement().y() <= 0) {
 			v = PassableFoliageCommonConfig.speedReductionVertical;
 			h = PassableFoliageCommonConfig.speedReductionHorizontal;
 		}
