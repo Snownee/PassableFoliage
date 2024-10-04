@@ -15,7 +15,7 @@ public class PFEnchantmentTagProvider extends FabricTagProvider.EnchantmentTagPr
 
 	@Override
 	protected void addTags(HolderLookup.Provider wrapperLookup) {
-		getOrCreateTagBuilder(EnchantmentTags.NON_TREASURE).add(PFEnchantmentProvider.LEAF_WALKER);
-		getOrCreateTagBuilder(EnchantmentTags.CURSE).add(PFEnchantmentProvider.LEAF_WALKER);
+		getOrCreateTagBuilder(EnchantmentTags.NON_TREASURE).addOptional(PFEnchantmentProvider.LEAF_WALKER);
+		getOrCreateTagBuilder(EnchantmentTags.CURSE).addOptional(PFEnchantmentProvider.LEAF_WALKER);
 	}
 }

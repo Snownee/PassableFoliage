@@ -1,5 +1,8 @@
 {
-	"values": [
-		"passablefoliage:leaf_walker"
-	]
+  "values": [
+    {
+      "id": "passablefoliage:leaf_walker",
+      "required": false
+    }
+  ]
 }
