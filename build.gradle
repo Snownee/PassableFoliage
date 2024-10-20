@@ -131,7 +131,6 @@ unifiedPublishing {
             relations { // Optional, Inferred from the relations above by default
                 depends "kiwi-fabric"
                 optional "cloth-config"
-                optional "lychee-fabric"
             }
         }
 
@@ -142,7 +141,6 @@ unifiedPublishing {
             relations { // Optional, Inferred from the relations above by default
                 depends "kiwi"
                 optional "cloth-config"
-                optional "lychee"
             }
         }
     }
