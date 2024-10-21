@@ -1,3 +1,4 @@
+/*
 package snownee.passablefoliage.datagen;
 
 import java.util.Objects;
@@ -42,3 +43,4 @@ public class ComponentsShapelessRecipeBuilder extends ShapelessRecipeBuilder {
 	}
 
 }
+*/

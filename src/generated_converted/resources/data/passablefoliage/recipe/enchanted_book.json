@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:enchanted_book"
+    },
+    {
+      "tag": "minecraft:leaves"
+    }
+  ],
+  "result": {
+    "components": {
+      "minecraft:stored_enchantments": {
+        "levels": {
+          "passablefoliage:leaf_walker": 1
+        }
+      }
+    },
+    "count": 1,
+    "id": "minecraft:enchanted_book"
+  },
+  "neoforge:conditions": [
+    {
+      "values": [
+        {
+          "module": "passablefoliage:enchantment",
+          "type": "kiwi:is_loaded"
+        },
+        {
+          "value": {
+            "type": "passablefoliage:always_leaf_walking"
+          },
+          "type": "neoforge:not"
+        }
+      ],
+      "type": "neoforge:and"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+/*
 package snownee.passablefoliage.datagen;
 
 import java.util.concurrent.CompletableFuture;
@@ -57,3 +58,4 @@ public class PFEnchantmentProvider extends FabricDynamicRegistryProvider {
 				EquipmentSlotGroup.FEET)).withEffect(EnchantmentModule.LEAF_WALKER.get()).build(LEAF_WALKER.location()));
 	}
 }
+*/

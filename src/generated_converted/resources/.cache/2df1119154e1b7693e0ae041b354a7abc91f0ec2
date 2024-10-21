@@ -1,0 +1,4 @@
+// 1.21	2024-10-04T12:46:11.1926322	Passable Foliage/Tags for minecraft:block
+a4e8097fff07f9a74259d6b5dd583f3437ff28a2 data\minecraft\tags\block\snow_layer_can_survive_on.json
+fe77cf19efd557cd10fe885c91d042fa9c059225 data\minecraft\tags\block\prevent_mob_spawning_inside.json
+a4e8097fff07f9a74259d6b5dd583f3437ff28a2 data\passablefoliage\tags\block\passables.json

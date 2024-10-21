@@ -1,16 +1,17 @@
 {
 	"required": true,
 	"package": "snownee.passablefoliage.mixin",
-	"compatibilityLevel": "JAVA_8",
+	"compatibilityLevel": "JAVA_21",
 	"refmap": "passablefoliage.refmap.json",
 	"mixins": [
+		"BlockBehaviourAccess",
 		"BlockMixin",
 		"BlocksMixin",
 		"BlockStateCacheMixin",
 		"BlockStateMixin",
 		"FlowingFluidMixin",
 		"VineBlockMixin",
-		"fabric.WalkNodeEvaluatorMixin"
+		"forge.IBlockExtensionMixin"
 	],
 	"client": [
 		"CherryLeavesBlockMixin",

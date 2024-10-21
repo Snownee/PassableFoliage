@@ -1,3 +1,4 @@
+/*
 package snownee.passablefoliage.datagen;
 
 import java.util.concurrent.CompletableFuture;
@@ -19,3 +20,4 @@ public class PFEnchantmentTagProvider extends FabricTagProvider.EnchantmentTagPr
 		getOrCreateTagBuilder(EnchantmentTags.CURSE).addOptional(PFEnchantmentProvider.LEAF_WALKER);
 	}
 }
+*/

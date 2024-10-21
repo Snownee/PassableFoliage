@@ -106,8 +106,7 @@ public class BlockStateMixin {
 	private void pfoliage_getShadeBrightness(BlockGetter reader, BlockPos pos, CallbackInfoReturnable<Float> ci) {
 		if (PassableFoliage.isPassable(self())) {
 			PassableFoliage.setSuppressPassableCheck(true);
-			//noinspection deprecation
-			boolean full = self().getBlock().isCollisionShapeFullBlock(self(), reader, pos);
+			boolean full = ((BlockBehaviourAccess) self().getBlock()).callIsCollisionShapeFullBlock(self(), reader, pos);
 			PassableFoliage.setSuppressPassableCheck(false);
 			ci.setReturnValue(full ? 0.2F : 1.0F);
 		}

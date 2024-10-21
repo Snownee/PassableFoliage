@@ -1,3 +1,4 @@
+/*
 package snownee.passablefoliage.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -23,3 +24,4 @@ public final class PassableFoliageDataGen implements DataGeneratorEntrypoint {
 		registryBuilder.add(Registries.ENCHANTMENT, PFEnchantmentProvider::bootstrap);
 	}
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package snownee.passablefoliage.datagen;
 
 import java.util.concurrent.CompletableFuture;
@@ -21,3 +22,4 @@ public class PFBlockTagProvider extends FabricTagProvider.BlockTagProvider {
 		getOrCreateTagBuilder(BlockTags.SNOW_LAYER_CAN_SURVIVE_ON).forceAddTag(BlockTags.LEAVES);
 	}
 }
+*/

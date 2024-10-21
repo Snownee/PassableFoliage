@@ -1,0 +1,19 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license="MIT"
+
+[[mods]]
+modId="passablefoliage"
+version="${file.jarVersion}"
+displayName="Passable Foliage"
+authors="Snownee"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/passable-foliage"
+description="Remove collision from leaves."
+
+[[mixins]]
+config = "passablefoliage.mixins.json"
+
+[[dependencies.passablefoliage]]
+modId = "kiwi"
+versionRange = "[15.2, )"
+referralUrl = "https://www.curseforge.com/minecraft/mc-mods/kiwi"

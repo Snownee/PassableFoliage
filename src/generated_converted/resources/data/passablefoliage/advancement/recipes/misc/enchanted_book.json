@@ -1,0 +1,49 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_enchanted_book": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:enchanted_book"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_enchanted_book"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:enchanted_book"
+    ]
+  },
+  "neoforge:conditions": [
+    {
+      "values": [
+        {
+          "module": "passablefoliage:enchantment",
+          "type": "kiwi:is_loaded"
+        },
+        {
+          "value": {
+            "type": "passablefoliage:always_leaf_walking"
+          },
+          "type": "neoforge:not"
+        }
+      ],
+      "type": "neoforge:and"
+    }
+  ]
+}

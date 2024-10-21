@@ -1,3 +1,4 @@
+/*
 package snownee.passablefoliage.datagen;
 
 import java.util.Objects;
@@ -55,3 +56,4 @@ public class PFRecipeProvider extends FabricRecipeProvider {
 				.save(exporter);
 	}
 }
+*/
