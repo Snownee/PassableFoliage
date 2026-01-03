@@ -1,7 +1,6 @@
 package snownee.passablefoliage;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -44,19 +43,21 @@ public final class PassableFoliage {
 			if (blockState.is(BlockTags.LEAVES)) {
 				// play a sound when an entity falls into leaves; do this before altering motion
 				if (livingEntity.fallDistance > 3f) {
+					SoundType soundType = blockState.getSoundType();
 					entity.playSound(
-							SoundEvents.GRASS_BREAK,
-							SoundType.GRASS.getVolume() * 0.6f * PassableFoliageCommonConfig.soundVolume,
-							SoundType.GRASS.getPitch() * 0.65f);
+							soundType.getBreakSound(),
+							soundType.getVolume() * 0.6f * PassableFoliageCommonConfig.soundVolume,
+							soundType.getPitch() * 0.65f);
 				}
 				// play a sound when an entity is moving through leaves (only play sound every 6 ticks as to not flood sound events)
 				else if (world.getGameTime() % 6 == 0) {
 					double motion = entity.getDeltaMovement().lengthSqr();
 					if (motion > 5e-7) {
+						SoundType soundType = blockState.getSoundType();
 						entity.playSound(
-								SoundEvents.GRASS_HIT,
-								SoundType.GRASS.getVolume() * 0.5f * PassableFoliageCommonConfig.soundVolume,
-								SoundType.GRASS.getPitch() * 0.45f);
+								soundType.getHitSound(),
+								soundType.getVolume() * 0.5f * PassableFoliageCommonConfig.soundVolume,
+								soundType.getPitch() * 0.45f);
 					}
 				}
 			}
@@ -100,8 +101,9 @@ public final class PassableFoliage {
 	}
 
 	public static boolean hasLeafWalker(LivingEntity entity) {
-		return PassableFoliageCommonConfig.alwaysLeafWalking || enchantmentEnabled && EnchantmentHelper.has(entity.getItemBySlot(
-				EquipmentSlot.FEET), EnchantmentModule.LEAF_WALKER.get());
+		return PassableFoliageCommonConfig.alwaysLeafWalking || enchantmentEnabled && EnchantmentHelper.has(
+				entity.getItemBySlot(
+						EquipmentSlot.FEET), EnchantmentModule.LEAF_WALKER.get());
 	}
 
 	public static void setSuppressPassableCheck(boolean suppressPassableCheck) {
