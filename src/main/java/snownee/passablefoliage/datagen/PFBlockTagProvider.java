@@ -18,6 +18,6 @@ public class PFBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
 	protected void addTags(HolderLookup.Provider wrapperLookup) {
 		builder(CoreModule.PASSABLES).forceAddTag(BlockTags.LEAVES);
 		builder(BlockTags.PREVENT_MOB_SPAWNING_INSIDE).forceAddTag(CoreModule.PASSABLES);
-		builder(BlockTags.SNOW_LAYER_CAN_SURVIVE_ON).forceAddTag(BlockTags.LEAVES);
+		builder(BlockTags.SUPPORT_OVERRIDE_SNOW_LAYER).forceAddTag(BlockTags.LEAVES);
 	}
 }
