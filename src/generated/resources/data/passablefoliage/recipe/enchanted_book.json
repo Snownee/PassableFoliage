@@ -19,19 +19,13 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:enchanted_book"
-    },
-    {
-      "tag": "minecraft:leaves"
-    }
+    "minecraft:enchanted_book",
+    "#minecraft:leaves"
   ],
   "result": {
     "components": {
       "minecraft:stored_enchantments": {
-        "levels": {
-          "passablefoliage:leaf_walker": 1
-        }
+        "passablefoliage:leaf_walker": 1
       }
     },
     "count": 1,

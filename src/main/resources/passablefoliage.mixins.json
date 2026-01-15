@@ -5,16 +5,16 @@
 	"refmap": "passablefoliage.refmap.json",
 	"mixins": [
 		"BlockMixin",
-		"BlocksMixin",
 		"BlockStateCacheMixin",
 		"BlockStateMixin",
 		"FlowingFluidMixin",
+		"LivingEntityMixin",
 		"VineBlockMixin",
 		"fabric.WalkNodeEvaluatorMixin"
 	],
 	"client": [
-		"CherryLeavesBlockMixin",
-		"EntityRendererMixin"
+		"EntityRendererMixin",
+		"LeavesBlockMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

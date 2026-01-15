@@ -18,8 +18,8 @@
 	],
 	"accessWidener": "passablefoliage.accesswidener",
 	"depends": {
-		"minecraft": ">=1.21",
-		"kiwi": ">=15.1"
+		"minecraft": ">=26.1-",
+		"kiwi": ">=26"
 	},
 	"custom": {
 		"modmenu": {

@@ -8,16 +8,16 @@ import snownee.kiwi.config.KiwiConfig.Range;
 public final class PassableFoliageCommonConfig {
 
 	@Range(min = 0, max = 1)
-	public static float fallDamageReduction = .5f;
+	public static float fallDamageMultiplier = .5f;
 
 	@Range(min = 5, max = 255)
 	public static int fallDamageThreshold = 20;
 
 	@Range(min = 0, max = 1)
-	public static float speedReductionHorizontal = .9f;
+	public static float speedMultiplierHorizontal = .9f;
 
 	@Range(min = 0, max = 1)
-	public static float speedReductionVertical = .9f;
+	public static float speedMultiplierVertical = .9f;
 
 	public static boolean modifyPathFinding = true;
 

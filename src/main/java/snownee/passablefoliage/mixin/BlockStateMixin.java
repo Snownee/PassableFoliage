@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
@@ -96,9 +97,15 @@ public class BlockStateMixin {
 	}
 
 	@Inject(at = @At("HEAD"), method = "entityInside")
-	private void pfoliage_entityInside(Level worldIn, BlockPos pos, Entity entityIn, CallbackInfo ci) {
+	private void pfoliage_entityInside(
+			Level level,
+			BlockPos pos,
+			Entity entity,
+			InsideBlockEffectApplier effectApplier,
+			boolean isPrecise,
+			CallbackInfo ci) {
 		if (PassableFoliage.isPassable(self())) {
-			PassableFoliage.onEntityCollidedWithLeaves(worldIn, pos, self(), entityIn);
+			PassableFoliage.onEntityCollidedWithLeaves(level, pos, self(), entity, effectApplier, isPrecise);
 		}
 	}
 
