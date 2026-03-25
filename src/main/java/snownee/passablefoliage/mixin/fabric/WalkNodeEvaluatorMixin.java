@@ -24,7 +24,7 @@ public class WalkNodeEvaluatorMixin {
 			locals = LocalCapture.CAPTURE_FAILSOFT,
 			cancellable = true)
 	private static void pfoliage_useCorrectPathType(
-			BlockGetter blockGetter, BlockPos blockPos, CallbackInfoReturnable<PathType> cir, BlockState state, Block block) {
+			BlockGetter level, BlockPos pos, CallbackInfoReturnable<PathType> cir, BlockState state, Block block) {
 		if (!PassableFoliageCommonConfig.modifyPathFinding) {
 			return;
 		}

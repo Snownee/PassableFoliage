@@ -18,13 +18,13 @@ public class VineBlockMixin {
 
 	@Inject(at = @At("HEAD"), method = "isAcceptableNeighbour", cancellable = true)
 	private static void pfoliage_isAcceptableNeighbour(
-			BlockGetter world,
-			BlockPos neighborPos,
-			Direction direction,
+			BlockGetter level,
+			BlockPos neighbourPos,
+			Direction directionToNeighbour,
 			CallbackInfoReturnable<Boolean> ci) {
-		BlockState blockstate = world.getBlockState(neighborPos);
+		BlockState blockstate = level.getBlockState(neighbourPos);
 		PassableFoliage.setSuppressPassableCheck(true);
-		boolean bl = Block.isFaceFull(blockstate.getCollisionShape(world, neighborPos), direction.getOpposite());
+		boolean bl = Block.isFaceFull(blockstate.getCollisionShape(level, neighbourPos), directionToNeighbour.getOpposite());
 		PassableFoliage.setSuppressPassableCheck(false);
 		ci.setReturnValue(bl);
 	}
