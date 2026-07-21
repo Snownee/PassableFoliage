@@ -1,116 +1,116 @@
 plugins {
-    id 'net.fabricmc.fabric-loom' version "${loom_version}"
+    id 'java-library'
     id 'maven-publish'
+    id 'net.neoforged.moddev' version '2.0.141'
     id "me.modmuss50.mod-publish-plugin" version "1.1.0"
 }
 
-version = "mc${archive_minecraft_version}-Fabric-${mod_version}"
+version = "mc${minecraft_version}-NeoForge-${mod_version}"
 group = project.maven_group
-var realVersion = project.mod_version + '+fabric'
+var realVersion = project.mod_version + '+neoforge'
 
 base {
     archivesName = project.archives_base_name
 }
 
 repositories {
-    maven { url "https://maven.shedaniel.me/" }
-    maven { url "https://maven.terraformersmc.com/releases/" }
-    maven { url "https://dvs1.progwml6.com/files/maven/" }
+    mavenCentral()
     maven { url "https://api.modrinth.com/maven" }
 }
 
-sourceSets {
-    main.resources.srcDirs += "$rootDir/src/generated/resources"
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+
+tasks.withType(JavaExec).configureEach {
+    executable = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(25)
+    }.get().executablePath.asFile.absolutePath
 }
 
-loom {
-    accessWidenerPath = file("src/main/resources/${project.mod_id}.accesswidener")
-}
+neoForge {
+    version = project.neo_version
 
-dependencies {
-    // To change the versions see the gradle.properties file
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    runs {
+        client {
+            client()
+        }
+        server {
+            server()
+            programArgument '--nogui'
+        }
+        data {
+            clientData()
+            programArguments = [
+                    '--mod', project.mod_id,
+                    '--all',
+                    '--output', file('src/generated/resources').absolutePath,
+                    '--existing', file('src/main/resources').absolutePath
+            ]
+        }
+    }
 
-//    api("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}") {
-//        exclude(group: "net.fabricmc.fabric-api")
-//    }
-//    implementation "com.terraformersmc:modmenu:${project.modmenu_version}"
-
-    implementation annotationProcessor("maven.modrinth:kiwi:${project.kiwi_version}+fabric")
-//    implementation fileTree(dir: "libs", include: ["*.jar"])
-}
-
-processResources {
-    inputs.property "version", realVersion
-
-    filesMatching("fabric.mod.json") {
-        expand "version": realVersion
+    mods {
+        "${mod_id}" {
+            sourceSet sourceSets.main
+        }
     }
 }
 
-tasks.withType(JavaCompile).configureEach {
-    it.options.encoding = "UTF-8"
-    it.options.release = 25
-//    it.options.compilerArgs.add("-Akiwi.clientOnlyMod")
+sourceSets.main.resources.srcDir 'src/generated/resources'
+
+dependencies {
+    implementation "maven.modrinth:kiwi:${project.kiwi_version}+neoforge"
+    annotationProcessor "maven.modrinth:kiwi:${project.kiwi_version}+neoforge"
 }
 
-java {
-//    withSourcesJar()
-
-    sourceCompatibility = JavaVersion.VERSION_25
-    targetCompatibility = JavaVersion.VERSION_25
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 25
 }
 
 jar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     exclude("/assets/${project.mod_id}/lang/en_us.existing.json")
-    exclude("**/*.py")
-    from("LICENSE") {
+    exclude('**/*.py')
+    from('LICENSE') {
         rename { "${it}_${project.archives_base_name}" }
+    }
+    manifest {
+        attributes([
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : realVersion,
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
     }
 }
 
-// configure the maven publication
 publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
         }
     }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-        // Notice: This block does NOT have the same function as the block in the top level.
-        // The repositories here will be used for publishing your artifact, not for
-        // retrieving dependencies.
-    }
 }
 
 publishMods {
     file = jar.archiveFile
-//    additionalFiles.from(sourcesJar.archiveFile)
     changelog = file('CHANGELOG.md').exists() ? file('CHANGELOG.md').text : ''
     type = ['release': STABLE, 'beta': BETA, 'alpha': ALPHA][release_type]
-    modLoaders.add("fabric")
-    modLoaders.add("quilt")
-    displayName = "[Fabric ${supported_version}] ${mod_version}"
+    modLoaders.add('neoforge')
+    displayName = "[NeoForge ${supported_version}] ${mod_version}"
     version = realVersion
 
     curseforge {
-        projectId = "552617"
-        accessToken = providers.environmentVariable("CURSE_TOKEN")
+        projectId = '379887'
+        accessToken = providers.environmentVariable('CURSE_TOKEN')
         minecraftVersions.add(minecraft_version)
-        requires("kiwi-fabric")
-        optional("cloth-config")
+        requires('kiwi')
+        optional('cloth-config')
     }
     modrinth {
-        projectId = "uaLW6JVR"
-        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        projectId = 'uaLW6JVR'
+        accessToken = providers.environmentVariable('MODRINTH_TOKEN')
         minecraftVersions.add(minecraft_version)
-        requires("kiwi")
-        optional("cloth-config")
+        requires('kiwi')
+        optional('cloth-config')
     }
 }
