@@ -7,12 +7,12 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
@@ -26,7 +26,8 @@ import snownee.passablefoliage.PassableFoliage;
 
 public class PFRecipeProvider extends RecipeProvider.Runner {
 
-	public PFRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	public PFRecipeProvider(
+			PackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
 	}
 
@@ -34,12 +35,13 @@ public class PFRecipeProvider extends RecipeProvider.Runner {
 	protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
 		return new RecipeProvider(registries, output) {
 			@Override
-			protected void buildRecipes() {
+			public void buildRecipes() {
 				Holder.Reference<Enchantment> holder = registries.lookupOrThrow(Registries.ENCHANTMENT)
 						.getOrThrow(PFEnchantmentProvider.LEAF_WALKER);
 				ICondition condition = NeoForgeConditions.and(
-						new ModuleLoadedCondition(PFEnchantmentProvider.ENCHANTMENT_MODULE),
+						new ModuleLoadedCondition(Identifier.fromNamespaceAndPath(PassableFoliage.ID, "enchantment")),
 						NeoForgeConditions.not(new AlwaysLeafWalkingCondition()));
+				RecipeOutput withConditions = output.withConditions(condition);
 				ItemEnchantments.Mutable enchantments = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
 				enchantments.set(holder, 1);
 				DataComponentPatch components = DataComponentPatch.builder()
@@ -50,7 +52,7 @@ public class PFRecipeProvider extends RecipeProvider.Runner {
 						.requires(ItemTags.LEAVES)
 						.unlockedBy(getHasName(Items.ENCHANTED_BOOK), has(Items.ENCHANTED_BOOK))
 						.save(
-								output.withConditions(condition),
+								withConditions,
 								ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(
 										PassableFoliage.ID,
 										"enchanted_book")));

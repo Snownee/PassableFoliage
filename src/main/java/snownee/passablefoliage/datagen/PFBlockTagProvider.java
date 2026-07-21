@@ -11,8 +11,8 @@ import snownee.passablefoliage.PassableFoliage;
 
 public class PFBlockTagProvider extends BlockTagsProvider {
 
-	public PFBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(output, lookupProvider, PassableFoliage.ID);
+	public PFBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
+		super(output, completableFuture, PassableFoliage.ID);
 	}
 
 	@Override

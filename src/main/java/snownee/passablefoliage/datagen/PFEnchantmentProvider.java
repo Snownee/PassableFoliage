@@ -12,16 +12,11 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import snownee.passablefoliage.EnchantmentModule;
 import snownee.passablefoliage.PassableFoliage;
 
-public final class PFEnchantmentProvider {
-	public static final Identifier ENCHANTMENT_MODULE = Identifier.fromNamespaceAndPath(
-			PassableFoliage.ID,
-			"enchantment");
+public class PFEnchantmentProvider {
+
 	public static final ResourceKey<Enchantment> LEAF_WALKER = ResourceKey.create(
 			Registries.ENCHANTMENT,
 			Identifier.fromNamespaceAndPath(PassableFoliage.ID, "leaf_walker"));
-
-	private PFEnchantmentProvider() {
-	}
 
 	public static void bootstrap(BootstrapContext<Enchantment> context) {
 		HolderGetter<Item> lookup = context.lookup(Registries.ITEM);

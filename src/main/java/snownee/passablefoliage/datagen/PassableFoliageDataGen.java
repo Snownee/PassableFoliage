@@ -2,6 +2,7 @@ package snownee.passablefoliage.datagen;
 
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import snownee.kiwi.recipe.ModuleLoadedCondition;
 import snownee.passablefoliage.PassableFoliage;
@@ -15,7 +16,9 @@ public final class PassableFoliageDataGen {
 		RegistrySetBuilder registries = new RegistrySetBuilder().add(
 				Registries.ENCHANTMENT,
 				PFEnchantmentProvider::bootstrap);
-		ModuleLoadedCondition enchantmentModule = new ModuleLoadedCondition(PFEnchantmentProvider.ENCHANTMENT_MODULE);
+		ModuleLoadedCondition enchantmentModule = new ModuleLoadedCondition(Identifier.fromNamespaceAndPath(
+				PassableFoliage.ID,
+				"enchantment"));
 		event.createDatapackRegistryObjects(registries, conditions -> conditions.accept(
 				PFEnchantmentProvider.LEAF_WALKER,
 				enchantmentModule));
@@ -23,7 +26,7 @@ public final class PassableFoliageDataGen {
 		event.createProvider(PFEnchantmentTagProvider::new);
 		event.createProvider(PFBlockTagProvider::new);
 		event.createProvider(PFEntityTypeTagProvider::new);
-		event.createProvider(PFRecipeProvider::new);
 		event.createProvider(output -> new PFLanguageProvider(output, PassableFoliage.ID, "en_us"));
+		event.createProvider(PFRecipeProvider::new);
 	}
 }

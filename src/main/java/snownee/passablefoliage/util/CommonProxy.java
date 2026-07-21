@@ -14,7 +14,7 @@ import snownee.passablefoliage.PassableFoliage;
 import snownee.passablefoliage.datagen.PassableFoliageDataGen;
 
 @Mod(PassableFoliage.ID)
-public final class CommonProxy {
+public class CommonProxy {
 	private static final DeferredRegister<MapCodec<? extends ICondition>> CONDITION_CODECS = DeferredRegister.create(
 			NeoForgeRegistries.Keys.CONDITION_CODECS,
 			PassableFoliage.ID);
@@ -29,4 +29,5 @@ public final class CommonProxy {
 			}
 		});
 	}
+
 }

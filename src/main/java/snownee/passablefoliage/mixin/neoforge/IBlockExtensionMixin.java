@@ -1,5 +1,6 @@
 package snownee.passablefoliage.mixin.neoforge;
 
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -18,13 +19,13 @@ import snownee.passablefoliage.PassableFoliageCommonConfig;
 @Mixin(IBlockExtension.class)
 public interface IBlockExtensionMixin {
 	@Inject(method = "getBlockPathType", at = @At("HEAD"), cancellable = true)
-	default void pfoliage_getBlockPathType(
+	default void pfoliage_useCorrectPathType(
 			BlockState state,
 			BlockGetter level,
 			BlockPos pos,
-			Mob mob,
+			@Nullable Mob mob,
 			CallbackInfoReturnable<PathType> cir) {
-		if (PassableFoliageCommonConfig.playerOnly || !PassableFoliageCommonConfig.modifyPathFinding ||
+		if (!PassableFoliageCommonConfig.modifyPathFinding || PassableFoliageCommonConfig.playerOnly ||
 				!PassableFoliage.isPassable(state) || !state.getFluidState().isEmpty()) {
 			return;
 		}

@@ -10,8 +10,8 @@ import snownee.passablefoliage.PassableFoliage;
 
 public class PFEnchantmentTagProvider extends EnchantmentTagsProvider {
 
-	public PFEnchantmentTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(output, lookupProvider, PassableFoliage.ID);
+	public PFEnchantmentTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
+		super(output, completableFuture, PassableFoliage.ID);
 	}
 
 	@Override
