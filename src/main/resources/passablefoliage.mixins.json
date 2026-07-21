@@ -5,6 +5,7 @@
 	"mixins": [
 		"AlternativesIngredientBuilderSerializerMixin",
 		"BlockMixin",
+		"BlockStateCacheMixin",
 		"BlockStateMixin",
 		"FlowingFluidMixin",
 		"LivingEntityMixin",
