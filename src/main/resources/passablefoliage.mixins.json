@@ -8,7 +8,7 @@
 		"FlowingFluidMixin",
 		"LivingEntityMixin",
 		"VineBlockMixin",
-		"fabric.WalkNodeEvaluatorMixin"
+		"neoforge.IBlockExtensionMixin"
 	],
 	"client": [
 		"EntityRendererMixin",
