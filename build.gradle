@@ -38,7 +38,7 @@ neoForge {
             programArgument '--nogui'
         }
         data {
-            clientData()
+            serverData()
             programArguments = [
                     '--mod', project.mod_id,
                     '--all',

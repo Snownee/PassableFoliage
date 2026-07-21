@@ -2,22 +2,23 @@ package snownee.passablefoliage.datagen;
 
 import java.util.concurrent.CompletableFuture;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import snownee.passablefoliage.CoreModule;
+import snownee.passablefoliage.PassableFoliage;
 
-public class PFBlockTagProvider extends FabricTagsProvider.BlockTagsProvider {
+public class PFBlockTagProvider extends BlockTagsProvider {
 
-	public PFBlockTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
-		super(output, completableFuture);
+	public PFBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(output, lookupProvider, PassableFoliage.ID);
 	}
 
 	@Override
 	protected void addTags(HolderLookup.Provider wrapperLookup) {
-		builder(CoreModule.PASSABLES).forceAddTag(BlockTags.LEAVES);
-		builder(BlockTags.PREVENT_MOB_SPAWNING_INSIDE).forceAddTag(CoreModule.PASSABLES);
-		builder(BlockTags.SUPPORT_OVERRIDE_SNOW_LAYER).forceAddTag(BlockTags.LEAVES);
+		tag(CoreModule.PASSABLES).addTag(BlockTags.LEAVES);
+		tag(BlockTags.PREVENT_MOB_SPAWNING_INSIDE).addTag(CoreModule.PASSABLES);
+		tag(BlockTags.SUPPORT_OVERRIDE_SNOW_LAYER).addTag(BlockTags.LEAVES);
 	}
 }

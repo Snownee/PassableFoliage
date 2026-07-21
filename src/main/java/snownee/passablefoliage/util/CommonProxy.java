@@ -11,6 +11,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import snownee.passablefoliage.AlwaysLeafWalkingCondition;
 import snownee.passablefoliage.PassableFoliage;
+import snownee.passablefoliage.datagen.PassableFoliageDataGen;
 
 @Mod(PassableFoliage.ID)
 public final class CommonProxy {
@@ -19,6 +20,7 @@ public final class CommonProxy {
 			PassableFoliage.ID);
 
 	public CommonProxy(IEventBus modEventBus) {
+		modEventBus.addListener(PassableFoliageDataGen::gatherServerData);
 		CONDITION_CODECS.register("always_leaf_walking", () -> AlwaysLeafWalkingCondition.CODEC);
 		CONDITION_CODECS.register(modEventBus);
 		NeoForge.EVENT_BUS.addListener((TagsUpdatedEvent event) -> {

@@ -3,6 +3,7 @@
 	"package": "snownee.passablefoliage.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
+		"AlternativesIngredientBuilderSerializerMixin",
 		"BlockMixin",
 		"BlockStateMixin",
 		"FlowingFluidMixin",
