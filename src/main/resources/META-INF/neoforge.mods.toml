@@ -1,0 +1,35 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "MIT"
+
+[[mods]]
+modId = "passablefoliage"
+version = "${file.jarVersion}"
+displayName = "Passable Foliage"
+authors = "Snownee"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/passable-foliage"
+description = "Remove collision from leaves."
+
+[[mixins]]
+config = "passablefoliage.mixins.json"
+
+[[dependencies.passablefoliage]]
+modId = "neoforge"
+type = "required"
+versionRange = "[26.1.2.71,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.passablefoliage]]
+modId = "minecraft"
+type = "required"
+versionRange = "[26.1.2,26.2)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.passablefoliage]]
+modId = "kiwi"
+type = "required"
+versionRange = "[26.0.11,)"
+ordering = "NONE"
+side = "BOTH"

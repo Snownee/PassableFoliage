@@ -1,7 +1,7 @@
 {
-  "fabric:load_conditions": [
+  "neoforge:conditions": [
     {
-      "condition": "kiwi:is_loaded",
+      "type": "kiwi:is_loaded",
       "module": "passablefoliage:enchantment"
     }
   ],
