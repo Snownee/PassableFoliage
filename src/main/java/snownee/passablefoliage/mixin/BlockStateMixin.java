@@ -1,7 +1,6 @@
 package snownee.passablefoliage.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -9,12 +8,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SupportType;
 import net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -26,9 +27,6 @@ import snownee.passablefoliage.PassableFoliageCommonConfig;
 
 @Mixin(BlockStateBase.class)
 public class BlockStateMixin {
-
-	@Shadow
-	private BlockStateBase.Cache cache;
 
 	@Unique
 	private BlockState self() {
@@ -89,9 +87,31 @@ public class BlockStateMixin {
 		}
 	}
 
+	@Inject(at = @At("HEAD"), method = "hasLargeCollisionShape", cancellable = true)
+	private void pfoliage_hasLargeCollisionShape(CallbackInfoReturnable<Boolean> ci) {
+		if (PassableFoliage.isPassable(self())) {
+			ci.setReturnValue(false);
+		}
+	}
+
+	@Inject(
+			at = @At("HEAD"),
+			method = "isFaceSturdy(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/block/SupportType;)Z",
+			cancellable = true)
+	private void pfoliage_isFaceSturdy(
+			BlockGetter level,
+			BlockPos pos,
+			Direction direction,
+			SupportType supportType,
+			CallbackInfoReturnable<Boolean> ci) {
+		if (PassableFoliage.isPassable(self())) {
+			ci.setReturnValue(false);
+		}
+	}
+
 	@Inject(at = @At("HEAD"), method = "isCollisionShapeFullBlock", cancellable = true)
-	private void pfoliage_isCollisionShapeFullBlock(BlockGetter blockReaderIn, BlockPos blockPosIn, CallbackInfoReturnable<Boolean> ci) {
-		if (cache == null && PassableFoliage.isPassable(self())) {
+	private void pfoliage_isCollisionShapeFullBlock(BlockGetter level, BlockPos pos, CallbackInfoReturnable<Boolean> ci) {
+		if (PassableFoliage.isPassable(self())) {
 			ci.setReturnValue(false);
 		}
 	}
@@ -113,8 +133,7 @@ public class BlockStateMixin {
 	private void pfoliage_getShadeBrightness(BlockGetter reader, BlockPos pos, CallbackInfoReturnable<Float> ci) {
 		if (PassableFoliage.isPassable(self())) {
 			PassableFoliage.setSuppressPassableCheck(true);
-			//noinspection deprecation
-			boolean full = self().getBlock().isCollisionShapeFullBlock(self(), reader, pos);
+			boolean full = self().isCollisionShapeFullBlock(reader, pos);
 			PassableFoliage.setSuppressPassableCheck(false);
 			ci.setReturnValue(full ? 0.2F : 1.0F);
 		}
