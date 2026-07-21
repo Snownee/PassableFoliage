@@ -25,7 +25,6 @@ public final class PassableFoliageDataGen {
 
 		event.createProvider(PFEnchantmentTagProvider::new);
 		event.createProvider(PFBlockTagProvider::new);
-		event.createProvider(PFEntityTypeTagProvider::new);
 		event.createProvider(output -> new PFLanguageProvider(output, PassableFoliage.ID, "en_us"));
 		event.createProvider(PFRecipeProvider::new);
 	}

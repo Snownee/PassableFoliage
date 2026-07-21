@@ -22,7 +22,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import snownee.passablefoliage.CoreModule;
 import snownee.passablefoliage.PassableFoliage;
 import snownee.passablefoliage.PassableFoliageCommonConfig;
 
@@ -65,9 +64,6 @@ public class BlockStateMixin {
 				entity = ((EntityCollisionContext) context).getEntity();
 			}
 			if (PassableFoliageCommonConfig.playerOnly && !(entity instanceof Player)) {
-				return;
-			}
-			if (entity != null && entity.getType().builtInRegistryHolder().is(CoreModule.BLOCKLIST)) {
 				return;
 			}
 			if (entity instanceof LivingEntity && PassableFoliage.hasLeafWalker((LivingEntity) entity)) {

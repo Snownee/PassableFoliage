@@ -12,7 +12,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.neoforged.neoforge.common.extensions.IBlockExtension;
-import snownee.passablefoliage.CoreModule;
 import snownee.passablefoliage.PassableFoliage;
 import snownee.passablefoliage.PassableFoliageCommonConfig;
 
@@ -29,7 +28,7 @@ public interface IBlockExtensionMixin {
 				!PassableFoliage.isPassable(state) || !state.getFluidState().isEmpty()) {
 			return;
 		}
-		if (mob == null || (!PassableFoliage.hasLeafWalker(mob) && !mob.getType().builtInRegistryHolder().is(CoreModule.BLOCKLIST))) {
+		if (mob == null || !PassableFoliage.hasLeafWalker(mob)) {
 			cir.setReturnValue(PathType.OPEN);
 		}
 	}
