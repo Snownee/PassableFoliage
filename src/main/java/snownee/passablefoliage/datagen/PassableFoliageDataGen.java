@@ -1,25 +1,31 @@
 package snownee.passablefoliage.datagen;
 
-import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
-import snownee.kiwi.datagen.KiwiLanguageProvider;
+import net.minecraft.resources.Identifier;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import snownee.kiwi.recipe.ModuleLoadedCondition;
+import snownee.passablefoliage.PassableFoliage;
 
-public final class PassableFoliageDataGen implements DataGeneratorEntrypoint {
+public final class PassableFoliageDataGen {
 
-	@Override
-	public void onInitializeDataGenerator(FabricDataGenerator generator) {
-		FabricDataGenerator.Pack pack = generator.createPack();
-		pack.addProvider(PFEnchantmentProvider::new);
-		pack.addProvider(PFEnchantmentTagProvider::new);
-		pack.addProvider(PFBlockTagProvider::new);
-		pack.addProvider(KiwiLanguageProvider::new);
-		pack.addProvider(PFRecipeProvider::new);
+	private PassableFoliageDataGen() {
 	}
 
-	@Override
-	public void buildRegistry(RegistrySetBuilder registryBuilder) {
-		registryBuilder.add(Registries.ENCHANTMENT, PFEnchantmentProvider::bootstrap);
+	public static void gatherServerData(GatherDataEvent.Server event) {
+		RegistrySetBuilder registries = new RegistrySetBuilder().add(
+				Registries.ENCHANTMENT,
+				PFEnchantmentProvider::bootstrap);
+		ModuleLoadedCondition enchantmentModule = new ModuleLoadedCondition(Identifier.fromNamespaceAndPath(
+				PassableFoliage.ID,
+				"enchantment"));
+		event.createDatapackRegistryObjects(registries, conditions -> conditions.accept(
+				PFEnchantmentProvider.LEAF_WALKER,
+				enchantmentModule));
+
+		event.createProvider(PFEnchantmentTagProvider::new);
+		event.createProvider(PFBlockTagProvider::new);
+		event.createProvider(output -> new PFLanguageProvider(output, PassableFoliage.ID, "en_us"));
+		event.createProvider(PFRecipeProvider::new);
 	}
 }

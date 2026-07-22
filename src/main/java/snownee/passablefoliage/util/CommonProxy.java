@@ -1,20 +1,32 @@
 package snownee.passablefoliage.util;
 
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.CommonLifecycleEvents;
-import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
-import snownee.kiwi.Mod;
+import com.mojang.serialization.MapCodec;
+
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.conditions.ICondition;
+import net.neoforged.neoforge.event.TagsUpdatedEvent;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import snownee.passablefoliage.AlwaysLeafWalkingCondition;
 import snownee.passablefoliage.PassableFoliage;
+import snownee.passablefoliage.datagen.PassableFoliageDataGen;
 
 @Mod(PassableFoliage.ID)
-public class CommonProxy implements ModInitializer {
+public class CommonProxy {
+	private static final DeferredRegister<MapCodec<? extends ICondition>> CONDITION_CODECS = DeferredRegister.create(
+			NeoForgeRegistries.Keys.CONDITION_CODECS,
+			PassableFoliage.ID);
 
-	@Override
-	public void onInitialize() {
-		ResourceConditions.register(AlwaysLeafWalkingCondition.TYPE);
-		CommonLifecycleEvents.TAGS_LOADED.register((_, _) -> {
-			PassableFoliage.tagsLoaded();
+	public CommonProxy(IEventBus modEventBus) {
+		modEventBus.addListener(PassableFoliageDataGen::gatherServerData);
+		CONDITION_CODECS.register("always_leaf_walking", () -> AlwaysLeafWalkingCondition.CODEC);
+		CONDITION_CODECS.register(modEventBus);
+		NeoForge.EVENT_BUS.addListener((TagsUpdatedEvent event) -> {
+			if (event.shouldUpdateStaticData()) {
+				PassableFoliage.tagsLoaded();
+			}
 		});
 	}
 

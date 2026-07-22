@@ -1,28 +1,19 @@
 package snownee.passablefoliage;
 
-
-import org.jspecify.annotations.Nullable;
-
 import com.mojang.serialization.MapCodec;
 
-import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
-import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.RegistryOps;
+import net.neoforged.neoforge.common.conditions.ICondition;
 
-public class AlwaysLeafWalkingCondition implements ResourceCondition {
-	public static final ResourceConditionType<AlwaysLeafWalkingCondition> TYPE = ResourceConditionType.create(
-			Identifier.fromNamespaceAndPath(
-					PassableFoliage.ID,
-					"always_leaf_walking"), MapCodec.unit(new AlwaysLeafWalkingCondition()));
+public class AlwaysLeafWalkingCondition implements ICondition {
+	public static final MapCodec<AlwaysLeafWalkingCondition> CODEC = MapCodec.unit(new AlwaysLeafWalkingCondition());
 
 	@Override
-	public ResourceConditionType<?> getType() {
-		return TYPE;
+	public MapCodec<? extends ICondition> codec() {
+		return CODEC;
 	}
 
 	@Override
-	public boolean test(RegistryOps.@Nullable RegistryInfoLookup registryInfo) {
+	public boolean test(ICondition.IContext context) {
 		return PassableFoliageCommonConfig.alwaysLeafWalking;
 	}
 }

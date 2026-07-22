@@ -2,15 +2,16 @@ package snownee.passablefoliage.datagen;
 
 import java.util.concurrent.CompletableFuture;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EnchantmentTagsProvider;
 import net.minecraft.tags.EnchantmentTags;
+import snownee.passablefoliage.PassableFoliage;
 
 public class PFEnchantmentTagProvider extends EnchantmentTagsProvider {
 
-	public PFEnchantmentTagProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
-		super(output, completableFuture);
+	public PFEnchantmentTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> completableFuture) {
+		super(output, completableFuture, PassableFoliage.ID);
 	}
 
 	@Override

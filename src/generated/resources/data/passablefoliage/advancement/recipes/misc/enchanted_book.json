@@ -1,16 +1,16 @@
 {
-  "fabric:load_conditions": [
+  "neoforge:conditions": [
     {
-      "condition": "fabric:and",
+      "type": "neoforge:and",
       "values": [
         {
-          "condition": "kiwi:is_loaded",
+          "type": "kiwi:is_loaded",
           "module": "passablefoliage:enchantment"
         },
         {
-          "condition": "fabric:not",
+          "type": "neoforge:not",
           "value": {
-            "condition": "passablefoliage:always_leaf_walking"
+            "type": "passablefoliage:always_leaf_walking"
           }
         }
       ]
