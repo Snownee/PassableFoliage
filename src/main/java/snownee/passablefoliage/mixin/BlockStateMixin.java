@@ -8,6 +8,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
@@ -36,12 +39,9 @@ public class BlockStateMixin {
 	}
 
 	@Inject(
-			at = @At(
-					"HEAD"
-			),
+			at = @At("HEAD"),
 			method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/phys/shapes/VoxelShape;",
-			cancellable = true
-	)
+			cancellable = true)
 	private void pfoliage_getCollisionShape(BlockGetter worldIn, BlockPos pos, CallbackInfoReturnable<VoxelShape> ci) {
 		if (PassableFoliage.isPassable(self())) {
 			ci.setReturnValue(Shapes.empty());
@@ -49,12 +49,9 @@ public class BlockStateMixin {
 	}
 
 	@Inject(
-			at = @At(
-					"HEAD"
-			),
+			at = @At("HEAD"),
 			method = "getCollisionShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;",
-			cancellable = true
-	)
+			cancellable = true)
 	private void pfoliage_getCollisionShape(
 			BlockGetter worldIn,
 			BlockPos pos,
@@ -69,10 +66,9 @@ public class BlockStateMixin {
 				return;
 			}
 			if (entity instanceof LivingEntity livingEntity) {
-				if (PassableFoliageCommonConfig.headHitter && entity.getEyeY() < pos.getY()
-						&& !livingEntity.isFallFlying()
-						&& !(entity instanceof Player player && player.getAbilities().flying)
-						&& !PassableFoliage.isPartiallyInFoliage(livingEntity)) {
+				if (PassableFoliageCommonConfig.headHitter && entity.getEyeY() < pos.getY() && !livingEntity.isFallFlying() &&
+						!(entity instanceof Player player && player.getAbilities().flying) && !PassableFoliage.isPartiallyInFoliage(
+						livingEntity)) {
 					return;
 				}
 				if (PassableFoliage.hasLeafWalker(livingEntity)) {
@@ -84,6 +80,17 @@ public class BlockStateMixin {
 			}
 			ci.setReturnValue(Shapes.empty());
 		}
+	}
+
+	@WrapMethod(method = "getBlockSupportShape")
+	private VoxelShape pfoliage_getBlockSupportShape(BlockGetter blockGetter, BlockPos blockPos, Operation<VoxelShape> original) {
+		if (PassableFoliage.isPassable(self())) {
+			PassableFoliage.setSuppressPassableCheck(true);
+			VoxelShape shape = original.call(blockGetter, blockPos);
+			PassableFoliage.setSuppressPassableCheck(false);
+			return shape;
+		}
+		return original.call(blockGetter, blockPos);
 	}
 
 	@Inject(at = @At("HEAD"), method = "getVisualShape", cancellable = true)

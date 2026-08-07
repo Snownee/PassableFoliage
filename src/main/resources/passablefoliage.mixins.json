@@ -8,7 +8,7 @@
 		"BlockStateMixin",
 		"FlowingFluidMixin",
 		"LivingEntityMixin",
-		"VineBlockMixin",
+		"MultifaceBlockMixin",
 		"neoforge.IBlockExtensionMixin"
 	],
 	"client": [
