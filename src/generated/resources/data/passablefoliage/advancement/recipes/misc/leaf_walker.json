@@ -30,7 +30,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:enchanted_book"
+        "recipe": "passablefoliage:leaf_walker"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -43,7 +43,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:enchanted_book"
+      "passablefoliage:leaf_walker"
     ]
   }
 }

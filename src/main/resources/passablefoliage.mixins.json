@@ -1,14 +1,14 @@
 {
 	"required": true,
 	"package": "snownee.passablefoliage.mixin",
-	"compatibilityLevel": "JAVA_8",
-	"refmap": "passablefoliage.refmap.json",
+	"compatibilityLevel": "JAVA_21",
 	"mixins": [
 		"BlockMixin",
 		"BlocksMixin",
 		"BlockStateCacheMixin",
 		"BlockStateMixin",
 		"FlowingFluidMixin",
+		"LivingEntityMixin",
 		"VineBlockMixin",
 		"fabric.WalkNodeEvaluatorMixin"
 	],
