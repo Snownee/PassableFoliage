@@ -3,7 +3,6 @@ package snownee.passablefoliage.datagen;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -16,7 +15,7 @@ public class PFEnchantmentProvider {
 
 	public static final ResourceKey<Enchantment> LEAF_WALKER = ResourceKey.create(
 			Registries.ENCHANTMENT,
-			Identifier.fromNamespaceAndPath(PassableFoliage.ID, "leaf_walker"));
+			PassableFoliage.id("leaf_walker"));
 
 	public static void bootstrap(BootstrapContext<Enchantment> context) {
 		HolderGetter<Item> lookup = context.lookup(Registries.ITEM);

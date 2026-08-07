@@ -13,7 +13,6 @@ public class PFLanguageProvider extends LanguageProvider {
 	protected void addTranslations() {
 		add("enchantment.passablefoliage.leaf_walker", "Leaf Walker");
 		add("enchantment.passablefoliage.leaf_walker.desc", "Allows the player to walk on foliage blocks.");
-		add("fml.menu.mods.info.description.passablefoliage", "Remove collision from leaves.");
 		add("modmenu.descriptionTranslation.passablefoliage", "Remove collision from leaves.");
 		add("modmenu.nameTranslation.passablefoliage", "Passable Foliage");
 		add("passablefoliage.config.alwaysLeafWalking", "Always Leaf Walking");
@@ -24,6 +23,8 @@ public class PFLanguageProvider extends LanguageProvider {
 		add("passablefoliage.config.fallDamageMultiplier.desc", "The percentage of normal damage taken when taking damage from falling into leaves");
 		add("passablefoliage.config.fallDamageThreshold", "Fall Damage Threshold");
 		add("passablefoliage.config.fallDamageThreshold.desc", "When falling into leaves, the (block) distance a player or mob has to fall before taking damage");
+		add("passablefoliage.config.headHitter", "Head Hitter");
+		add("passablefoliage.config.headHitter.desc", "Restores the collision volume of leaf blocks when entities are below them, preventing them from passing through from below.");
 		add("passablefoliage.config.modifyPathFinding", "Modify Path Finding");
 		add("passablefoliage.config.modifyPathFinding.desc", "Should entities recognize leaves as air");
 		add("passablefoliage.config.modules", "Modules");

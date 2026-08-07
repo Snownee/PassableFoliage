@@ -11,7 +11,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStackTemplate;
@@ -39,7 +38,7 @@ public class PFRecipeProvider extends RecipeProvider.Runner {
 				Holder.Reference<Enchantment> holder = registries.lookupOrThrow(Registries.ENCHANTMENT)
 						.getOrThrow(PFEnchantmentProvider.LEAF_WALKER);
 				ICondition condition = NeoForgeConditions.and(
-						new ModuleLoadedCondition(Identifier.fromNamespaceAndPath(PassableFoliage.ID, "enchantment")),
+						new ModuleLoadedCondition(PassableFoliage.id("enchantment")),
 						NeoForgeConditions.not(new AlwaysLeafWalkingCondition()));
 				RecipeOutput withConditions = output.withConditions(condition);
 				ItemEnchantments.Mutable enchantments = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
@@ -53,9 +52,7 @@ public class PFRecipeProvider extends RecipeProvider.Runner {
 						.unlockedBy(getHasName(Items.ENCHANTED_BOOK), has(Items.ENCHANTED_BOOK))
 						.save(
 								withConditions,
-								ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(
-										PassableFoliage.ID,
-										"enchanted_book")));
+								ResourceKey.create(Registries.RECIPE, PassableFoliage.id("leaf_walker")));
 			}
 		};
 	}

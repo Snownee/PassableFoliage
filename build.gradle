@@ -13,6 +13,10 @@ base {
     archivesName = project.archives_base_name
 }
 
+base {
+    archivesName = project.archives_base_name
+}
+
 repositories {
     mavenCentral()
     maven { url "https://api.modrinth.com/maven" }

@@ -1,7 +1,6 @@
 {
   "enchantment.passablefoliage.leaf_walker": "Leaf Walker",
   "enchantment.passablefoliage.leaf_walker.desc": "Allows the player to walk on foliage blocks.",
-  "fml.menu.mods.info.description.passablefoliage": "Remove collision from leaves.",
   "modmenu.descriptionTranslation.passablefoliage": "Remove collision from leaves.",
   "modmenu.nameTranslation.passablefoliage": "Passable Foliage",
   "passablefoliage.config.alwaysLeafWalking": "Always Leaf Walking",
@@ -12,6 +11,8 @@
   "passablefoliage.config.fallDamageMultiplier.desc": "The percentage of normal damage taken when taking damage from falling into leaves",
   "passablefoliage.config.fallDamageThreshold": "Fall Damage Threshold",
   "passablefoliage.config.fallDamageThreshold.desc": "When falling into leaves, the (block) distance a player or mob has to fall before taking damage",
+  "passablefoliage.config.headHitter": "Head Hitter",
+  "passablefoliage.config.headHitter.desc": "Restores the collision volume of leaf blocks when entities are below them, preventing them from passing through from below.",
   "passablefoliage.config.modifyPathFinding": "Modify Path Finding",
   "passablefoliage.config.modifyPathFinding.desc": "Should entities recognize leaves as air",
   "passablefoliage.config.modules": "Modules",

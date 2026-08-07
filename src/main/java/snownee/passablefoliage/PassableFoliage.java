@@ -6,6 +6,7 @@ import com.mojang.logging.LogUtils;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -25,6 +26,10 @@ public final class PassableFoliage {
 
 	public static final String ID = "passablefoliage";
 	public static final Logger LOGGER = LogUtils.getLogger();
+
+	public static Identifier id(String path) {
+		return Identifier.fromNamespaceAndPath(ID, path);
+	}
 
 	public static boolean enchantmentEnabled;
 	public static ThreadLocal<Boolean> suppressPassableCheck = ThreadLocal.withInitial(() -> false);
@@ -120,6 +125,10 @@ public final class PassableFoliage {
 		return ((PassableFoliageBlock) state.getBlock()).pfoliage$isPassable() && !suppressPassableCheck.get();
 	}
 
+	public static boolean isPartiallyInFoliage(LivingEntity entity) {
+		return ((PassableFoliageLiving) entity).pfoliage$isPartiallyInFoliage();
+	}
+
 	public static boolean hasLeafWalker(LivingEntity entity) {
 		return PassableFoliageCommonConfig.alwaysLeafWalking || enchantmentEnabled && EnchantmentHelper.has(
 				entity.getItemBySlot(
@@ -146,4 +155,5 @@ public final class PassableFoliage {
 			}
 		}
 	}
+
 }
