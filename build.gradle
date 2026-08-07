@@ -57,11 +57,11 @@ dependencies {
 
     modImplementation annotationProcessor("maven.modrinth:kiwi:${project.kiwi_version}+fabric")
 
-    modImplementation "maven.modrinth:regions-unexplored:0.6.2-fabric-21.1"
-    modImplementation "maven.modrinth:lithostitched:1.7.13-fabric-21.1"
-    implementation("de.marhali:json5-java:3.0.0")
-    implementation("com.electronwill.night-config:core:3.8.3")
-    implementation("com.electronwill.night-config:toml:3.8.3")
+//    modImplementation "maven.modrinth:regions-unexplored:0.6.2-fabric-21.1"
+//    modImplementation "maven.modrinth:lithostitched:1.7.13-fabric-21.1"
+//    implementation("de.marhali:json5-java:3.0.0")
+//    implementation("com.electronwill.night-config:core:3.8.3")
+//    implementation("com.electronwill.night-config:toml:3.8.3")
 }
 
 processResources {

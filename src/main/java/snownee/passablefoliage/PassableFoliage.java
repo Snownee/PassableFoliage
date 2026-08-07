@@ -1,5 +1,11 @@
 package snownee.passablefoliage;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
+import org.slf4j.Logger;
+
+import com.mojang.logging.LogUtils;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -16,13 +22,14 @@ import net.minecraft.world.phys.Vec3;
 public final class PassableFoliage {
 
 	public static final String ID = "passablefoliage";
+	public static final Logger LOGGER = LogUtils.getLogger();
 
 	public static ResourceLocation id(String path) {
 		return ResourceLocation.fromNamespaceAndPath(ID, path);
 	}
 
 	public static boolean enchantmentEnabled;
-	public static ThreadLocal<Boolean> suppressPassableCheck = ThreadLocal.withInitial(() -> false);
+	public static ThreadLocal<AtomicInteger> suppressPassableCheck = ThreadLocal.withInitial(() -> new AtomicInteger(0));
 
 	public static void onEntityCollidedWithLeaves(Level world, BlockPos pos, BlockState blockState, Entity entity) {
 		if (!(entity instanceof LivingEntity livingEntity)) {
@@ -102,7 +109,7 @@ public final class PassableFoliage {
 	}
 
 	public static boolean isPassable(BlockState state) {
-		return ((PassableFoliageBlock) state.getBlock()).pfoliage$isPassable() && !suppressPassableCheck.get();
+		return ((PassableFoliageBlock) state.getBlock()).pfoliage$isPassable() && suppressPassableCheck.get().get() <= 0;
 	}
 
 	public static boolean isPartiallyInFoliage(LivingEntity entity) {
@@ -116,6 +123,11 @@ public final class PassableFoliage {
 	}
 
 	public static void setSuppressPassableCheck(boolean suppressPassableCheck) {
-		PassableFoliage.suppressPassableCheck.set(suppressPassableCheck);
+		AtomicInteger atomicInteger = PassableFoliage.suppressPassableCheck.get();
+		if (suppressPassableCheck) {
+			atomicInteger.incrementAndGet();
+		} else if (atomicInteger.get() > 0) {
+			atomicInteger.decrementAndGet();
+		}
 	}
 }
