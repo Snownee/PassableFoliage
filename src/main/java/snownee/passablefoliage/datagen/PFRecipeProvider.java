@@ -50,7 +50,7 @@ public class PFRecipeProvider extends FabricRecipeProvider {
 						.requires(Items.ENCHANTED_BOOK)
 						.requires(ItemTags.LEAVES)
 						.unlockedBy(getHasName(Items.ENCHANTED_BOOK), has(Items.ENCHANTED_BOOK))
-						.save(withConditions);
+						.save(withConditions, "leaf_walker");
 			}
 		};
 	}
