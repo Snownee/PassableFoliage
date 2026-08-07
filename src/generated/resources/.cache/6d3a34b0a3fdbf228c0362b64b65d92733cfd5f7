@@ -1,0 +1,4 @@
+// 26.1.2	2026-08-29T12:38:22.0676259	Tags for minecraft:block mod id passablefoliage
+fe77cf19efd557cd10fe885c91d042fa9c059225 data/minecraft/tags/block/prevent_mob_spawning_inside.json
+a4e8097fff07f9a74259d6b5dd583f3437ff28a2 data/minecraft/tags/block/support_override_snow_layer.json
+a4e8097fff07f9a74259d6b5dd583f3437ff28a2 data/passablefoliage/tags/block/passables.json

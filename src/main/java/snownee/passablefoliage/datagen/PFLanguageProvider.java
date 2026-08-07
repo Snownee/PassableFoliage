@@ -13,6 +13,7 @@ public class PFLanguageProvider extends LanguageProvider {
 	protected void addTranslations() {
 		add("enchantment.passablefoliage.leaf_walker", "Leaf Walker");
 		add("enchantment.passablefoliage.leaf_walker.desc", "Allows the player to walk on foliage blocks.");
+		add("fml.menu.mods.info.description.passablefoliage", "Remove collision from leaves.");
 		add("modmenu.descriptionTranslation.passablefoliage", "Remove collision from leaves.");
 		add("modmenu.nameTranslation.passablefoliage", "Passable Foliage");
 		add("passablefoliage.config.alwaysLeafWalking", "Always Leaf Walking");

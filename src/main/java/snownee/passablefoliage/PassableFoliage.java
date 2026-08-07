@@ -128,7 +128,7 @@ public final class PassableFoliage {
 	}
 
 	public static boolean isPartiallyInFoliage(LivingEntity entity) {
-		return ((PassableFoliageLiving) entity).pfoliage$isPartiallyInFoliage();
+		return ((PassableFoliageEntity) entity).pfoliage$isPartiallyInFoliage();
 	}
 
 	public static boolean hasLeafWalker(LivingEntity entity) {
@@ -162,5 +162,4 @@ public final class PassableFoliage {
 			}
 		}
 	}
-
 }

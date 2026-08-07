@@ -14,19 +14,19 @@ import snownee.passablefoliage.PassableFoliage;
 
 @Mixin(MultifaceBlock.class)
 public class MultifaceBlockMixin {
-	@WrapMethod(method = "canAttachTo")
+	@WrapMethod(method = "canAttachTo(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z")
 	private static boolean pfoliage_canAttachTo(
-			BlockGetter blockGetter,
-			Direction direction,
-			BlockPos blockPos,
-			BlockState blockState,
+			BlockGetter level,
+			Direction directionTowardsNeighbour,
+			BlockPos neighbourPos,
+			BlockState neighbourState,
 			Operation<Boolean> original) {
-		if (PassableFoliage.isPassable(blockState)) {
+		if (PassableFoliage.isPassable(neighbourState)) {
 			PassableFoliage.setSuppressPassableCheck(true);
-			boolean result = original.call(blockGetter, direction, blockPos, blockState);
+			boolean result = original.call(level, directionTowardsNeighbour, neighbourPos, neighbourState);
 			PassableFoliage.setSuppressPassableCheck(false);
 			return result;
 		}
-		return original.call(blockGetter, direction, blockPos, blockState);
+		return original.call(level, directionTowardsNeighbour, neighbourPos, neighbourState);
 	}
 }
