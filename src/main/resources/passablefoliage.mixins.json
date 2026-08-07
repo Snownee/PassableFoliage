@@ -11,7 +11,7 @@
 		"BlockStateMixin",
 		"FlowingFluidMixin",
 		"LivingEntityMixin",
-		"VineBlockMixin",
+		"MultifaceBlockMixin",
 		"forge.IBlockExtensionMixin"
 	],
 	"client": [
