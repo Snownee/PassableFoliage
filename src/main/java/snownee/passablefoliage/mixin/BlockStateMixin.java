@@ -67,11 +67,19 @@ public class BlockStateMixin {
 			if (PassableFoliageCommonConfig.playerOnly && !(entity instanceof Player)) {
 				return;
 			}
-			if (entity instanceof LivingEntity && PassableFoliage.hasLeafWalker((LivingEntity) entity)) {
-				if (context.isDescending() || entity.blockPosition().getY() <= pos.getY()) {
-					ci.setReturnValue(Shapes.empty());
+			if (entity instanceof LivingEntity livingEntity) {
+				if (PassableFoliageCommonConfig.headHitter && entity.getEyeY() < pos.getY()
+						&& !livingEntity.isFallFlying()
+						&& !(entity instanceof Player player && player.getAbilities().flying)
+						&& !PassableFoliage.isPartiallyInFoliage(livingEntity)) {
+					return;
 				}
-				return;
+				if (PassableFoliage.hasLeafWalker(livingEntity)) {
+					if (context.isDescending() || entity.blockPosition().getY() <= pos.getY()) {
+						ci.setReturnValue(Shapes.empty());
+					}
+					return;
+				}
 			}
 			ci.setReturnValue(Shapes.empty());
 		}

@@ -1,6 +1,7 @@
 package snownee.passablefoliage;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -15,6 +16,10 @@ import net.minecraft.world.phys.Vec3;
 public final class PassableFoliage {
 
 	public static final String ID = "passablefoliage";
+
+	public static ResourceLocation id(String path) {
+		return ResourceLocation.fromNamespaceAndPath(ID, path);
+	}
 
 	public static boolean enchantmentEnabled;
 	public static ThreadLocal<Boolean> suppressPassableCheck = ThreadLocal.withInitial(() -> false);
@@ -100,6 +105,10 @@ public final class PassableFoliage {
 		return ((PassableFoliageBlock) state.getBlock()).pfoliage$isPassable() && !suppressPassableCheck.get();
 	}
 
+	public static boolean isPartiallyInFoliage(LivingEntity entity) {
+		return ((PassableFoliageLiving) entity).pfoliage$isPartiallyInFoliage();
+	}
+
 	public static boolean hasLeafWalker(LivingEntity entity) {
 		return PassableFoliageCommonConfig.alwaysLeafWalking || enchantmentEnabled && EnchantmentHelper.has(
 				entity.getItemBySlot(
@@ -109,5 +118,4 @@ public final class PassableFoliage {
 	public static void setSuppressPassableCheck(boolean suppressPassableCheck) {
 		PassableFoliage.suppressPassableCheck.set(suppressPassableCheck);
 	}
-
 }

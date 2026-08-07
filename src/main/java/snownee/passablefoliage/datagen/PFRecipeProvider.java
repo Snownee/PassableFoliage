@@ -14,7 +14,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.Items;
@@ -28,8 +27,7 @@ public class PFRecipeProvider extends FabricRecipeProvider {
 
 	private HolderLookup.Provider wrapperLookup;
 
-	public PFRecipeProvider(
-			FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+	public PFRecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
 		super(output, registriesFuture);
 	}
 
@@ -46,14 +44,14 @@ public class PFRecipeProvider extends FabricRecipeProvider {
 				.getOrThrow(PFEnchantmentProvider.LEAF_WALKER);
 		EnchantmentInstance enchantmentInstance = new EnchantmentInstance(holder, 1);
 		ResourceCondition condition = ResourceConditions.and(
-				new ModuleLoadedCondition(ResourceLocation.fromNamespaceAndPath(PassableFoliage.ID, "enchantment")),
+				new ModuleLoadedCondition(PassableFoliage.id("enchantment")),
 				ResourceConditions.not(new AlwaysLeafWalkingCondition()));
 		exporter = withConditions(exporter, condition);
 		new ComponentsShapelessRecipeBuilder(RecipeCategory.MISC, EnchantedBookItem.createForEnchantment(enchantmentInstance))
 				.requires(Items.ENCHANTED_BOOK)
 				.requires(ItemTags.LEAVES)
 				.unlockedBy(getHasName(Items.ENCHANTED_BOOK), has(Items.ENCHANTED_BOOK))
-				.save(exporter);
+				.save(exporter, PassableFoliage.id("leaf_walker"));
 	}
 }
 */
