@@ -11,6 +11,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import snownee.passablefoliage.PassableFoliage;
+import snownee.passablefoliage.PassableFoliageCommonConfig;
 import snownee.passablefoliage.PassableFoliageLiving;
 
 @Mixin(value = LivingEntity.class, priority = 0)
@@ -24,7 +25,9 @@ public abstract class LivingEntityMixin extends Entity implements PassableFoliag
 
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void pfoliage_tick(CallbackInfo ci) {
-		pfoliage$isPartiallyInFoliage = level().getBlockStatesIfLoaded(getBoundingBox()).anyMatch(PassableFoliage::isPassable);
+		if (PassableFoliageCommonConfig.headHitter) {
+			pfoliage$isPartiallyInFoliage = level().getBlockStatesIfLoaded(getBoundingBox()).anyMatch(PassableFoliage::isPassable);
+		}
 	}
 
 	@Override
