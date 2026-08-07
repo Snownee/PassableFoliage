@@ -9,7 +9,6 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -23,7 +22,7 @@ public class PFEnchantmentProvider extends FabricDynamicRegistryProvider {
 
 	public static final ResourceKey<Enchantment> LEAF_WALKER = ResourceKey.create(
 			Registries.ENCHANTMENT,
-			Identifier.fromNamespaceAndPath(PassableFoliage.ID, "leaf_walker"));
+			PassableFoliage.id("leaf_walker"));
 
 	public PFEnchantmentProvider(
 			FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
@@ -34,9 +33,7 @@ public class PFEnchantmentProvider extends FabricDynamicRegistryProvider {
 	protected void configure(HolderLookup.Provider registries, Entries entries) {
 		HolderLookup.RegistryLookup<Enchantment> lookup = registries.lookupOrThrow(Registries.ENCHANTMENT);
 		Holder.Reference<Enchantment> holder = lookup.getOrThrow(LEAF_WALKER);
-		ModuleLoadedCondition condition = new ModuleLoadedCondition(Identifier.fromNamespaceAndPath(
-				PassableFoliage.ID,
-				"enchantment"));
+		ModuleLoadedCondition condition = new ModuleLoadedCondition(PassableFoliage.id("enchantment"));
 		entries.add(holder, condition);
 	}
 

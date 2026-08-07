@@ -10,6 +10,7 @@
 	"passablefoliage.config.playerOnly.desc": "Should only players be able to pass through leaves",
 	"passablefoliage.config.alwaysNotViewBlocking.desc": "Prevents leaves from rendering a texture in front of the player's view",
 	"passablefoliage.config.alwaysLeafWalking.desc": "Always consider the player to have the Leaf Walker enchantment.\nOnce enabled, the recipe of Leaf Walker enchantment will be removed from the game, and the fall damage reduction and speed reduction will be ignored.",
+	"passablefoliage.config.headHitter.desc": "Restores the collision volume of leaf blocks when entities are below them, preventing them from passing through from below.",
 	"passablefoliage.config.sounds.playerOnly.desc": "Only players can make noises",
 	"passablefoliage.config.sounds.volume.desc": "The volume of the sound made when moving inside leaves"
 }

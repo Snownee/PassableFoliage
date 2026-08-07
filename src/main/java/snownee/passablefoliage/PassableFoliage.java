@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -14,7 +14,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -26,10 +25,12 @@ public final class PassableFoliage {
 	public static final String ID = "passablefoliage";
 	public static final Logger LOGGER = LogUtils.getLogger();
 
+	public static ResourceLocation id(String path) {
+		return ResourceLocation.fromNamespaceAndPath(ID, path);
+	}
+
 	public static boolean enchantmentEnabled;
 	public static ThreadLocal<Boolean> suppressPassableCheck = ThreadLocal.withInitial(() -> false);
-	private static boolean err;
-
 	public static void onEntityCollidedWithLeaves(
 			Level world,
 			BlockPos pos,
@@ -120,6 +121,10 @@ public final class PassableFoliage {
 		return ((PassableFoliageBlock) state.getBlock()).pfoliage$isPassable() && !suppressPassableCheck.get();
 	}
 
+	public static boolean isPartiallyInFoliage(LivingEntity entity) {
+		return ((PassableFoliageLiving) entity).pfoliage$isPartiallyInFoliage();
+	}
+
 	public static boolean hasLeafWalker(LivingEntity entity) {
 		return PassableFoliageCommonConfig.alwaysLeafWalking || enchantmentEnabled && EnchantmentHelper.has(
 				entity.getItemBySlot(
@@ -130,20 +135,4 @@ public final class PassableFoliage {
 		PassableFoliage.suppressPassableCheck.set(suppressPassableCheck);
 	}
 
-	public static void tagsLoaded() {
-		for (Block block : BuiltInRegistries.BLOCK) {
-			try {
-				((PassableFoliageBlock) block).pfoliage$setPassable(block.defaultBlockState().is(CoreModule.PASSABLES));
-			} catch (Throwable e) {
-				if (!err) {
-					PassableFoliage.LOGGER.warn(
-							"Passable Foliage: Failed to set passable state for block {}",
-							BuiltInRegistries.BLOCK.getKey(block),
-							e);
-					err = true;
-				}
-				((PassableFoliageBlock) block).pfoliage$setPassable(false);
-			}
-		}
-	}
 }

@@ -27,6 +27,8 @@ public final class PassableFoliageCommonConfig {
 
 	public static boolean alwaysLeafWalking = false;
 
+	public static boolean headHitter = false;
+
 	@Path("sounds.playerOnly")
 	public static boolean soundsPlayerOnly = false;
 

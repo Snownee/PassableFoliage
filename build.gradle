@@ -12,6 +12,10 @@ base {
     archivesName = project.archives_base_name
 }
 
+base {
+    archivesName = project.archives_base_name
+}
+
 repositories {
     maven { url "https://maven.shedaniel.me/" }
     maven { url "https://maven.terraformersmc.com/releases/" }
