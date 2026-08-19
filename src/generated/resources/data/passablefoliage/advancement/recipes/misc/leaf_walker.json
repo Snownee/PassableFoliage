@@ -4,8 +4,7 @@
       "condition": "fabric:and",
       "values": [
         {
-          "condition": "kiwi:is_loaded",
-          "module": "passablefoliage:enchantment"
+          "condition": "passablefoliage:leaf_walker_enabled"
         },
         {
           "condition": "fabric:not",

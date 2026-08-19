@@ -1,5 +1,5 @@
-name: Bug/Suggestion except third-party mod integration or porting requests
-description: Do not write different problems/ideas in one issue, keep them separate
+name: Bug report or suggestion
+description: Report one problem or idea per issue
 body:
   - type: dropdown
     id: modloader
@@ -8,24 +8,21 @@ body:
       options:
         - Please select
         - Fabric
-        - NeoForge
-        - Forge
         - Quilt
-        - Other
     validations:
       required: true
   - type: input
     id: mc-version
     attributes:
       label: Minecraft version
-      placeholder: eg. 1.21.1
+      placeholder: eg. 26.2
     validations:
       required: true
   - type: input
     id: mod-version
     attributes:
       label: Mod version
-      placeholder: eg. 1.0.0
+      placeholder: eg. 26.2.0
     validations:
       required: true
   - type: input
@@ -35,7 +32,7 @@ body:
       description: |
         List the version of the mod loader you are using.
         If on Fabric, post the versions of both Fabric Loader and Fabric API.
-      placeholder: "eg. NeoForge: 21.0.0 / Fabric: Loader 0.10.6 + API 0.42.1"
+      placeholder: "eg. Fabric Loader 0.19.3 + Fabric API 0.158.0"
     validations:
       required: true
   - type: input
@@ -49,7 +46,7 @@ body:
     attributes:
       label: "[IMPORTANT] If bug:"
       options:
-        - label: "I have confirmed this bug is reproducible on a minimal setup, not a modpack with many other mods."
+        - label: "I confirmed that this bug is reproducible on a minimal setup, not only in a large modpack."
   - type: input
     attributes:
       label: "[IMPORTANT] If bug: The **latest.log** file, not the crash report"

@@ -1,22 +1,24 @@
 package snownee.passablefoliage;
 
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Unit;
-import snownee.kiwi.AbstractModule;
-import snownee.kiwi.KiwiGO;
-import snownee.kiwi.KiwiModule;
 
-@KiwiModule("enchantment")
-@KiwiModule.Optional
-public final class EnchantmentModule extends AbstractModule {
+public final class EnchantmentModule {
 
-	public static final KiwiGO<DataComponentType<Unit>> LEAF_WALKER = go(() -> DataComponentType.<Unit>builder()
+	public static final DataComponentType<Unit> LEAF_WALKER = DataComponentType.<Unit>builder()
 			.persistent(Unit.CODEC)
-			.build(), Registries.ENCHANTMENT_EFFECT_COMPONENT_TYPE);
+			.build();
 
-	public EnchantmentModule() {
-		PassableFoliage.enchantmentEnabled = true;
+	private EnchantmentModule() {
+	}
+
+	public static void register() {
+		Registry.register(
+				BuiltInRegistries.ENCHANTMENT_EFFECT_COMPONENT_TYPE,
+				PassableFoliage.id("leaf_walker"),
+				LEAF_WALKER);
 	}
 
 }

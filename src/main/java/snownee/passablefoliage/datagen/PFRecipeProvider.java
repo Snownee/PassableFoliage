@@ -19,8 +19,8 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
-import snownee.kiwi.recipe.ModuleLoadedCondition;
 import snownee.passablefoliage.AlwaysLeafWalkingCondition;
+import snownee.passablefoliage.LeafWalkerEnabledCondition;
 import snownee.passablefoliage.PassableFoliage;
 
 public class PFRecipeProvider extends FabricRecipeProvider {
@@ -38,8 +38,8 @@ public class PFRecipeProvider extends FabricRecipeProvider {
 				Holder.Reference<Enchantment> holder = registries.lookupOrThrow(Registries.ENCHANTMENT)
 						.getOrThrow(PFEnchantmentProvider.LEAF_WALKER);
 				ResourceCondition condition = ResourceConditions.and(
-						new ModuleLoadedCondition(PassableFoliage.id("enchantment")),
-						ResourceConditions.not(new AlwaysLeafWalkingCondition()));
+						LeafWalkerEnabledCondition.INSTANCE,
+						ResourceConditions.not(AlwaysLeafWalkingCondition.INSTANCE));
 				RecipeOutput withConditions = withConditions(output, condition);
 				ItemEnchantments.Mutable enchantments = new ItemEnchantments.Mutable(ItemEnchantments.EMPTY);
 				enchantments.set(holder, 1);

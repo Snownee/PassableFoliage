@@ -25,9 +25,11 @@ public class FlowingFluidMixin {
 			BlockState targetState,
 			Operation<Boolean> ci) {
 		PassableFoliage.setSuppressPassableCheck(true);
-		boolean bl = ci.call(direction, level, sourcePos, sourceState, targetPos, targetState);
-		PassableFoliage.setSuppressPassableCheck(false);
-		return bl;
+		try {
+			return ci.call(direction, level, sourcePos, sourceState, targetPos, targetState);
+		} finally {
+			PassableFoliage.setSuppressPassableCheck(false);
+		}
 	}
 
 }

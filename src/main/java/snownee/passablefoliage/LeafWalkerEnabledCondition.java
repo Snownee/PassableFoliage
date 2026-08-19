@@ -1,6 +1,5 @@
 package snownee.passablefoliage;
 
-
 import org.jspecify.annotations.Nullable;
 
 import com.mojang.serialization.MapCodec;
@@ -9,12 +8,13 @@ import net.fabricmc.fabric.api.resource.conditions.v1.ResourceCondition;
 import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditionType;
 import net.minecraft.resources.RegistryOps;
 
-public final class AlwaysLeafWalkingCondition implements ResourceCondition {
-	public static final AlwaysLeafWalkingCondition INSTANCE = new AlwaysLeafWalkingCondition();
-	public static final ResourceConditionType<AlwaysLeafWalkingCondition> TYPE = ResourceConditionType.create(
-			PassableFoliage.id("always_leaf_walking"), MapCodec.unit(INSTANCE));
+public final class LeafWalkerEnabledCondition implements ResourceCondition {
+	public static final LeafWalkerEnabledCondition INSTANCE = new LeafWalkerEnabledCondition();
 
-	private AlwaysLeafWalkingCondition() {
+	public static final ResourceConditionType<LeafWalkerEnabledCondition> TYPE = ResourceConditionType.create(
+			PassableFoliage.id("leaf_walker_enabled"), MapCodec.unit(INSTANCE));
+
+	private LeafWalkerEnabledCondition() {
 	}
 
 	@Override
@@ -24,6 +24,6 @@ public final class AlwaysLeafWalkingCondition implements ResourceCondition {
 
 	@Override
 	public boolean test(RegistryOps.@Nullable RegistryInfoLookup registryInfo) {
-		return PassableFoliageCommonConfig.alwaysLeafWalking;
+		return PassableFoliageCommonConfig.leafWalkerEnabled;
 	}
 }

@@ -1,7 +1,5 @@
 package snownee.passablefoliage;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -33,8 +31,7 @@ public final class PassableFoliage {
 		return Identifier.fromNamespaceAndPath(ID, path);
 	}
 
-	public static boolean enchantmentEnabled;
-	public static ThreadLocal<AtomicInteger> suppressPassableCheck = ThreadLocal.withInitial(() -> new AtomicInteger(0));
+	private static final ThreadLocal<int[]> SUPPRESS_PASSABLE_CHECK = ThreadLocal.withInitial(() -> new int[1]);
 	private static boolean err;
 
 	public static void onEntityCollidedWithLeaves(
@@ -53,9 +50,13 @@ public final class PassableFoliage {
 		}
 
 		if (!entity.isPassenger()) {
+			boolean colliding;
 			setSuppressPassableCheck(true);
-			boolean colliding = entity.isColliding(pos, blockState);
-			setSuppressPassableCheck(false);
+			try {
+				colliding = entity.isColliding(pos, blockState);
+			} finally {
+				setSuppressPassableCheck(false);
+			}
 			if (!colliding) {
 				return;
 			}
@@ -72,7 +73,7 @@ public final class PassableFoliage {
 							soundType.getPitch() * 0.65f);
 				}
 				// play a sound when an entity is moving through leaves (only play sound every 6 ticks as to not flood sound events)
-				else if (world.getGameTime() % 6 == 0) {
+				else if (entity.tickCount % 6 == 0) {
 					double motion = entity.getKnownSpeed().lengthSqr();
 					if (motion > 5e-7) {
 						SoundType soundType = blockState.getSoundType();
@@ -86,7 +87,7 @@ public final class PassableFoliage {
 		}
 
 		float h = 1, v = 1;
-		if (PassableFoliageCommonConfig.alwaysLeafWalking || !hasLeafWalker(livingEntity)) {
+		if (!hasLeafWalker(livingEntity)) {
 			boolean jumping = livingEntity.isJumping() || livingEntity.getKnownSpeed().y() > 0;
 			if (!jumping && !((PassableFoliageEntity) livingEntity).pfoliage$isInside()) {
 				v = PassableFoliageCommonConfig.speedMultiplierVertical;
@@ -98,7 +99,6 @@ public final class PassableFoliage {
 		if (h < 1 || v < 1) {
 			Vec3 newMotion = entity.getDeltaMovement().multiply(h, v, h);
 			entity.setDeltaMovement(newMotion);
-			LOGGER.info("Modified motion of entity {} to {} when inside leaves at {}", entity, newMotion, pos);
 		}
 
 		// modify falling damage when falling into leaves
@@ -124,7 +124,8 @@ public final class PassableFoliage {
 	}
 
 	public static boolean isPassable(BlockState state) {
-		return ((PassableFoliageBlock) state.getBlock()).pfoliage$isPassable() && suppressPassableCheck.get().get() <= 0;
+		return SUPPRESS_PASSABLE_CHECK.get()[0] == 0 &&
+				((PassableFoliageBlock) state.getBlock()).pfoliage$isPassable();
 	}
 
 	public static boolean isPartiallyInFoliage(LivingEntity entity) {
@@ -132,17 +133,17 @@ public final class PassableFoliage {
 	}
 
 	public static boolean hasLeafWalker(LivingEntity entity) {
-		return PassableFoliageCommonConfig.alwaysLeafWalking || enchantmentEnabled && EnchantmentHelper.has(
-				entity.getItemBySlot(
-						EquipmentSlot.FEET), EnchantmentModule.LEAF_WALKER.get());
+		return PassableFoliageCommonConfig.alwaysLeafWalking ||
+				PassableFoliageCommonConfig.leafWalkerEnabled && EnchantmentHelper.has(
+						entity.getItemBySlot(EquipmentSlot.FEET), EnchantmentModule.LEAF_WALKER);
 	}
 
 	public static void setSuppressPassableCheck(boolean suppressPassableCheck) {
-		AtomicInteger atomicInteger = PassableFoliage.suppressPassableCheck.get();
+		int[] depth = SUPPRESS_PASSABLE_CHECK.get();
 		if (suppressPassableCheck) {
-			atomicInteger.incrementAndGet();
-		} else if (atomicInteger.get() > 0) {
-			atomicInteger.decrementAndGet();
+			depth[0]++;
+		} else if (depth[0] > 0 && --depth[0] == 0) {
+			SUPPRESS_PASSABLE_CHECK.remove();
 		}
 	}
 
@@ -150,7 +151,7 @@ public final class PassableFoliage {
 		for (Block block : BuiltInRegistries.BLOCK) {
 			try {
 				((PassableFoliageBlock) block).pfoliage$setPassable(block.defaultBlockState().is(CoreModule.PASSABLES));
-			} catch (Throwable e) {
+			} catch (RuntimeException e) {
 				if (!err) {
 					PassableFoliage.LOGGER.warn(
 							"Passable Foliage: Failed to set passable state for block {}",

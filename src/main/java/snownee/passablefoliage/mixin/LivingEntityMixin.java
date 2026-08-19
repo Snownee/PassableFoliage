@@ -38,9 +38,8 @@ public abstract class LivingEntityMixin extends Entity implements PassableFoliag
 	@Inject(method = "baseTick", at = @At("HEAD"))
 	private void pfoliage_baseTick(CallbackInfo ci) {
 		pfoliage$inside = false;
-		if (PassableFoliageCommonConfig.headHitter) {
-			pfoliage$isPartiallyInFoliage = level().getBlockStatesIfLoaded(getBoundingBox()).anyMatch(PassableFoliage::isPassable);
-		}
+		pfoliage$isPartiallyInFoliage = PassableFoliageCommonConfig.headHitter &&
+				level().getBlockStatesIfLoaded(getBoundingBox()).anyMatch(PassableFoliage::isPassable);
 	}
 
 	@Override

@@ -23,9 +23,11 @@ public class MultifaceBlockMixin {
 			Operation<Boolean> original) {
 		if (PassableFoliage.isPassable(neighbourState)) {
 			PassableFoliage.setSuppressPassableCheck(true);
-			boolean result = original.call(level, directionTowardsNeighbour, neighbourPos, neighbourState);
-			PassableFoliage.setSuppressPassableCheck(false);
-			return result;
+			try {
+				return original.call(level, directionTowardsNeighbour, neighbourPos, neighbourState);
+			} finally {
+				PassableFoliage.setSuppressPassableCheck(false);
+			}
 		}
 		return original.call(level, directionTowardsNeighbour, neighbourPos, neighbourState);
 	}

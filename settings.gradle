@@ -6,5 +6,7 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
-    }
+	}
 }
+
+rootProject.name = 'PassableFoliageForked'

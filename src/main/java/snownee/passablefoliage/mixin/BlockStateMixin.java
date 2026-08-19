@@ -1,7 +1,6 @@
 package snownee.passablefoliage.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -29,9 +28,6 @@ import snownee.passablefoliage.PassableFoliageCommonConfig;
 
 @Mixin(BlockStateBase.class)
 public class BlockStateMixin {
-
-	@Shadow
-	private BlockStateBase.Cache cache;
 
 	@Unique
 	private BlockState self() {
@@ -86,9 +82,11 @@ public class BlockStateMixin {
 	private VoxelShape pfoliage_getBlockSupportShape(BlockGetter blockGetter, BlockPos blockPos, Operation<VoxelShape> original) {
 		if (PassableFoliage.isPassable(self())) {
 			PassableFoliage.setSuppressPassableCheck(true);
-			VoxelShape shape = original.call(blockGetter, blockPos);
-			PassableFoliage.setSuppressPassableCheck(false);
-			return shape;
+			try {
+				return original.call(blockGetter, blockPos);
+			} finally {
+				PassableFoliage.setSuppressPassableCheck(false);
+			}
 		}
 		return original.call(blockGetter, blockPos);
 	}
@@ -106,7 +104,7 @@ public class BlockStateMixin {
 
 	@Inject(at = @At("HEAD"), method = "isCollisionShapeFullBlock", cancellable = true)
 	private void pfoliage_isCollisionShapeFullBlock(BlockGetter blockReaderIn, BlockPos blockPosIn, CallbackInfoReturnable<Boolean> ci) {
-		if (cache == null && PassableFoliage.isPassable(self())) {
+		if (PassableFoliage.isPassable(self())) {
 			ci.setReturnValue(false);
 		}
 	}
@@ -128,10 +126,12 @@ public class BlockStateMixin {
 	private void pfoliage_getShadeBrightness(BlockGetter reader, BlockPos pos, CallbackInfoReturnable<Float> ci) {
 		if (PassableFoliage.isPassable(self())) {
 			PassableFoliage.setSuppressPassableCheck(true);
-			//noinspection deprecation
-			boolean full = self().getBlock().isCollisionShapeFullBlock(self(), reader, pos);
-			PassableFoliage.setSuppressPassableCheck(false);
-			ci.setReturnValue(full ? 0.2F : 1.0F);
+			try {
+				boolean full = self().isCollisionShapeFullBlock(reader, pos);
+				ci.setReturnValue(full ? 0.2F : 1.0F);
+			} finally {
+				PassableFoliage.setSuppressPassableCheck(false);
+			}
 		}
 	}
 

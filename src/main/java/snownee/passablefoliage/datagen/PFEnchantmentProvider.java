@@ -14,8 +14,8 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
-import snownee.kiwi.recipe.ModuleLoadedCondition;
 import snownee.passablefoliage.EnchantmentModule;
+import snownee.passablefoliage.LeafWalkerEnabledCondition;
 import snownee.passablefoliage.PassableFoliage;
 
 public class PFEnchantmentProvider extends FabricDynamicRegistryProvider {
@@ -33,8 +33,7 @@ public class PFEnchantmentProvider extends FabricDynamicRegistryProvider {
 	protected void configure(HolderLookup.Provider registries, Entries entries) {
 		HolderLookup.RegistryLookup<Enchantment> lookup = registries.lookupOrThrow(Registries.ENCHANTMENT);
 		Holder.Reference<Enchantment> holder = lookup.getOrThrow(LEAF_WALKER);
-		ModuleLoadedCondition condition = new ModuleLoadedCondition(PassableFoliage.id("enchantment"));
-		entries.add(holder, condition);
+		entries.add(holder, LeafWalkerEnabledCondition.INSTANCE);
 	}
 
 	@Override
@@ -52,6 +51,6 @@ public class PFEnchantmentProvider extends FabricDynamicRegistryProvider {
 						Enchantment.constantCost(25),
 						Enchantment.constantCost(50),
 						8,
-						EquipmentSlotGroup.FEET)).withEffect(EnchantmentModule.LEAF_WALKER.get()).build(LEAF_WALKER.identifier()));
+						EquipmentSlotGroup.FEET)).withEffect(EnchantmentModule.LEAF_WALKER).build(LEAF_WALKER.identifier()));
 	}
 }

@@ -2,12 +2,14 @@ package snownee.passablefoliage;
 
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
-import snownee.kiwi.AbstractModule;
-import snownee.kiwi.KiwiModule;
 
-@KiwiModule
-public final class CoreModule extends AbstractModule {
+public final class CoreModule {
 
-	public static final TagKey<Block> PASSABLES = blockTag(PassableFoliage.ID, "passables");
+	public static final TagKey<Block> PASSABLES = TagKey.create(
+			net.minecraft.core.registries.Registries.BLOCK,
+			PassableFoliage.id("passables"));
+
+	private CoreModule() {
+	}
 
 }

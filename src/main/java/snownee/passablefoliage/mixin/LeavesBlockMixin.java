@@ -18,8 +18,11 @@ public class LeavesBlockMixin {
 	@WrapMethod(method = "animateTick")
 	private void pfoliage_animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, Operation<Void> original) {
 		PassableFoliage.setSuppressPassableCheck(true);
-		original.call(state, level, pos, random);
-		PassableFoliage.setSuppressPassableCheck(false);
+		try {
+			original.call(state, level, pos, random);
+		} finally {
+			PassableFoliage.setSuppressPassableCheck(false);
+		}
 	}
 
 }
