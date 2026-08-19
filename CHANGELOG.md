@@ -2,16 +2,16 @@
 
 ## 26.2.0
 
-- Portado para Minecraft Java 26.2 estável e Java 25.
-- Atualizados Fabric Loader, Fabric API, Loom e Gradle.
-- Removida a dependência Kiwi e implementados configuração, registro e condições de recursos nativos.
-- Adicionada migração da configuração YAML antiga para JSON.
-- Corrigida a lógica de ocultação de etiquetas de nome.
-- Corrigida a desaceleração indevida quando `alwaysLeafWalking` estava ativo.
-- Preservados em memória os valores carregados quando a criação do arquivo de configuração falha.
-- Corrigida a restauração do estado temporário de colisão quando uma chamada lança exceção.
-- Removido logging excessivo no processamento de movimento das entidades.
-- Atualizados datagen, tags e formato de recursos para 26.2.
-- Removidos binários e arquivos auxiliares desnecessários do pacote-fonte.
-- Fixadas versões de dependências e adicionado checksum da distribuição Gradle.
-- Mantido suporte a Fabric e Quilt, em cliente e servidor.
+- Ported the mod to Minecraft Java 26.2 and Java 25.
+- Updated Fabric Loader, Fabric API, Loom and Gradle.
+- Removed the Kiwi dependency and replaced its configuration, registration and resource-condition features with native implementations.
+- Added migration from the old YAML configuration to JSON.
+- Fixed the inverted name-tag visibility check.
+- Fixed foliage slowdown while `alwaysLeafWalking` was enabled.
+- Preserved loaded values when the configuration file cannot be created.
+- Ensured temporary collision state is restored if an intercepted call throws an exception.
+- Removed excessive logging from entity movement processing.
+- Updated datagen, tags and resource formats for Minecraft 26.2.
+- Removed unnecessary binaries and development files from the source package.
+- Pinned dependency versions and added checksum verification for the Gradle distribution.
+- Preserved Fabric and Quilt support on both client and server.

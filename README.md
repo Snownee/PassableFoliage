@@ -1,101 +1,101 @@
 # Passable Foliage Forked
 
-Versão do mod: **26.2.0**  
+Mod version: **26.2.0**  
 Minecraft Java: **26.2**
 
-## Propósito
+## About
 
-Passable Foliage permite que jogadores e entidades atravessem folhas e outros blocos adicionados à tag `passablefoliage:passables`. O mod preserva a interação física com a folhagem por meio de redução configurável de velocidade, sons, redução de dano de queda, suporte a pathfinding e o encantamento Leaf Walker.
+Passable Foliage allows players and entities to move through leaves and any other blocks included in the `passablefoliage:passables` tag. Movement through foliage still has configurable effects such as reduced speed, sounds and fall-damage reduction. The mod also adjusts pathfinding and provides the Leaf Walker enchantment.
 
-O projeto é um fork do [Passable Foliage](https://github.com/Snownee/PassableFoliage), criado originalmente por Snownee e distribuído sob a licença MIT.
+This project is a fork of [Passable Foliage](https://github.com/Snownee/PassableFoliage), originally created by Snownee and released under the MIT License.
 
-## Compatibilidade
+## Requirements
 
-| Componente | Versão |
+| Component | Version |
 | --- | --- |
-| Minecraft Java | 26.2 estável |
-| Java | 25 ou superior |
-| Fabric Loader | 0.19.3 ou superior |
-| Fabric API | 0.158.0 ou superior para Minecraft 26.2 |
-| Quilt Loader | Suportado pela camada de compatibilidade com mods Fabric |
-| Ambiente | Cliente e servidor |
+| Minecraft Java | 26.2 |
+| Java | 25 or newer |
+| Fabric Loader | 0.19.3 or newer |
+| Fabric API | 0.158.0 or newer for Minecraft 26.2 |
+| Quilt Loader | Supported through Fabric mod compatibility |
+| Environment | Client and server |
 
-O mesmo JAR é usado no Fabric e no Quilt. O Fabric API continua obrigatório nos dois casos.
+The same JAR can be used with Fabric and Quilt. Fabric API is required in both cases.
 
-NeoForge não faz parte desta árvore de código: o arquivo original recebido corresponde ao ramo Fabric/Quilt.
+NeoForge is not included in this source tree. The original project supplied for this update was the Fabric/Quilt branch.
 
-## Principais recursos
+## Features
 
-- Remove a colisão das folhas e de blocos adicionados à tag do mod.
-- Permite restringir a passagem somente a jogadores.
-- Ajusta separadamente a velocidade horizontal e vertical dentro da folhagem.
-- Reduz e limita dano de queda ao aterrissar em folhas.
-- Reproduz sons de impacto e deslocamento com volume configurável.
-- Ajusta o pathfinding para que entidades reconheçam a folhagem como passagem livre.
-- Oferece o encantamento Leaf Walker para caminhar sobre folhas.
-- Inclui o modo `headHitter`, que mantém colisão ao tentar atravessar folhas por baixo.
-- Oculta a etiqueta de nome somente quando a entidade está totalmente dentro da folhagem.
+- Removes collision from leaves and blocks included in the mod tag.
+- Can restrict passable foliage to players only.
+- Configurable horizontal and vertical movement speed inside foliage.
+- Reduces and limits fall damage when landing in leaves.
+- Plays configurable impact and movement sounds.
+- Allows pathfinding entities to recognize foliage as an open path.
+- Includes the Leaf Walker enchantment for walking on top of foliage.
+- Includes the `headHitter` option, which preserves collision when approaching foliage from below.
+- Hides an entity's name tag only while the entity is fully inside foliage.
 
-## Mudanças da versão 26.2.0
+## Changes in 26.2.0
 
-- Atualização do Minecraft 26.1.2 para o Minecraft Java 26.2 estável.
-- Atualização para Fabric Loader 0.19.3, Fabric API 0.158.0, Loom 1.17.19, Gradle 9.7.0 e Java 25.
-- Remoção da dependência Kiwi, que ainda não possui versão compatível com o Minecraft 26.2.
-- Registro do encantamento e das condições de recursos diretamente pelas APIs Fabric e vanilla.
-- Nova configuração própria em `config/passablefoliage.json`, sem biblioteca externa.
-- Migração automática das opções conhecidas do antigo `config/passablefoliage-common.yaml`; o arquivo antigo não é apagado.
-- Validação de tipo, faixa numérica e tamanho máximo do arquivo de configuração.
-- Escrita atômica da configuração para reduzir risco de arquivo parcialmente gravado.
-- Correção de um erro que invertia a regra de ocultação de etiquetas de nome.
-- Correção do modo `alwaysLeafWalking`, que não aplica mais a desaceleração da folhagem.
-- Uma falha ao criar a configuração agora mantém os valores seguros já carregados em memória.
-- Proteção com `try/finally` nas supressões temporárias de colisão, evitando que uma exceção deixe o estado da thread corrompido.
-- Remoção de log em nível `INFO` executado no caminho de movimento de entidades a cada tick.
-- Remoção de acesso interno desnecessário do Minecraft e do arquivo Access Widener.
-- Atualização dos formatos de recursos e das APIs de geração de tags para o Minecraft 26.2.
-- Dependências e plugins de build fixados em versões exatas; não há mais versão dinâmica `2.+`.
-- Build reproduzível, checksum da distribuição Gradle e wrapper atualizado.
-- Remoção do `Stripper.exe`, do script auxiliar Python, dos metadados `.git` e de arquivos de edição que não eram necessários para compilar o mod.
+- Updated from Minecraft 26.1.2 to Minecraft Java 26.2.
+- Updated to Fabric Loader 0.19.3, Fabric API 0.158.0, Loom 1.17.19, Gradle 9.7.0 and Java 25.
+- Removed the Kiwi dependency because no Minecraft 26.2-compatible release was available.
+- Replaced Kiwi registration and resource conditions with native Fabric and vanilla APIs.
+- Replaced the old YAML configuration with `config/passablefoliage.json`.
+- Added automatic migration of known values from `config/passablefoliage-common.yaml`. The old file is not deleted.
+- Added strict parsing, type and range validation, and a 64 KiB configuration size limit.
+- Added atomic configuration writes to reduce the risk of partially written files.
+- Fixed the inverted name-tag visibility check.
+- Fixed foliage slowdown still being applied while `alwaysLeafWalking` was enabled.
+- Preserved loaded configuration values when the configuration file cannot be created.
+- Protected temporary collision suppression with `try/finally` blocks.
+- Removed an `INFO` log from the entity movement hot path.
+- Removed unnecessary access to Minecraft internals and the Access Widener.
+- Updated resource formats, datagen and tag APIs for Minecraft 26.2.
+- Replaced dynamic build-plugin versions with exact versions.
+- Enabled reproducible archives and added checksum verification to the Gradle Wrapper.
+- Removed development leftovers and binaries that were not required to build the mod.
 
-## Configuração
+## Configuration
 
-O arquivo `config/passablefoliage.json` é criado no primeiro início do jogo.
+The `config/passablefoliage.json` file is created the first time the game starts with the mod installed.
 
-| Opção | Padrão | Faixa ou função |
+| Option | Default | Range or purpose |
 | --- | ---: | --- |
-| `fallDamageMultiplier` | `0.5` | 0 a 1 |
-| `fallDamageThreshold` | `20` | 5 a 255 blocos |
-| `speedMultiplierHorizontal` | `0.9` | 0 a 1 |
-| `speedMultiplierVertical` | `0.9` | 0 a 1 |
-| `modifyPathFinding` | `true` | Altera o pathfinding das entidades |
-| `playerOnly` | `false` | Limita a passagem a jogadores |
-| `alwaysNotViewBlocking` | `true` | Impede a folhagem de bloquear a visão |
-| `alwaysLeafWalking` | `false` | Aplica permanentemente o efeito Leaf Walker |
-| `headHitter` | `false` | Mantém colisão ao atravessar por baixo |
-| `sounds.playerOnly` | `false` | Limita sons a jogadores |
-| `sounds.volume` | `1.0` | 0 a 10 |
-| `leafWalkerEnabled` | `true` | Ativa o encantamento e sua receita |
+| `fallDamageMultiplier` | `0.5` | From 0 to 1 |
+| `fallDamageThreshold` | `20` | From 5 to 255 blocks |
+| `speedMultiplierHorizontal` | `0.9` | From 0 to 1 |
+| `speedMultiplierVertical` | `0.9` | From 0 to 1 |
+| `modifyPathFinding` | `true` | Adjusts entity pathfinding |
+| `playerOnly` | `false` | Restricts passable foliage to players |
+| `alwaysNotViewBlocking` | `true` | Prevents foliage from blocking vision |
+| `alwaysLeafWalking` | `false` | Applies the Leaf Walker effect to all entities |
+| `headHitter` | `false` | Preserves collision when approaching from below |
+| `sounds.playerOnly` | `false` | Restricts foliage sounds to players |
+| `sounds.volume` | `1.0` | From 0 to 10 |
+| `leafWalkerEnabled` | `true` | Enables the enchantment and its recipe |
 
-Valores fora das faixas são normalizados. Um arquivo inválido não é sobrescrito: o mod registra o erro e usa padrões seguros naquela execução.
+Out-of-range values are clamped. If the file is invalid, the mod keeps it unchanged, reports the problem in the log and uses safe defaults for that session.
 
-## Compilação
+## Building
 
-As instruções completas para Windows 10 e VS Code estão em [BUILDING_WINDOWS.md](BUILDING_WINDOWS.md).
+Detailed instructions for Windows 10 and Visual Studio Code are available in [BUILDING_WINDOWS.md](BUILDING_WINDOWS.md).
 
-Resumo no PowerShell, dentro da pasta do projeto:
+From PowerShell in the project directory:
 
 ```powershell
 java -version
 .\gradlew.bat clean build
 ```
 
-O JAR principal será criado em:
+The main JAR is written to:
 
 ```text
 build\libs\PassableFoliage-mc26.2-Fabric-26.2.0.jar
 ```
 
-Para iniciar ambientes de desenvolvimento:
+Development tasks:
 
 ```powershell
 .\gradlew.bat runClient
@@ -103,6 +103,6 @@ Para iniciar ambientes de desenvolvimento:
 .\gradlew.bat runDatagen
 ```
 
-## Licença
+## License
 
-MIT. Consulte [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).

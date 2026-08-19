@@ -1,13 +1,13 @@
-# Segurança
+# Security
 
-## Escopo
+## Scope
 
-O mod não implementa comunicação de rede própria, execução de processos, carregamento de bibliotecas nativas ou download de conteúdo em tempo de execução.
+The mod does not implement custom network communication, process execution, native library loading or runtime content downloads.
 
-A configuração consome somente os campos documentados, ignora campos adicionais, possui limite de 64 KiB, usa JSON estrito, valida faixas numéricas e é gravada por substituição atômica. Configurações inválidas não são sobrescritas automaticamente.
+The configuration loader only consumes documented fields and ignores additional fields. It enforces a 64 KiB size limit, uses strict JSON parsing, validates numeric ranges and writes new files through atomic replacement when supported. Invalid configurations are not overwritten automatically.
 
-O pacote-fonte mantém apenas o JAR oficial do Gradle Wrapper. A distribuição Gradle possui checksum SHA-256 fixado em `gradle-wrapper.properties`.
+The source package contains no bundled executable other than the official Gradle Wrapper JAR. The Gradle distribution checksum is pinned in `gradle-wrapper.properties`.
 
-## Relato de vulnerabilidade
+## Reporting a vulnerability
 
-Não publique detalhes exploráveis em uma issue aberta. Entre primeiro em contato com o mantenedor do fork pelo canal privado disponível no repositório. Caso não exista canal privado, abra uma issue sem prova de conceito e solicite uma forma segura de envio.
+Do not publish exploitable details in a public issue. Contact the fork maintainer through a private channel provided by the repository. If no private channel is available, open an issue without a proof of concept and ask for a secure contact method.
