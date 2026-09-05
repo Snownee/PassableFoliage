@@ -24,9 +24,7 @@ public interface IBlockExtensionMixin {
 			Mob entity,
 			CallbackInfoReturnable<PathType> cir) {
 		if (!PassableFoliageCommonConfig.playerOnly && PassableFoliageCommonConfig.modifyPathFinding && PassableFoliage.isPassable(state)) {
-			if (entity == null || !PassableFoliage.hasLeafWalker(entity)) {
-				cir.setReturnValue(PathType.OPEN);
-			}
+			cir.setReturnValue(PathType.LEAVES);
 		}
 	}
 }

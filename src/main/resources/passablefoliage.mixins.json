@@ -12,6 +12,7 @@
 		"FlowingFluidMixin",
 		"LivingEntityMixin",
 		"MultifaceBlockMixin",
+		"PathfindingContextMixin",
 		"forge.IBlockExtensionMixin"
 	],
 	"client": [
