@@ -27,6 +27,12 @@ public final class PassableFoliageCommonConfig {
 
 	public static boolean alwaysLeafWalking = false;
 
+	@Range(min = 0.75, max = 10)
+	public static float leafWalkerFallSpeedThreshold = .8f;
+
+	@Range(min = 0.1, max = 1)
+	public static float leafWalkerDragMultiplier = .6f;
+
 	public static boolean headHitter = false;
 
 	@Path("sounds.playerOnly")

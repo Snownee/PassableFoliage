@@ -76,11 +76,14 @@ public final class PassableFoliage {
 		}
 
 		float h = 1, v = 1;
-		if ((PassableFoliageCommonConfig.alwaysLeafWalking || !hasLeafWalker(livingEntity)) && livingEntity.getDeltaMovement().y() <= 0) {
+		if (livingEntity.getDeltaMovement().y() <= 0) {
 			boolean jumping = livingEntity.jumping || livingEntity.getKnownMovement().y() > 0;
 			if (!jumping && !((PassableFoliageEntity) livingEntity).pfoliage$isSlownessHandled()) {
 				v = PassableFoliageCommonConfig.speedMultiplierVertical;
 				h = PassableFoliageCommonConfig.speedMultiplierHorizontal;
+				if (PassableFoliage.hasLeafWalker(livingEntity) && ((PassableFoliageEntity) livingEntity).pfoliage$isFastFalling()) {
+					v = PassableFoliageCommonConfig.leafWalkerDragMultiplier;
+				}
 			}
 		}
 		((PassableFoliageEntity) livingEntity).pfoliage$setSlownessHandled();
