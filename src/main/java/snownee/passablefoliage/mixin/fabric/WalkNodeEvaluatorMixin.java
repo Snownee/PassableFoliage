@@ -12,8 +12,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
-import snownee.passablefoliage.PassableFoliageBlock;
 import snownee.passablefoliage.PassableFoliageCommonConfig;
+import snownee.passablefoliage.duck.PassableFoliageBlock;
 
 @Mixin(WalkNodeEvaluator.class)
 public class WalkNodeEvaluatorMixin {
@@ -30,7 +30,7 @@ public class WalkNodeEvaluatorMixin {
 		}
 		if (block instanceof PassableFoliageBlock passableFoliageBlock && passableFoliageBlock.pfoliage$isPassable() &&
 				state.getFluidState().isEmpty()) {
-			cir.setReturnValue(PathType.OPEN);
+			cir.setReturnValue(PathType.LEAVES);
 		}
 	}
 }
