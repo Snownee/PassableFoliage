@@ -88,17 +88,16 @@ public final class PassableFoliage {
 		float h = 1, v = 1;
 		if (PassableFoliageCommonConfig.alwaysLeafWalking || !hasLeafWalker(livingEntity)) {
 			boolean jumping = livingEntity.isJumping() || livingEntity.getKnownSpeed().y() > 0;
-			if (!jumping && !((PassableFoliageEntity) livingEntity).pfoliage$isInside()) {
+			if (!jumping && !((PassableFoliageEntity) livingEntity).pfoliage$isSlownessHandled()) {
 				v = PassableFoliageCommonConfig.speedMultiplierVertical;
 				h = PassableFoliageCommonConfig.speedMultiplierHorizontal;
 			}
 		}
-		((PassableFoliageEntity) livingEntity).pfoliage$setInside();
+		((PassableFoliageEntity) livingEntity).pfoliage$setSlownessHandled();
 		// reduce movement speed when inside of leaves, but allow players/mobs to jump out of them
 		if (h < 1 || v < 1) {
 			Vec3 newMotion = entity.getDeltaMovement().multiply(h, v, h);
 			entity.setDeltaMovement(newMotion);
-			LOGGER.info("Modified motion of entity {} to {} when inside leaves at {}", entity, newMotion, pos);
 		}
 
 		// modify falling damage when falling into leaves
