@@ -4,7 +4,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
 import net.minecraft.world.level.block.Block;
-import snownee.passablefoliage.PassableFoliageBlock;
+import snownee.passablefoliage.duck.PassableFoliageBlock;
 
 @Mixin(Block.class)
 public class BlockMixin implements PassableFoliageBlock {

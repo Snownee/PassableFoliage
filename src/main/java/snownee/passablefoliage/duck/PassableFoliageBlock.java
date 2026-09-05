@@ -1,4 +1,4 @@
-package snownee.passablefoliage;
+package snownee.passablefoliage.duck;
 
 public interface PassableFoliageBlock {
 

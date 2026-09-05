@@ -117,9 +117,10 @@ configurations {
 
 dependencies {
     implementation "maven.modrinth:jei:k9dWgahN"
-    implementation "maven.modrinth:jade:15.7.1+neoforge"
-    implementation "maven.modrinth:kiwi:15.2.1+neoforge"
-    annotationProcessor "maven.modrinth:kiwi:15.2.1+neoforge"
+    implementation "maven.modrinth:jade:15.10.6+neoforge"
+    implementation "maven.modrinth:kiwi:15.8.7+neoforge"
+    annotationProcessor "maven.modrinth:kiwi:15.8.7+neoforge"
+    implementation "maven.modrinth:cloth-config:15.0.140+neoforge"
 }
 
 publishMods {

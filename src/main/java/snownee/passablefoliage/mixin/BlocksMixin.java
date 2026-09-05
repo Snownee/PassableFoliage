@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import snownee.passablefoliage.CoreModule;
 import snownee.passablefoliage.PassableFoliage;
-import snownee.passablefoliage.PassableFoliageBlock;
+import snownee.passablefoliage.duck.PassableFoliageBlock;
 
 @Mixin(value = Blocks.class, priority = 500)
 public class BlocksMixin {
