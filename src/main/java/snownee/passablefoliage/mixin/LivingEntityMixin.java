@@ -20,6 +20,8 @@ public abstract class LivingEntityMixin extends Entity implements PassableFoliag
 	private boolean pfoliage$slownessHandled;
 	@Unique
 	private boolean pfoliage$isPartiallyInFoliage;
+	@Unique
+	private boolean pfoliage$fastFalling;
 
 	public LivingEntityMixin(EntityType<?> entityType, Level level) {
 		super(entityType, level);
@@ -38,6 +40,7 @@ public abstract class LivingEntityMixin extends Entity implements PassableFoliag
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void pfoliage_tick(CallbackInfo ci) {
 		pfoliage$slownessHandled = false;
+		pfoliage$fastFalling = this.getDeltaMovement().y() < -PassableFoliageCommonConfig.leafWalkerFallSpeedThreshold;
 		if (PassableFoliageCommonConfig.headHitter) {
 			pfoliage$isPartiallyInFoliage = level().getBlockStatesIfLoaded(getBoundingBox()).anyMatch(PassableFoliage::isPassable);
 		}
@@ -46,5 +49,10 @@ public abstract class LivingEntityMixin extends Entity implements PassableFoliag
 	@Override
 	public boolean pfoliage$isPartiallyInFoliage() {
 		return pfoliage$isPartiallyInFoliage;
+	}
+
+	@Override
+	public boolean pfoliage$isFastFalling() {
+		return pfoliage$fastFalling;
 	}
 }
