@@ -1,9 +1,9 @@
 package snownee.passablefoliage.duck;
 
 public interface PassableFoliageEntity {
-	boolean pfoliage$isInside();
+	boolean pfoliage$isSlownessHandled();
 
-	void pfoliage$setInside();
+	void pfoliage$setSlownessHandled();
 
 	boolean pfoliage$isPartiallyInFoliage();
 }
