@@ -12,10 +12,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import snownee.passablefoliage.PassableFoliage;
 import snownee.passablefoliage.PassableFoliageCommonConfig;
-import snownee.passablefoliage.PassableFoliageLiving;
+import snownee.passablefoliage.duck.PassableFoliageEntity;
 
 @Mixin(value = LivingEntity.class, priority = 0)
-public abstract class LivingEntityMixin extends Entity implements PassableFoliageLiving {
+public abstract class LivingEntityMixin extends Entity implements PassableFoliageEntity {
+	@Unique
+	private boolean pfoliage$slownessHandled;
 	@Unique
 	private boolean pfoliage$isPartiallyInFoliage;
 
@@ -23,8 +25,19 @@ public abstract class LivingEntityMixin extends Entity implements PassableFoliag
 		super(entityType, level);
 	}
 
+	@Override
+	public void pfoliage$setSlownessHandled() {
+		pfoliage$slownessHandled = true;
+	}
+
+	@Override
+	public boolean pfoliage$isSlownessHandled() {
+		return pfoliage$slownessHandled;
+	}
+
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void pfoliage_tick(CallbackInfo ci) {
+		pfoliage$slownessHandled = false;
 		if (PassableFoliageCommonConfig.headHitter) {
 			pfoliage$isPartiallyInFoliage = level().getBlockStatesIfLoaded(getBoundingBox()).anyMatch(PassableFoliage::isPassable);
 		}

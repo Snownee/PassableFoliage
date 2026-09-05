@@ -18,6 +18,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import snownee.passablefoliage.duck.PassableFoliageBlock;
+import snownee.passablefoliage.duck.PassableFoliageEntity;
 
 public final class PassableFoliage {
 
@@ -36,19 +38,17 @@ public final class PassableFoliage {
 			return;
 		}
 
-		if (entity instanceof Player player) {
-			if (player.isCreative() && player.getAbilities().flying) {
-				return;
-			}
+		if (entity instanceof Player player && player.isCreative() && player.getAbilities().flying) {
+			return;
 		}
 
 		if (!entity.isPassenger()) {
 			setSuppressPassableCheck(true);
-			if (!entity.isColliding(pos, blockState)) {
-				setSuppressPassableCheck(false);
+			boolean colliding = entity.isColliding(pos, blockState);
+			setSuppressPassableCheck(false);
+			if (!colliding) {
 				return;
 			}
-			setSuppressPassableCheck(false);
 		}
 
 		if (!PassableFoliageCommonConfig.soundsPlayerOnly || entity instanceof Player) {
@@ -63,7 +63,7 @@ public final class PassableFoliage {
 				}
 				// play a sound when an entity is moving through leaves (only play sound every 6 ticks as to not flood sound events)
 				else if (world.getGameTime() % 6 == 0) {
-					double motion = entity.getDeltaMovement().lengthSqr();
+					double motion = entity.getKnownMovement().lengthSqr();
 					if (motion > 5e-7) {
 						SoundType soundType = blockState.getSoundType();
 						entity.playSound(
@@ -77,9 +77,13 @@ public final class PassableFoliage {
 
 		float h = 1, v = 1;
 		if ((PassableFoliageCommonConfig.alwaysLeafWalking || !hasLeafWalker(livingEntity)) && livingEntity.getDeltaMovement().y() <= 0) {
-			v = PassableFoliageCommonConfig.speedReductionVertical;
-			h = PassableFoliageCommonConfig.speedReductionHorizontal;
+			boolean jumping = livingEntity.jumping || livingEntity.getKnownMovement().y() > 0;
+			if (!jumping && !((PassableFoliageEntity) livingEntity).pfoliage$isSlownessHandled()) {
+				v = PassableFoliageCommonConfig.speedMultiplierVertical;
+				h = PassableFoliageCommonConfig.speedMultiplierHorizontal;
+			}
 		}
+		((PassableFoliageEntity) livingEntity).pfoliage$setSlownessHandled();
 		// reduce movement speed when inside of leaves, but allow players/mobs to jump out of them
 		if (h < 1 || v < 1) {
 			Vec3 newMotion = entity.getDeltaMovement().multiply(h, v, h);
@@ -91,7 +95,7 @@ public final class PassableFoliage {
 			livingEntity.fallDistance -= PassableFoliageCommonConfig.fallDamageThreshold;
 			livingEntity.causeFallDamage(
 					PassableFoliageCommonConfig.fallDamageThreshold,
-					1 - PassableFoliageCommonConfig.fallDamageReduction,
+					1 - PassableFoliageCommonConfig.fallDamageMultiplier,
 					world.damageSources().fall());
 		}
 
@@ -113,7 +117,7 @@ public final class PassableFoliage {
 	}
 
 	public static boolean isPartiallyInFoliage(LivingEntity entity) {
-		return ((PassableFoliageLiving) entity).pfoliage$isPartiallyInFoliage();
+		return ((PassableFoliageEntity) entity).pfoliage$isPartiallyInFoliage();
 	}
 
 	public static boolean hasLeafWalker(LivingEntity entity) {
