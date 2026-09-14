@@ -9,6 +9,7 @@
 		"BlocksMixin",
 		"BlockStateCacheMixin",
 		"BlockStateMixin",
+		"EntityMixin",
 		"FlowingFluidMixin",
 		"LivingEntityMixin",
 		"MultifaceBlockMixin",

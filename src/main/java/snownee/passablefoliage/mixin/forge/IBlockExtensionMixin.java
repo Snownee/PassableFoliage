@@ -21,7 +21,7 @@ public interface IBlockExtensionMixin {
 			BlockState state,
 			BlockGetter level,
 			BlockPos pos,
-			Mob entity,
+			Mob mob,
 			CallbackInfoReturnable<PathType> cir) {
 		if (!PassableFoliageCommonConfig.playerOnly && PassableFoliageCommonConfig.modifyPathFinding && PassableFoliage.isPassable(state)) {
 			cir.setReturnValue(PathType.LEAVES);
