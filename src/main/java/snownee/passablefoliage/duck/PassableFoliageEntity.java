@@ -8,4 +8,6 @@ public interface PassableFoliageEntity {
 	boolean pfoliage$isPartiallyInFoliage();
 
 	boolean pfoliage$isFastFalling();
+
+	void pfoliage$setFastFalling(boolean fastFalling);
 }
