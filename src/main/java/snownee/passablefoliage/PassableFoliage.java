@@ -38,6 +38,10 @@ public final class PassableFoliage {
 			return;
 		}
 
+		if (entity.getType().is(CoreModule.NO_SLOWNESS)) {
+			return;
+		}
+
 		if (entity instanceof Player player && player.isCreative() && player.getAbilities().flying) {
 			return;
 		}

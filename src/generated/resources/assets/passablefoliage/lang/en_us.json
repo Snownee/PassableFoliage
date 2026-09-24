@@ -8,8 +8,7 @@
   "passablefoliage.config.alwaysNotViewBlocking": "Always Not View Blocking",
   "passablefoliage.config.alwaysNotViewBlocking.desc": "Prevents leaves from rendering a texture in front of the player's view",
   "passablefoliage.config.fallDamageMultiplier": "Fall Damage Multiplier",
-  "passablefoliage.config.fallDamageMultiplier.desc": "",
-  "passablefoliage.config.fallDamageReduction.desc": "The percentage of normal damage taken when taking damage from falling into leaves",
+  "passablefoliage.config.fallDamageMultiplier.desc": "The percentage of normal damage taken when taking damage from falling into leaves",
   "passablefoliage.config.fallDamageThreshold": "Fall Damage Threshold",
   "passablefoliage.config.fallDamageThreshold.desc": "When falling into leaves, the (block) distance a player or mob has to fall before taking damage",
   "passablefoliage.config.headHitter": "Head Hitter",
@@ -31,9 +30,7 @@
   "passablefoliage.config.sounds.volume": "Volume",
   "passablefoliage.config.sounds.volume.desc": "The volume of the sound made when moving inside leaves",
   "passablefoliage.config.speedMultiplierHorizontal": "Speed Multiplier Horizontal",
-  "passablefoliage.config.speedMultiplierHorizontal.desc": "",
+  "passablefoliage.config.speedMultiplierHorizontal.desc": "The reduced horizontal speed when passing through leaves. (% of normal)",
   "passablefoliage.config.speedMultiplierVertical": "Speed Multiplier Vertical",
-  "passablefoliage.config.speedMultiplierVertical.desc": "",
-  "passablefoliage.config.speedReductionHorizontal.desc": "The reduced horizontal speed when passing through leaves. (% of normal)",
-  "passablefoliage.config.speedReductionVertical.desc": "The reduced vertical speed when passing through leaves. (% of normal)"
+  "passablefoliage.config.speedMultiplierVertical.desc": "The reduced vertical speed when passing through leaves. (% of normal)"
 }
