@@ -6,9 +6,11 @@
 		"BlockMixin",
 		"BlockStateCacheMixin",
 		"BlockStateMixin",
+		"EntityMixin",
 		"FlowingFluidMixin",
 		"LivingEntityMixin",
 		"MultifaceBlockMixin",
+		"PathfindingContextMixin",
 		"neoforge.IBlockExtensionMixin"
 	],
 	"client": [

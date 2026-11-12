@@ -28,8 +28,6 @@ public interface IBlockExtensionMixin {
 				!PassableFoliage.isPassable(state) || !state.getFluidState().isEmpty()) {
 			return;
 		}
-		if (mob == null || !PassableFoliage.hasLeafWalker(mob)) {
-			cir.setReturnValue(PathType.OPEN);
-		}
+		cir.setReturnValue(PathType.LEAVES);
 	}
 }

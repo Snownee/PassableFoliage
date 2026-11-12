@@ -26,6 +26,10 @@ public class PFLanguageProvider extends LanguageProvider {
 		add("passablefoliage.config.fallDamageThreshold.desc", "When falling into leaves, the (block) distance a player or mob has to fall before taking damage");
 		add("passablefoliage.config.headHitter", "Head Hitter");
 		add("passablefoliage.config.headHitter.desc", "Restores the collision volume of leaf blocks when entities are below them, preventing them from passing through from below.");
+		add("passablefoliage.config.leafWalkerDragMultiplier", "Leaf Walker Drag Multiplier");
+		add("passablefoliage.config.leafWalkerDragMultiplier.desc", "");
+		add("passablefoliage.config.leafWalkerFallSpeedThreshold", "Leaf Walker Fall Speed Threshold");
+		add("passablefoliage.config.leafWalkerFallSpeedThreshold.desc", "");
 		add("passablefoliage.config.modifyPathFinding", "Modify Path Finding");
 		add("passablefoliage.config.modifyPathFinding.desc", "Should entities recognize leaves as air");
 		add("passablefoliage.config.modules", "Modules");

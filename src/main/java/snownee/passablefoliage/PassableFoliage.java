@@ -48,6 +48,10 @@ public final class PassableFoliage {
 			return;
 		}
 
+		if (entity.getType().builtInRegistryHolder().is(CoreModule.NO_SLOWNESS)) {
+			return;
+		}
+
 		if (entity instanceof Player player && player.isCreative() && player.getAbilities().flying) {
 			return;
 		}
@@ -86,11 +90,14 @@ public final class PassableFoliage {
 		}
 
 		float h = 1, v = 1;
-		if (PassableFoliageCommonConfig.alwaysLeafWalking || !hasLeafWalker(livingEntity)) {
+		if (livingEntity.getDeltaMovement().y() <= 0) {
 			boolean jumping = livingEntity.isJumping() || livingEntity.getKnownSpeed().y() > 0;
 			if (!jumping && !((PassableFoliageEntity) livingEntity).pfoliage$isSlownessHandled()) {
 				v = PassableFoliageCommonConfig.speedMultiplierVertical;
 				h = PassableFoliageCommonConfig.speedMultiplierHorizontal;
+				if (hasLeafWalker(livingEntity) && ((PassableFoliageEntity) livingEntity).pfoliage$isFastFalling()) {
+					v = PassableFoliageCommonConfig.leafWalkerDragMultiplier;
+				}
 			}
 		}
 		((PassableFoliageEntity) livingEntity).pfoliage$setSlownessHandled();
