@@ -26,6 +26,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import snownee.passablefoliage.PassableFoliage;
 import snownee.passablefoliage.PassableFoliageCommonConfig;
+import snownee.passablefoliage.duck.PassableFoliageEntity;
 
 @Mixin(BlockStateBase.class)
 public class BlockStateMixin {
@@ -72,7 +73,8 @@ public class BlockStateMixin {
 					return;
 				}
 				if (PassableFoliage.hasLeafWalker(livingEntity)) {
-					if (context.isDescending() || entity.blockPosition().getY() <= pos.getY()) {
+					if (context.isDescending() || entity.blockPosition().getY() <= pos.getY() ||
+							((PassableFoliageEntity) livingEntity).pfoliage$isFastFalling()) {
 						ci.setReturnValue(Shapes.empty());
 					}
 					return;

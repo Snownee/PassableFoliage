@@ -14,6 +14,7 @@ public final class PassableFoliageDataGen implements DataGeneratorEntrypoint {
 		pack.addProvider(PFEnchantmentProvider::new);
 		pack.addProvider(PFEnchantmentTagProvider::new);
 		pack.addProvider(PFBlockTagProvider::new);
+		pack.addProvider(PFEntityTagProvider::new);
 		pack.addProvider(KiwiLanguageProvider::new);
 		pack.addProvider(PFRecipeProvider::new);
 	}
